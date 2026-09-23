@@ -3,6 +3,8 @@
 
   var STORAGE_KEY = "portfolio-mode";
   var buttons = document.querySelectorAll("[data-mode-btn]");
+  var announce = document.getElementById("mode-announce");
+  var isFirstApply = true;
 
   function applyMode(mode) {
     document.body.setAttribute("data-mode", mode);
@@ -11,6 +13,11 @@
       var isActive = btn.getAttribute("data-mode-btn") === mode;
       btn.setAttribute("aria-pressed", isActive ? "true" : "false");
     });
+    if (announce && !isFirstApply) {
+      announce.textContent =
+        mode === "technical" ? "Switched to technical view" : "Switched to GRC view";
+    }
+    isFirstApply = false;
     try {
       window.localStorage.setItem(STORAGE_KEY, mode);
     } catch (e) {

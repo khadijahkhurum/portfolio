@@ -29,7 +29,7 @@
   --surface: var(--paper-surface);
   --line: var(--paper-line);
   --text: var(--ink);
-  --text-muted: #52584f;
+  --text-muted: #40453b;
   --accent: var(--navy);
   --accent-soft: var(--navy-soft);
 }
@@ -39,9 +39,32 @@ body[data-mode="technical"] {
   --surface: var(--dark-surface);
   --line: var(--dark-line);
   --text: var(--dark-text);
-  --text-muted: #97a19c;
+  --text-muted: #a9b2ac;
   --accent: var(--teal);
   --accent-soft: var(--teal-soft);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--accent);
+  color: var(--paper);
+  padding: 10px 16px;
+  z-index: 10;
+}
+
+.skip-link:focus {
+  left: 12px;
+  top: 12px;
 }
 
 * { box-sizing: border-box; }
@@ -79,7 +102,11 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
    ============================================================ */
 .site-header {
   border-bottom: 1px solid var(--line);
-  padding: 22px 0;
+  padding: 18px 0;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--bg);
 }
 
 .header-row {
@@ -111,33 +138,36 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
 }
 
 .mode-switch {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-}
-
-.mode-switch-label {
-  color: var(--text-muted);
+  gap: 4px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px;
 }
 
 .mode-btn {
   font-family: var(--font-mono);
+  font-weight: 600;
   font-size: 0.85rem;
   background: transparent;
-  border: 1px solid var(--line);
+  border: none;
   color: var(--text-muted);
-  padding: 6px 12px;
+  padding: 10px 18px;
+  min-height: 40px;
   cursor: pointer;
-  border-radius: 3px;
-  transition: border-color 0.3s ease, color 0.3s ease, background-color 0.3s ease;
+  border-radius: 999px;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .mode-btn[aria-pressed="true"] {
-  border-color: var(--accent);
+  color: var(--bg);
+  background: var(--accent);
+}
+
+.mode-btn:hover[aria-pressed="false"] {
   color: var(--text);
-  background: var(--surface);
 }
 
 /* ============================================================
@@ -210,9 +240,10 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
 
 .register-row {
   display: grid;
-  grid-template-columns: 170px 1fr;
-  gap: 20px;
-  padding: 16px 0;
+  grid-template-columns: 160px 1fr 90px;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
   border-bottom: 1px solid var(--line);
 }
 
@@ -221,13 +252,35 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
 .register-id {
   font-family: var(--font-mono);
   font-size: 0.9rem;
+  font-weight: 600;
   color: var(--accent-soft);
-  padding-top: 2px;
 }
 
 .register-body {
   color: var(--text-muted);
-  font-size: 0.98rem;
+  font-size: 0.94rem;
+}
+
+.status-chip {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 999px;
+  justify-self: start;
+}
+
+.status-applied {
+  color: var(--status-green);
+  background: color-mix(in srgb, var(--status-green) 16%, transparent);
+}
+
+.status-familiar {
+  color: var(--accent-soft);
+  background: var(--surface);
+  border: 1px solid var(--line);
 }
 
 /* ============================================================
@@ -384,7 +437,18 @@ button:focus-visible {
    ============================================================ */
 @media (max-width: 640px) {
   .wrap { padding: 0 20px; }
-  .register-row { grid-template-columns: 1fr; gap: 6px; }
-  .hero { padding: 52px 0 40px; }
+  .register-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    justify-items: start;
+  }
+  .hero { padding: 40px 0 32px; }
   .hero-line { max-width: none; }
+  .header-row { justify-content: flex-start; }
+}
+
+@media (prefers-contrast: more) {
+  :root { --text-muted: #202318; }
+  body[data-mode="technical"] { --text-muted: #d8ddd6; }
+  .line, .register-row, .site-header, .dossier { --line: currentColor; }
 }

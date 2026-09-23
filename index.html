@@ -12,6 +12,8 @@
 </head>
 <body data-mode="grc">
 
+<a class="skip-link" href="#top">Skip to content</a>
+
 <header class="site-header">
   <div class="wrap header-row">
     <a class="wordmark" href="#top">
@@ -21,12 +23,12 @@
     </a>
 
     <div class="mode-switch" role="group" aria-label="Portfolio view">
-      <span class="mode-switch-label">Viewing as</span>
-      <button type="button" class="mode-btn" data-mode-btn="grc" aria-pressed="true">GRC</button>
-      <button type="button" class="mode-btn" data-mode-btn="technical" aria-pressed="false">Technical</button>
+      <button type="button" class="mode-btn" data-mode-btn="grc" aria-pressed="true">GRC view</button>
+      <button type="button" class="mode-btn" data-mode-btn="technical" aria-pressed="false">Technical view</button>
     </div>
   </div>
 </header>
+<p class="visually-hidden" role="status" aria-live="polite" id="mode-announce"></p>
 
 <main id="top">
 
@@ -69,50 +71,61 @@
       <div class="register-list" data-show="grc">
         <div class="register-row">
           <span class="register-id">NIST CSF 2.0</span>
-          <span class="register-body">Govern, Identify and Respond functions — control mapping and gap assessment against the six core functions.</span>
+          <span class="register-body">Govern, Identify &amp; Respond — control mapping, gap assessment</span>
+          <span class="status-chip status-applied">Applied</span>
         </div>
         <div class="register-row">
           <span class="register-id">ISO/IEC 27001:2022</span>
-          <span class="register-body">Annex A control evaluation and evidence review, carried out during compliance internships.</span>
+          <span class="register-body">Annex A control evaluation and evidence review</span>
+          <span class="status-chip status-applied">Applied</span>
         </div>
         <div class="register-row">
           <span class="register-id">SOC 2</span>
-          <span class="register-body">Trust services criteria mapping for compliance-as-code project design.</span>
+          <span class="register-body">Trust services criteria mapping</span>
+          <span class="status-chip status-familiar">Familiar</span>
         </div>
         <div class="register-row">
           <span class="register-id">PCI-DSS v4.0</span>
-          <span class="register-body">Requirement-level control tracking for payment-adjacent system design.</span>
+          <span class="register-body">Requirement-level control tracking</span>
+          <span class="status-chip status-familiar">Familiar</span>
         </div>
         <div class="register-row">
           <span class="register-id">EU AI Act</span>
-          <span class="register-body">Risk-tiering logic applied to AI-assisted features in current project work.</span>
+          <span class="register-body">Risk-tiering for AI-assisted features</span>
+          <span class="status-chip status-applied">Applied</span>
         </div>
         <div class="register-row">
           <span class="register-id">FAIR</span>
-          <span class="register-body">Quantitative risk modelling — loss magnitude and Monte Carlo frequency analysis.</span>
+          <span class="register-body">Loss magnitude &amp; Monte Carlo frequency modelling</span>
+          <span class="status-chip status-applied">Applied</span>
         </div>
       </div>
 
       <div class="register-list" data-show="technical">
         <div class="register-row">
           <span class="register-id">Risk engines</span>
-          <span class="register-body">Monte Carlo simulation, FAIR-model loss distributions, ROI and risk-transfer calculation.</span>
+          <span class="register-body">Monte Carlo simulation, FAIR loss distributions, ROI calculation</span>
+          <span class="status-chip status-applied">Shipped</span>
         </div>
         <div class="register-row">
           <span class="register-id">Compliance-as-code</span>
-          <span class="register-body">Encoding control requirements (NIST CSF, ISO 27001) as machine-checkable mappings rather than static documents.</span>
+          <span class="register-body">NIST CSF / ISO 27001 as machine-checkable mappings</span>
+          <span class="status-chip status-applied">Shipped</span>
         </div>
         <div class="register-row">
           <span class="register-id">Threat modelling</span>
-          <span class="register-body">Cyber-physical attack surfaces — data-injection and telemetry manipulation, applied to a real-time system (Formula 1 telemetry).</span>
+          <span class="register-body">Data-injection &amp; telemetry manipulation, real-time systems</span>
+          <span class="status-chip status-applied">Shipped</span>
         </div>
         <div class="register-row">
           <span class="register-id">OWASP LLM Top 10</span>
-          <span class="register-body">Applied to AI-assisted features: prompt-injection resistance, output handling, structured parsing.</span>
+          <span class="register-body">Prompt-injection resistance, output handling, structured parsing</span>
+          <span class="status-chip status-familiar">Applied</span>
         </div>
         <div class="register-row">
           <span class="register-id">Deployment</span>
-          <span class="register-body">Vercel and GitHub Pages for shipped, publicly reachable project builds — not slideware.</span>
+          <span class="register-body">Vercel, GitHub Pages — public, working builds</span>
+          <span class="status-chip status-applied">Shipped</span>
         </div>
       </div>
     </div>
@@ -199,7 +212,7 @@
         below or on LinkedIn, and I'll follow up from there.
       </p>
 
-      <form class="contact-form" action="https://formspree.io/f/xaenjlrz" method="POST" id="contact-form">
+      <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="contact-form">
         <label class="form-field">
           <span>Name</span>
           <input type="text" name="name" required autocomplete="name">
@@ -215,7 +228,7 @@
         <button type="submit" class="form-submit">Send message</button>
         <p class="form-fallback">
           Prefer not to fill in a form? Connect on
-          <a href="https://www.linkedin.com/in/khadijah-khurum/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/YOUR-LINKEDIN-HANDLE" target="_blank" rel="noopener">LinkedIn</a>
           instead.
         </p>
       </form>
