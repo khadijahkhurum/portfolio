@@ -102,10 +102,42 @@ body {
   transform: translateY(0);
 }
 
+/* Where supported, replace the once-off JS fade with a continuous,
+   scroll-position-linked reveal (the Apple-site effect) — no JS change needed,
+   the IntersectionObserver fallback above still covers browsers without it. */
+@supports (animation-timeline: view()) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    animation: reveal-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
+  }
+}
+
+@keyframes reveal-in {
+  from { opacity: 0; transform: translateY(36px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@supports (animation-timeline: scroll()) {
+  .hero-spark {
+    animation: spark-drift linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 70vh;
+  }
+}
+
+@keyframes spark-drift {
+  from { transform: translateY(0) rotate(0deg); }
+  to   { transform: translateY(90px) rotate(20deg); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   body, .mode-btn, .register-row, .dossier, [data-reveal] { transition: none !important; }
-  [data-reveal] { opacity: 1; transform: none; }
+  [data-reveal], .hero-spark { animation: none !important; opacity: 1; transform: none; }
 }
 
 .wrap {
