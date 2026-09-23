@@ -43,6 +43,33 @@
 
   initMode();
 
+  // Live stat counts in the technical hero (counts real DOM content, not fabricated numbers)
+  document.querySelectorAll("[data-stat-count]").forEach(function (el) {
+    el.textContent = document.querySelectorAll(el.getAttribute("data-stat-count")).length;
+  });
+
+  // Scroll-reveal: fade/slide sections in as they enter view (native IntersectionObserver, no library)
+  if ("IntersectionObserver" in window) {
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll("[data-reveal]").forEach(function (el) {
+      observer.observe(el);
+    });
+  } else {
+    document.querySelectorAll("[data-reveal]").forEach(function (el) {
+      el.classList.add("is-visible");
+    });
+  }
+
   // Contact form: if no real endpoint has been configured, don't let the
   // browser POST to a placeholder URL — tell the person what to do instead.
   var form = document.getElementById("contact-form");
