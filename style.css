@@ -1,0 +1,390 @@
+/* ============================================================
+   Tokens
+   ============================================================ */
+:root {
+  --ink: #14181c;
+  --paper: #eeefe6;
+  --paper-line: #d6d8cb;
+  --paper-surface: #e4e5da;
+
+  --dark-bg: #14181c;
+  --dark-surface: #1b2126;
+  --dark-line: #2b3138;
+  --dark-text: #e7e9e2;
+
+  --navy: #1f3a5f;
+  --navy-soft: #33517a;
+  --teal: #2b7a78;
+  --teal-soft: #3f9a97;
+
+  --status-green: #2f6f4e;
+  --status-red: #9c3b3b;
+
+  --font-sans: 'IBM Plex Sans', -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SF Mono', monospace;
+
+  --measure: 62ch;
+
+  --bg: var(--paper);
+  --surface: var(--paper-surface);
+  --line: var(--paper-line);
+  --text: var(--ink);
+  --text-muted: #52584f;
+  --accent: var(--navy);
+  --accent-soft: var(--navy-soft);
+}
+
+body[data-mode="technical"] {
+  --bg: var(--dark-bg);
+  --surface: var(--dark-surface);
+  --line: var(--dark-line);
+  --text: var(--dark-text);
+  --text-muted: #97a19c;
+  --accent: var(--teal);
+  --accent-soft: var(--teal-soft);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  body, .mode-btn, .register-row, .dossier { transition: none !important; }
+}
+
+.wrap {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+a { color: var(--accent); }
+
+/* Toggle visibility of mode-specific content */
+body[data-mode="grc"] [data-show="technical"] { display: none; }
+body[data-mode="technical"] [data-show="grc"] { display: none; }
+
+/* ============================================================
+   Header
+   ============================================================ */
+.site-header {
+  border-bottom: 1px solid var(--line);
+  padding: 22px 0;
+}
+
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.wordmark {
+  text-decoration: none;
+  color: var(--text);
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.wordmark-name {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.wordmark-tag {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.mode-switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.mode-switch-label {
+  color: var(--text-muted);
+}
+
+.mode-btn {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: border-color 0.3s ease, color 0.3s ease, background-color 0.3s ease;
+}
+
+.mode-btn[aria-pressed="true"] {
+  border-color: var(--accent);
+  color: var(--text);
+  background: var(--surface);
+}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+.hero {
+  padding: 72px 0 56px;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin: 0 0 18px;
+}
+
+.hero-line {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  line-height: 1.25;
+  max-width: 22ch;
+  margin: 0 0 22px;
+  letter-spacing: -0.01em;
+}
+
+.hero-sub {
+  max-width: var(--measure);
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  margin: 0 0 28px;
+}
+
+.hero-links {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+}
+
+.hero-links a {
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+}
+
+.hero-links-sep {
+  margin: 0 12px;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   Section heading (shared)
+   ============================================================ */
+.section-heading {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin: 0 0 28px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+/* ============================================================
+   Register (frameworks / stack)
+   ============================================================ */
+.register {
+  padding: 56px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.register-row {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.register-row:last-child { border-bottom: none; }
+
+.register-id {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--accent-soft);
+  padding-top: 2px;
+}
+
+.register-body {
+  color: var(--text-muted);
+  font-size: 0.98rem;
+}
+
+/* ============================================================
+   Projects (dossier entries)
+   ============================================================ */
+.projects {
+  padding: 56px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.dossier {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.dossier:last-child { border-bottom: none; }
+
+.dossier-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.dossier-title {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.dossier-tag {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent-soft);
+}
+
+.dossier-body {
+  max-width: var(--measure);
+  color: var(--text-muted);
+  margin: 0 0 14px;
+}
+
+.dossier-links a {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+}
+
+/* ============================================================
+   About
+   ============================================================ */
+.about {
+  padding: 56px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.about-body {
+  max-width: var(--measure);
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   Contact
+   ============================================================ */
+.contact {
+  padding: 56px 0;
+}
+
+.contact-note {
+  max-width: var(--measure);
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+.contact-form {
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.form-field input,
+.form-field textarea {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 10px 12px;
+  color: var(--text);
+  resize: vertical;
+}
+
+.form-field input:focus,
+.form-field textarea:focus,
+.mode-btn:focus-visible,
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.form-submit {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: 3px;
+  padding: 12px 18px;
+  cursor: pointer;
+  width: fit-content;
+  transition: background-color 0.3s ease;
+}
+
+.form-submit:hover { background: var(--accent-soft); }
+
+.form-fallback {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 24px 0 48px;
+}
+
+.footer-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 640px) {
+  .wrap { padding: 0 20px; }
+  .register-row { grid-template-columns: 1fr; gap: 6px; }
+  .hero { padding: 52px 0 40px; }
+  .hero-line { max-width: none; }
+}
