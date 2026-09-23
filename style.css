@@ -112,32 +112,59 @@ body {
     transition: none;
     animation: reveal-in linear both;
     animation-timeline: view();
-    animation-range: entry 0% cover 40%;
+    animation-range: entry 0% cover 60%;
   }
 }
 
 @keyframes reveal-in {
-  from { opacity: 0; transform: translateY(36px) scale(0.97); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+  from { opacity: 0; transform: translateY(80px) scale(0.88); filter: blur(10px); }
+  60%  { filter: blur(0); }
+  to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
 }
 
 @supports (animation-timeline: scroll()) {
   .hero-spark {
     animation: spark-drift linear both;
     animation-timeline: scroll(root);
-    animation-range: 0 70vh;
+    animation-range: 0 90vh;
+  }
+
+  .hero .hero-eyebrow,
+  .hero .hero-line,
+  .hero .hero-sub,
+  .hero .stat-line,
+  .hero .hero-links {
+    animation: hero-fade linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 55vh;
   }
 }
 
 @keyframes spark-drift {
-  from { transform: translateY(0) rotate(0deg); }
-  to   { transform: translateY(90px) rotate(20deg); }
+  from { transform: translateY(0) rotate(0deg) scale(1); }
+  to   { transform: translateY(180px) rotate(45deg) scale(1.4); }
+}
+
+@keyframes hero-fade {
+  from { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  to   { opacity: 0; transform: translateY(-50px) scale(0.9); filter: blur(4px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   body, .mode-btn, .register-row, .dossier, [data-reveal] { transition: none !important; }
-  [data-reveal], .hero-spark { animation: none !important; opacity: 1; transform: none; }
+  [data-reveal],
+  .hero-spark,
+  .hero .hero-eyebrow,
+  .hero .hero-line,
+  .hero .hero-sub,
+  .hero .stat-line,
+  .hero .hero-links {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
 }
 
 .wrap {
@@ -570,6 +597,81 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
 }
 
 /* ============================================================
+   Impact (quantified metrics + donut infographic)
+   ============================================================ */
+.impact {
+  padding: 40px 0;
+}
+
+.impact-grid {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.impact-donut {
+  text-align: center;
+}
+
+.donut {
+  width: 132px;
+  height: 132px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: conic-gradient(var(--accent) calc(var(--pct) * 1%), var(--line) 0);
+  display: grid;
+  place-items: center;
+  transition: background-color 0.5s var(--ease);
+}
+
+.donut-hole {
+  width: 98px;
+  height: 98px;
+  border-radius: 50%;
+  background: var(--bg);
+  display: grid;
+  place-items: center;
+  transition: background-color 0.5s var(--ease);
+}
+
+.donut-num {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: var(--accent);
+}
+
+.impact-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  max-width: 220px;
+  margin: 0 auto;
+}
+
+.impact-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px 32px;
+}
+
+.impact-num {
+  display: block;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 1.7rem;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.impact-stat p {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ============================================================
    About
    ============================================================ */
 .about {
@@ -694,6 +796,9 @@ a:focus-visible, button:focus-visible {
   .register-row::before,
   .register-row::after { display: none; }
   .hero-spark { display: none; }
+  .impact-grid { grid-template-columns: 1fr; }
+  .impact-stats { grid-template-columns: 1fr; }
+  .site-header { position: static; }
 }
 
 @media (prefers-contrast: more) {
