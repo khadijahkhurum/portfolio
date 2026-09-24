@@ -72,24 +72,51 @@
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Counts a number up from 0 to its real value, easing out, while keeping
-  // any prefix/suffix around it ("±2%", "20+", "25%") intact.
+  // Rolls each digit like a slot machine reel — two full 0-9 spins, then
+  // settling on the real digit — instead of just ticking the text up.
+  // Prefix/suffix ("±", "+", "%") stay put as plain text either side.
+  var ROLL_LOOPS = 2;
   function countUp(el, duration) {
     if (!el) return;
     var text = el.textContent;
-    var match = text.match(/[\d.]+/);
-    if (!match || reduceMotion) return;
-    var target = parseFloat(match[0]);
+    var match = text.match(/\d+/);
+    if (!match) return;
+    if (reduceMotion) return; // leave the real number showing as-is
+
+    var digits = match[0];
     var prefix = text.slice(0, match.index);
-    var suffix = text.slice(match.index + match[0].length);
-    var start = performance.now();
-    function tick(now) {
-      var p = Math.min((now - start) / duration, 1);
-      var eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = prefix + Math.round(target * eased) + suffix;
-      if (p < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
+    var suffix = text.slice(match.index + digits.length);
+
+    el.textContent = "";
+    if (prefix) el.appendChild(document.createTextNode(prefix));
+
+    var strips = digits.split("").map(function (d) {
+      var wrap = document.createElement("span");
+      wrap.className = "roll-digit";
+      var strip = document.createElement("span");
+      strip.className = "roll-strip";
+      var rows = ROLL_LOOPS * 10 + parseInt(d, 10);
+      for (var n = 0; n <= rows; n++) {
+        var row = document.createElement("span");
+        row.textContent = n % 10;
+        strip.appendChild(row);
+      }
+      wrap.appendChild(strip);
+      el.appendChild(wrap);
+      return { strip: strip, rows: rows };
+    });
+    if (suffix) el.appendChild(document.createTextNode(suffix));
+
+    el.offsetHeight; // force layout so the strip's start position (row 0) actually paints
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        strips.forEach(function (s, i) {
+          s.strip.style.transitionDuration = duration + "ms";
+          s.strip.style.transitionDelay = i * 80 + "ms";
+          s.strip.style.transform = "translateY(-" + s.rows + "em)";
+        });
+      });
+    });
   }
 
   // Impact section: the donut fills and counts up first; only once that's
