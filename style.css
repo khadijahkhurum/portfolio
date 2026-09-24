@@ -448,7 +448,7 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   background: var(--accent);
 }
 
-.term-window {
+.term-window, .grc-window {
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -456,7 +456,7 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   box-shadow: var(--shadow);
 }
 
-.term-titlebar {
+.term-titlebar, .grc-titlebar {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -472,17 +472,32 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   background: var(--dark-line);
 }
 
-.term-path {
+/* RAG (Red/Amber/Green) status dots — the same three-dot motif as the
+   terminal titlebar, but standing for something an auditor actually
+   reads: risk rating, not a decorative window control. */
+.grc-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.grc-dot.grc-dot-red { background: #f87171; }
+.grc-dot.grc-dot-amber { background: #fbbf24; }
+.grc-dot.grc-dot-green { background: var(--green); }
+
+.term-path, .grc-path {
   margin-left: 8px;
   font-family: var(--font-mono);
   font-size: 0.78rem;
   color: var(--text-muted);
 }
 
-.term-window .register-row::before { left: -24px; }
-.term-window .register-row::after { left: -1.5px; }
+.term-window .register-row::before,
+.grc-window .register-row::before { left: -24px; }
+.term-window .register-row::after,
+.grc-window .register-row::after { left: -1.5px; }
 
-.term-window .register-list {
+.term-window .register-list,
+.grc-window .register-list {
   padding: 4px 14px 4px 46px;
   border: none;
   box-shadow: none;
@@ -525,7 +540,8 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   border-radius: 999px;
   padding: 5px 12px;
 }
-.term-window .register-row { grid-template-columns: 150px 1fr 90px; padding: 12px 16px; }
+.term-window .register-row,
+.grc-window .register-row { grid-template-columns: 150px 1fr 90px; padding: 12px 16px; }
 
 .register-row {
   display: grid;
@@ -878,7 +894,8 @@ a:focus-visible, button:focus-visible {
 @media (max-width: 640px) {
   .wrap { padding: 0 20px; }
   .register-row,
-  .term-window .register-row {
+  .term-window .register-row,
+  .grc-window .register-row {
     grid-template-columns: 1fr;
     gap: 8px;
     justify-items: start;
