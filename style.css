@@ -99,13 +99,15 @@ body {
 
 [data-reveal] {
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  transform: translateY(36px) scale(0.96);
+  filter: blur(6px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease), filter 0.8s var(--ease);
 }
 
 [data-reveal].is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+  filter: blur(0);
 }
 
 /* Where supported, replace the once-off JS fade with a continuous,
@@ -134,8 +136,61 @@ body {
 }
 
 @keyframes reveal-in {
-  from { opacity: 0; transform: translateY(52px) scale(0.93); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+  from { opacity: 0; transform: translateY(70px) scale(0.9); filter: blur(8px); }
+  to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+/* Impact section: while a scroll-locked count-up sequence is playing (see
+   script.js), its stat cards drop the scroll-position-linked reveal above
+   and go back to a plain, JS-timed opacity/transform transition instead —
+   otherwise the scroll-timeline animation would fight the JS timing. */
+.impact-sequenced [data-reveal] {
+  animation: none;
+  opacity: 0;
+  transform: translateY(36px) scale(0.96);
+  filter: blur(6px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), filter 0.5s var(--ease);
+}
+.impact-sequenced [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+
+/* Custom cursor: a tight dot plus a larger ring that lags behind it (see
+   script.js's lerp loop) — reused as the "something floating" touch since
+   it already tracks the pointer smoothly. Desktop-with-mouse only; touch
+   devices keep their native cursor (there isn't one to replace). */
+@media (hover: hover) and (pointer: fine) {
+  body { cursor: none; }
+  a, button, input, textarea { cursor: none; }
+
+  .cursor-dot, .cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+  }
+  .cursor-ring {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--accent);
+    opacity: 0.5;
+    transition: width 0.25s var(--ease), height 0.25s var(--ease), opacity 0.25s var(--ease);
+  }
+  .cursor-ring.is-hover {
+    width: 54px;
+    height: 54px;
+    opacity: 0.9;
+  }
 }
 
 @supports (animation-timeline: scroll()) {
@@ -182,6 +237,8 @@ body {
     transform: none;
     filter: none;
   }
+  .cursor-dot, .cursor-ring { display: none !important; }
+  body, a, button, input, textarea { cursor: auto !important; }
 }
 
 .wrap {
@@ -778,6 +835,11 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   gap: 28px 32px;
 }
 
+.impact-num,
+.donut-num {
+  font-variant-numeric: tabular-nums;
+}
+
 .impact-num {
   display: block;
   font-family: var(--font-mono);
@@ -937,4 +999,66 @@ a:focus-visible, button:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .cursor { animation: none; opacity: 1; }
+}
+
+/* ============================================================
+   Custom pointer + scroll-progress bar
+   ============================================================ */
+.pointer-dot,
+.pointer-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999;
+  transform: translate(-50%, -50%);
+}
+
+.pointer-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+}
+
+.pointer-ring {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--accent);
+  opacity: 0.55;
+  transition: left 0.15s var(--ease), top 0.15s var(--ease), width 0.2s var(--ease), height 0.2s var(--ease), border-color 0.3s var(--ease);
+}
+
+.pointer-ring.is-hovering {
+  width: 52px;
+  height: 52px;
+  opacity: 0.9;
+}
+
+/* Only on devices with an actual mouse — never hijack the cursor on touch */
+@media (hover: none), (pointer: coarse) {
+  .pointer-dot, .pointer-ring { display: none; }
+}
+
+.has-custom-pointer,
+.has-custom-pointer a,
+.has-custom-pointer button {
+  cursor: none;
+}
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: var(--accent-gradient);
+  z-index: 1000;
+  transition: width 0.1s linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor { animation: none; opacity: 1; }
+  .pointer-dot, .pointer-ring { display: none; }
+  .scroll-progress { transition: none; }
 }
