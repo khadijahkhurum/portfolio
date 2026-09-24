@@ -719,6 +719,15 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   text-align: center;
 }
 
+/* Registering --pct as a real <number> lets the browser tween it like any
+   other animatable property, so the conic-gradient fill sweeps smoothly
+   instead of snapping straight to its end value. */
+@property --pct {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
 .donut {
   width: 132px;
   height: 132px;
@@ -727,7 +736,7 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   background: conic-gradient(var(--accent), var(--accent-2) calc(var(--pct) * 1%), var(--line) 0);
   display: grid;
   place-items: center;
-  transition: background 0.5s var(--ease);
+  transition: --pct 1.4s var(--ease), background-color 0.5s var(--ease);
 }
 
 .donut-hole {

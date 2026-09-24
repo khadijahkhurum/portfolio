@@ -70,6 +70,28 @@
     });
   }
 
+  // Donut chart: sweep the fill from 0 to its real value only once it's
+  // scrolled into view, instead of showing the finished ring on page load.
+  document.querySelectorAll("[data-pct]").forEach(function (el) {
+    var target = el.getAttribute("data-pct");
+    if ("IntersectionObserver" in window) {
+      var donutObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.style.setProperty("--pct", target);
+              donutObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.4 }
+      );
+      donutObserver.observe(el);
+    } else {
+      el.style.setProperty("--pct", target);
+    }
+  });
+
   // Contact form: if no real endpoint has been configured, don't let the
   // browser POST to a placeholder URL — tell the person what to do instead.
   var form = document.getElementById("contact-form");
