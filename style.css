@@ -451,6 +451,86 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
 }
 
 /* ============================================================
+   Timeline (experience roadmap)
+   ============================================================ */
+.timeline {
+  padding: 20px 0 40px;
+}
+
+.timeline-track {
+  display: flex;
+  gap: 8px;
+  position: relative;
+}
+.timeline-track::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line);
+}
+
+.timeline-node {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  padding-top: 22px;
+}
+
+.timeline-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--accent);
+}
+.timeline-node-current .timeline-dot {
+  background: var(--accent-gradient);
+  border-color: transparent;
+}
+
+.timeline-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+}
+.timeline-node-current .timeline-label { color: var(--accent); }
+
+.timeline-sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  max-width: 22ch;
+  margin: 0;
+}
+
+@media (max-width: 800px) {
+  .timeline-track {
+    flex-direction: column;
+    gap: 22px;
+  }
+  .timeline-track::before {
+    top: 0;
+    bottom: 0;
+    left: 5px;
+    right: auto;
+    width: 1px;
+    height: auto;
+  }
+  .timeline-node {
+    padding-top: 0;
+    padding-left: 22px;
+  }
+  .timeline-sub { max-width: none; }
+}
+
+/* ============================================================
    Register (frameworks / stack)
    ============================================================ */
 .register {
@@ -727,6 +807,48 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
 }
 
 .dossier:hover::before {
+  opacity: 1;
+}
+
+/* Thumbnail cover — placeholder abstract mark until real product
+   screenshots are dropped in (swap the .dossier-thumb-mark span for an
+   <img>); the hover overlay is the "quick summary on hover" ask, and
+   already works over either. */
+.dossier-thumb {
+  position: relative;
+  height: 160px;
+  margin: -28px -28px 20px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: var(--accent-gradient);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+.dossier-thumb-alt { background: linear-gradient(135deg, var(--accent-2), var(--accent)); }
+
+.dossier-thumb-mark {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 3.4rem;
+  color: color-mix(in srgb, var(--bg) 70%, transparent);
+  letter-spacing: -0.02em;
+}
+
+.dossier-thumb-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 16px 18px;
+  background: linear-gradient(to top, color-mix(in srgb, var(--dark-bg) 88%, transparent), transparent 65%);
+  color: var(--dark-text);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+}
+.dossier:hover .dossier-thumb-overlay,
+.dossier:focus-within .dossier-thumb-overlay {
   opacity: 1;
 }
 
