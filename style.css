@@ -162,8 +162,10 @@ body {
    it already tracks the pointer smoothly. Desktop-with-mouse only; touch
    devices keep their native cursor (there isn't one to replace). */
 @media (hover: hover) and (pointer: fine) {
-  body { cursor: none; }
-  a, button, input, textarea { cursor: none; }
+  /* !important: several buttons (.mode-btn, .form-submit) set their own
+     cursor: pointer with higher specificity than a bare element selector
+     can beat, which left the native hand cursor showing through on them. */
+  body, a, button, input, textarea, * { cursor: none !important; }
 
   .cursor-dot, .cursor-ring {
     position: fixed;
