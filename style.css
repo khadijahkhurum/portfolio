@@ -20,10 +20,12 @@
   --green: #34d399;
   --green-soft: #6ee7b7;
   --green-dim: #059669;
+  --blue: #38bdf8;
 
   --violet: #a78bfa;
   --violet-soft: #c4b5fd;
   --violet-dim: #7c5cff;
+  --pink: #f472b6;
 
   --font-sans: 'IBM Plex Sans', -apple-system, sans-serif;
   --font-mono: 'IBM Plex Mono', 'SF Mono', monospace;
@@ -42,6 +44,8 @@
   --text-muted: #8b98a6;
   --accent: var(--green);
   --accent-soft: var(--green-dim);
+  --accent-2: var(--blue);
+  --accent-gradient: linear-gradient(135deg, var(--accent), var(--accent-2));
 }
 
 body[data-mode="technical"] {
@@ -52,6 +56,8 @@ body[data-mode="technical"] {
   --text-muted: #9a9ea9;
   --accent: var(--violet);
   --accent-soft: var(--violet-dim);
+  --accent-2: var(--pink);
+  --accent-gradient: linear-gradient(135deg, var(--accent), var(--accent-2));
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 20px 48px rgba(124, 92, 255, 0.12);
 }
 
@@ -114,6 +120,13 @@ body {
     animation-timeline: view();
     animation-range: entry 0% entry 75%;
   }
+
+  /* Staggered cascade: sibling cards/stats finish revealing a little later
+     than the one before, instead of resolving in lockstep. */
+  .impact-stat:nth-child(2),
+  .dossier:nth-child(2) { animation-range: entry 8% entry 83%; }
+  .impact-stat:nth-child(3) { animation-range: entry 16% entry 91%; }
+  .impact-stat:nth-child(4) { animation-range: entry 24% entry 99%; }
 }
 
 @keyframes reveal-in {
@@ -277,7 +290,7 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
 
 .mode-btn[aria-pressed="true"] {
   color: var(--bg);
-  background: var(--accent);
+  background: var(--accent-gradient);
   transform: scale(1.02);
 }
 
@@ -481,6 +494,14 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   border-top: 1px solid var(--line);
 }
 
+/* Per-project language/tool chips — sits inside the dossier's own padding,
+   so no side padding of its own (unlike the term-window variant above). */
+.dossier-stack {
+  padding: 0;
+  margin-top: 18px;
+  padding-top: 16px;
+}
+
 .stack-tags-grc {
   margin-top: 16px;
   border: 1px solid var(--line);
@@ -507,8 +528,15 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   grid-template-columns: 160px 1fr 90px;
   align-items: center;
   gap: 16px;
-  padding: 14px 0;
+  padding: 14px 16px;
+  margin: 0 -16px;
+  border-radius: 10px;
   border-bottom: 1px solid var(--line);
+  transition: background-color 0.3s var(--ease);
+}
+
+.register-row:hover {
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
 }
 
 .register-row:last-child { border-bottom: none; }
@@ -563,6 +591,7 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
 .projects .section-heading { margin-bottom: 4px; }
 
 .dossier {
+  position: relative;
   padding: 28px;
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
@@ -571,8 +600,31 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
 
+/* Gradient border that fades in on hover, drawn with a masked pseudo-element
+   ring rather than swapping the real border (which would shift layout). */
+.dossier::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--accent-gradient);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+  pointer-events: none;
+}
+
 .dossier:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -14px color-mix(in srgb, var(--accent) 45%, transparent),
+    0 10px 24px -10px color-mix(in srgb, var(--accent-2) 40%, transparent);
+}
+
+.dossier:hover::before {
+  opacity: 1;
 }
 
 .dossier-head {
@@ -652,10 +704,10 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   height: 132px;
   margin: 0 auto 16px;
   border-radius: 50%;
-  background: conic-gradient(var(--accent) calc(var(--pct) * 1%), var(--line) 0);
+  background: conic-gradient(var(--accent), var(--accent-2) calc(var(--pct) * 1%), var(--line) 0);
   display: grid;
   place-items: center;
-  transition: background-color 0.5s var(--ease);
+  transition: background 0.5s var(--ease);
 }
 
 .donut-hole {
@@ -672,7 +724,10 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   font-family: var(--font-mono);
   font-weight: 600;
   font-size: 1.4rem;
-  color: var(--accent);
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .impact-label {
@@ -693,7 +748,10 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   font-family: var(--font-mono);
   font-weight: 600;
   font-size: 1.7rem;
-  color: var(--accent);
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   margin-bottom: 6px;
 }
 
@@ -775,17 +833,17 @@ a:focus-visible, button:focus-visible {
 .form-submit {
   font-family: var(--font-mono);
   font-size: 0.95rem;
-  background: var(--accent);
+  background: var(--accent-gradient);
   color: var(--bg);
   border: none;
   border-radius: 999px;
   padding: 13px 24px;
   cursor: pointer;
   width: fit-content;
-  transition: background-color 0.3s var(--ease), transform 0.3s var(--ease);
+  transition: filter 0.3s var(--ease), transform 0.3s var(--ease);
 }
 
-.form-submit:hover { background: var(--accent-soft); transform: translateY(-2px); }
+.form-submit:hover { filter: brightness(1.12); transform: translateY(-2px); }
 
 .form-fallback {
   font-size: 0.88rem;
