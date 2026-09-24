@@ -773,6 +773,22 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
 
 .projects .section-heading { margin-bottom: 4px; }
 
+/* Horizontal scroll-snap stack — cards keep a fixed width and snap into
+   place, so adding more projects later just means scrolling further,
+   never a taller page. */
+.project-stack {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 8px;
+  margin-bottom: -8px;
+}
+.project-stack .dossier {
+  flex: 0 0 420px;
+  scroll-snap-align: start;
+}
+
 .dossier {
   position: relative;
   padding: 28px;
@@ -840,15 +856,17 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   display: flex;
   align-items: flex-end;
   padding: 16px 18px;
-  background: linear-gradient(to top, color-mix(in srgb, var(--dark-bg) 88%, transparent), transparent 65%);
+  background: color-mix(in srgb, var(--dark-bg) 94%, transparent);
   color: var(--dark-text);
   font-family: var(--font-mono);
   font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.4;
   opacity: 0;
   transition: opacity 0.35s var(--ease);
 }
-.dossier:hover .dossier-thumb-overlay,
-.dossier:focus-within .dossier-thumb-overlay {
+.dossier-thumb:hover .dossier-thumb-overlay,
+.dossier-thumb:focus-within .dossier-thumb-overlay {
   opacity: 1;
 }
 
