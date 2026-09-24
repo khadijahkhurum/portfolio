@@ -426,7 +426,7 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   counter-increment: row;
   content: counter(row, decimal-leading-zero);
   position: absolute;
-  left: -46px;
+  left: -30px;
   top: 50%;
   transform: translateY(-50%);
   font-family: var(--font-mono);
@@ -439,7 +439,7 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
 .register-row::after {
   content: "";
   position: absolute;
-  left: -23.5px;
+  left: -7.5px;
   top: 50%;
   transform: translateY(-50%);
   width: 7px;
@@ -479,8 +479,8 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   color: var(--text-muted);
 }
 
-.term-window .register-row::before { left: -40px; }
-.term-window .register-row::after { left: -17.5px; }
+.term-window .register-row::before { left: -24px; }
+.term-window .register-row::after { left: -1.5px; }
 
 .term-window .register-list {
   padding: 4px 14px 4px 46px;
