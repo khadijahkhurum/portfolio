@@ -78,7 +78,11 @@
   var ROLL_LOOPS = 2;
   function countUp(el, duration) {
     if (!el) return;
-    var text = el.textContent;
+    // Cache the real target text on first run — after that, el.textContent
+    // is the roll markup's own digits concatenated, not the real number,
+    // so replays (scrolling past this element again) need the original.
+    if (!el.dataset.rollText) el.dataset.rollText = el.textContent;
+    var text = el.dataset.rollText;
     var match = text.match(/\d+/);
     if (!match) return;
     if (reduceMotion) return; // leave the real number showing as-is
@@ -123,6 +127,8 @@
   // done do the four stat cards reveal and count up, staggered. On desktop
   // (mouse + hover — scroll-jacking is unreliable on touch), scrolling past
   // is briefly held during the sequence so it's actually seen, not skipped.
+  // Replays every time the section is scrolled into view — either
+  // direction — resetting to zero when it's scrolled back out.
   (function () {
     var impact = document.getElementById("impact");
     var donut = impact && impact.querySelector(".donut");
@@ -132,45 +138,71 @@
     var stats = Array.prototype.slice.call(impact.querySelectorAll(".impact-stat"));
     var pct = donut.getAttribute("data-pct");
     var canLock = window.matchMedia("(hover: hover) and (pointer: fine)").matches && !reduceMotion;
+    var pendingTimers = [];
 
     function blockDownscroll(e) {
       if (e.deltaY > 0) e.preventDefault();
     }
 
+    function resetRoll(el) {
+      if (el && el.dataset.rollText) el.textContent = el.dataset.rollText;
+    }
+
+    function clearPending() {
+      pendingTimers.forEach(clearTimeout);
+      pendingTimers = [];
+      if (canLock) window.removeEventListener("wheel", blockDownscroll);
+    }
+
     function playSequence() {
+      clearPending(); // in case a previous play was interrupted mid-sequence
       impact.classList.add("impact-sequenced");
       donut.style.setProperty("--pct", pct);
       countUp(donutNum, 1400);
 
       if (canLock) window.addEventListener("wheel", blockDownscroll, { passive: false });
 
-      setTimeout(
-        function () {
-          stats.forEach(function (stat, i) {
-            setTimeout(function () {
-              stat.classList.add("is-visible");
-              countUp(stat.querySelector(".impact-num"), 600);
-            }, i * 150);
-          });
-          setTimeout(
-            function () {
-              if (canLock) window.removeEventListener("wheel", blockDownscroll);
-            },
-            stats.length * 150 + 600
-          );
-        },
-        reduceMotion ? 0 : 1400
+      pendingTimers.push(
+        setTimeout(
+          function () {
+            stats.forEach(function (stat, i) {
+              pendingTimers.push(
+                setTimeout(function () {
+                  stat.classList.add("is-visible");
+                  countUp(stat.querySelector(".impact-num"), 600);
+                }, i * 150)
+              );
+            });
+            pendingTimers.push(
+              setTimeout(
+                function () {
+                  if (canLock) window.removeEventListener("wheel", blockDownscroll);
+                },
+                stats.length * 150 + 600
+              )
+            );
+          },
+          reduceMotion ? 0 : 1400
+        )
       );
+    }
+
+    function resetSequence() {
+      clearPending();
+      donut.style.setProperty("--pct", 0);
+      resetRoll(donutNum);
+      stats.forEach(function (stat) {
+        stat.classList.remove("is-visible");
+        resetRoll(stat.querySelector(".impact-num"));
+      });
     }
 
     if ("IntersectionObserver" in window) {
       var impactObserver = new IntersectionObserver(
         function (entries) {
           entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              playSequence();
-              impactObserver.unobserve(entry.target);
-            }
+            if (entry.isIntersecting) playSequence();
+            else resetSequence();
           });
         },
         { threshold: 0.3 }
