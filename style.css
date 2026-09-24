@@ -376,10 +376,10 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
 }
 
 .hero-line {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: clamp(1.6rem, 3.6vw, 2.5rem);
-  line-height: 1.18;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 4vw, 2.9rem);
+  line-height: 1.15;
   max-width: 34ch;
   margin: 0 0 16px;
   letter-spacing: -0.02em;
@@ -443,10 +443,11 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
    Section heading (shared)
    ============================================================ */
 .section-heading {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 1rem;
-  color: var(--text-muted);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.6rem;
+  letter-spacing: -0.01em;
+  color: var(--text);
   margin: 0 0 28px;
 }
 
@@ -518,37 +519,32 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
 .term-titlebar, .grc-titlebar {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
+  justify-content: space-between;
+  padding: 14px 20px;
   background: var(--dark-bg);
   border-bottom: 1px solid var(--line);
 }
 
-.term-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--dark-line);
+.window-title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--text);
 }
 
-/* RAG (Red/Amber/Green) status dots — the same three-dot motif as the
-   terminal titlebar, but standing for something an auditor actually
-   reads: risk rating, not a decorative window control. */
+/* RAG (Red/Amber/Green) legend — risk rating, not decorative window chrome. */
+.rag-legend {
+  display: inline-flex;
+  gap: 6px;
+}
 .grc-dot {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
 }
 .grc-dot.grc-dot-red { background: #f87171; }
 .grc-dot.grc-dot-amber { background: #fbbf24; }
 .grc-dot.grc-dot-green { background: var(--green); }
-
-.term-path, .grc-path {
-  margin-left: 8px;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--text-muted);
-}
 
 .term-window .register-row::before,
 .grc-window .register-row::before { left: -24px; }
@@ -633,15 +629,34 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
 }
 
 .status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  text-align: center;
   padding: 5px 10px;
   border-radius: 999px;
   justify-self: start;
 }
+
+/* Proficiency meter — a small visual read of the status-chip level,
+   instead of the word being the only signal. */
+.proficiency {
+  display: inline-flex;
+  gap: 3px;
+}
+.proficiency span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.25;
+}
+.proficiency[data-level="3"] span { opacity: 1; }
+.proficiency[data-level="2"] span:nth-child(-n+2) { opacity: 1; }
+.proficiency[data-level="1"] span:nth-child(1) { opacity: 1; }
 
 .status-applied {
   color: var(--accent);
