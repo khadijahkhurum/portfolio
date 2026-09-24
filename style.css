@@ -674,6 +674,12 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   margin: 0 0 14px;
 }
 
+.dossier-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
 .dossier-link {
   display: inline-flex;
   align-items: center;
