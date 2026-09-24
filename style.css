@@ -128,14 +128,15 @@ body {
     animation-range: 0 90vh;
   }
 
+  /* Only the decorative headline/subtext recede on scroll — never the
+     stat line or CTA links, which must stay fully visible and clickable
+     even if the viewport is short enough to need a small scroll to see them. */
   .hero .hero-eyebrow,
   .hero .hero-line,
-  .hero .hero-sub,
-  .hero .stat-line,
-  .hero .hero-links {
+  .hero .hero-sub {
     animation: hero-fade linear both;
     animation-timeline: scroll(root);
-    animation-range: 0 55vh;
+    animation-range: 25vh 80vh;
   }
 }
 
@@ -303,7 +304,7 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   font-weight: 600;
   font-size: clamp(1.9rem, 5vw, 3rem);
   line-height: 1.18;
-  max-width: 21ch;
+  max-width: 30ch;
   margin: 0 0 24px;
   letter-spacing: -0.02em;
 }
@@ -478,6 +479,16 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   gap: 8px;
   padding: 14px 14px 16px;
   border-top: 1px solid var(--line);
+}
+
+.stack-tags-grc {
+  margin-top: 16px;
+  border: 1px solid var(--line);
+  border-top: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  padding: 14px 20px;
 }
 
 .stack-tag {
