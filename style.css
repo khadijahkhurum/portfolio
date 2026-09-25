@@ -823,7 +823,7 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   display: flex;
   justify-content: center;
   gap: 8px;
-  margin-top: 16px;
+  margin-top: -8px;
 }
 .stack-dot {
   width: 8px;
