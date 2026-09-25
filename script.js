@@ -43,6 +43,34 @@
 
   initMode();
 
+  // Same-page anchor links (e.g. "See the work" -> #projects). Two things
+  // to guard against here:
+  // 1. If web fonts are still swapping in when the jump happens, the
+  //    fallback-font layout above the target reflows once they load,
+  //    which can drift an already-completed native scroll off target —
+  //    wait for fonts first so the layout used to compute the scroll is
+  //    final.
+  // 2. The target section's scroll-linked reveal (see the [data-reveal]
+  //    rules above) is tied to scroll position, not time — a jump can
+  //    land it mid-reveal (partly faded/blurred) with no further scrolling
+  //    to finish the animation. A deliberate nav click should show its
+  //    destination fully resolved, not mid-animation, so force it (see
+  //    .reveal-force).
+  var reduceMotionForScroll = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      var id = a.getAttribute("href").slice(1);
+      var target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      var ready = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+      ready.then(function () {
+        target.scrollIntoView({ behavior: reduceMotionForScroll ? "auto" : "smooth", block: "start" });
+        if (id !== "top") target.classList.add("reveal-force");
+      });
+    });
+  });
+
   // Live stat counts in the technical hero (counts real DOM content, not fabricated numbers)
   document.querySelectorAll("[data-stat-count]").forEach(function (el) {
     el.textContent = document.querySelectorAll(el.getAttribute("data-stat-count")).length;

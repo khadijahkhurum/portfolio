@@ -77,8 +77,8 @@
     </div>
   </section>
 
-  <section class="timeline" id="timeline" aria-label="Experience timeline" data-reveal>
-    <div class="wrap">
+  <section class="timeline" id="timeline" aria-label="Experience timeline">
+    <div class="wrap" data-reveal>
       <p class="section-marker">01 / JOURNEY</p>
       <h2 class="section-heading">How I got here</h2>
       <div class="timeline-track">
@@ -111,8 +111,8 @@
     </div>
   </section>
 
-  <section class="register" id="register" aria-label="Skills and frameworks" data-reveal>
-    <div class="wrap">
+  <section class="register" id="register" aria-label="Skills and frameworks">
+    <div class="wrap" data-reveal>
       <p class="section-marker">02 / FRAMEWORKS</p>
       <h2 class="section-heading" data-show="grc">Frameworks &amp; control work</h2>
       <h2 class="section-heading" data-show="technical">Stack &amp; technical depth</h2>
@@ -210,8 +210,8 @@
     </div>
   </section>
 
-  <section class="impact" id="impact" aria-label="Measured impact" data-reveal>
-    <div class="wrap">
+  <section class="impact" id="impact" aria-label="Measured impact">
+    <div class="wrap" data-reveal>
       <p class="section-marker">03 / IMPACT</p>
       <h2 class="section-heading" data-show="grc">Measured impact</h2>
       <h2 class="section-heading" data-show="technical">Numbers, not adjectives</h2>
@@ -251,8 +251,16 @@
     </div>
   </section>
 
-  <section class="projects" id="projects" aria-label="Projects" data-reveal>
-    <div class="wrap">
+  <!-- data-reveal sits on .wrap, not the section: this section (and its
+       siblings below) is itself the target of the "See the work" / "Get in
+       touch" in-page nav links. A scroll-linked transform on the actual
+       anchor target confuses the browser's native scroll-to-fragment
+       geometry (it snapshots a mid-animation position and never
+       recalculates), so the resting scroll lands past the heading. Moving
+       the animation to the inner wrapper keeps the identical fade-in look
+       with a transform-free, correctly-targetable section box. -->
+  <section class="projects" id="projects" aria-label="Projects">
+    <div class="wrap" data-reveal>
       <p class="section-marker">04 / PROJECTS</p>
       <h2 class="section-heading">Projects</h2>
 
@@ -352,8 +360,8 @@
     </div>
   </section>
 
-  <section class="about" id="about" aria-label="Background" data-reveal>
-    <div class="wrap">
+  <section class="about" id="about" aria-label="Background">
+    <div class="wrap" data-reveal>
       <p class="section-marker">05 / BACKGROUND</p>
       <h2 class="section-heading">Background</h2>
       <p class="about-body">
@@ -369,8 +377,8 @@
     </div>
   </section>
 
-  <section class="contact" id="contact" aria-label="Contact" data-reveal>
-    <div class="wrap">
+  <section class="contact" id="contact" aria-label="Contact">
+    <div class="wrap" data-reveal>
       <p class="section-marker">06 / CONTACT</p>
       <h2 class="section-heading">Get in touch</h2>
       <p class="contact-note">

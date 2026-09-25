@@ -157,6 +157,18 @@ body {
   filter: blur(0);
 }
 
+/* Jumping to a section via in-page nav (script.js, on click) should show
+   it fully resolved right away, not mid-way through its scroll-linked
+   reveal — that animation is for organic scroll discovery, and an anchor
+   jump can land at a scroll position the animation hasn't caught up to
+   yet. */
+.reveal-force [data-reveal] {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+
 /* Custom cursor: a tight dot plus a larger ring that lags behind it (see
    script.js's lerp loop) — reused as the "something floating" touch since
    it already tracks the pointer smoothly. Desktop-with-mouse only; touch
