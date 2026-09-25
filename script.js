@@ -214,11 +214,15 @@
   })();
 
   // Project stack: cards overlap like a physical deck. The front card is
-  // fully readable; the rest peek behind it, offset and scaled down by
-  // position. Click a dot, or a peeking card itself, to bring it forward.
+  // fully readable; the next one is a heavily blurred hint behind it, no
+  // more. Navigate with the prev/next buttons on either side, or by
+  // swiping on touch — dots below are just a position indicator, not a
+  // control surface.
   (function () {
     var stack = document.querySelector(".project-stack");
     var dotsWrap = document.querySelector(".stack-dots");
+    var prevBtn = document.querySelector('[data-stack-nav="prev"]');
+    var nextBtn = document.querySelector('[data-stack-nav="next"]');
     if (!stack || !dotsWrap) return;
 
     var cards = Array.prototype.slice.call(stack.querySelectorAll(".dossier"));
@@ -228,14 +232,9 @@
       return i;
     }); // order[0] is the front card's index into `cards`
 
-    var dots = cards.map(function (_, i) {
-      var dot = document.createElement("button");
-      dot.type = "button";
+    var dots = cards.map(function () {
+      var dot = document.createElement("span");
       dot.className = "stack-dot";
-      dot.setAttribute("aria-label", "Bring project " + (i + 1) + " to front");
-      dot.addEventListener("click", function () {
-        bringToFront(i);
-      });
       dotsWrap.appendChild(dot);
       return dot;
     });
@@ -258,14 +257,19 @@
         if (pos === 0) {
           card.style.transform = "none";
           card.style.opacity = "1";
+          card.style.filter = "none";
         } else if (pos === 1) {
+          // just a hint that another card is behind — heavily blurred so
+          // its content never reads as a second, half-legible card
           card.style.transform = "translateY(16px) scale(0.96)";
-          card.style.opacity = "0.75";
+          card.style.opacity = "0.4";
+          card.style.filter = "blur(10px)";
         } else {
-          // any further back stay hidden under the peek card rather than
-          // fanning out indefinitely
+          // any further back stay fully hidden under the peek card rather
+          // than fanning out indefinitely
           card.style.transform = "translateY(16px) scale(0.94)";
           card.style.opacity = "0";
+          card.style.filter = "blur(10px)";
         }
       });
       dots.forEach(function (dot, i) {
@@ -273,20 +277,40 @@
       });
     }
 
-    function bringToFront(cardIndex) {
-      order = [cardIndex].concat(
-        order.filter(function (i) {
-          return i !== cardIndex;
-        })
-      );
+    function step(dir) {
+      // dir 1 = next: current front goes to the back. dir -1 = previous:
+      // the last card comes back to the front.
+      if (dir === 1) {
+        order.push(order.shift());
+      } else {
+        order.unshift(order.pop());
+      }
       render();
     }
 
-    cards.forEach(function (card, i) {
-      card.addEventListener("click", function () {
-        if (order[0] !== i) bringToFront(i);
-      });
-    });
+    if (prevBtn) prevBtn.addEventListener("click", function () { step(-1); });
+    if (nextBtn) nextBtn.addEventListener("click", function () { step(1); });
+
+    // Swipe on touch devices — left advances, right goes back.
+    var touchStartX = null;
+    stack.addEventListener(
+      "touchstart",
+      function (e) {
+        touchStartX = e.touches[0].clientX;
+      },
+      { passive: true }
+    );
+    stack.addEventListener(
+      "touchend",
+      function (e) {
+        if (touchStartX === null) return;
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        touchStartX = null;
+        if (Math.abs(dx) < 40) return; // too small to count as a swipe
+        step(dx < 0 ? 1 : -1);
+      },
+      { passive: true }
+    );
 
     setStackHeight();
     render();

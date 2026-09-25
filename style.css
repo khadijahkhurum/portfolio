@@ -774,54 +774,68 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
 .projects .section-heading { margin-bottom: 4px; }
 
 /* Card-deck stack — cards overlap like a physical deck, front card fully
-   readable, the rest peeking behind it. Click a dot (or the peeking edge)
-   to bring that card to the front. Height comes from the tallest card via
-   JS, since absolutely-positioned cards can't size their own container. */
+   readable, the rest peeking behind it. Nav buttons on either side bring
+   the next/previous card forward; on touch, swiping does the same. Height
+   comes from the tallest card via JS, since absolutely-positioned cards
+   can't size their own container. */
+.project-stack-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
 .project-stack {
   position: relative;
   width: 100%;
   max-width: 420px;
-  margin: 0 auto;
 }
 .project-stack .dossier {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  transition: transform 0.45s var(--ease), opacity 0.45s var(--ease);
-  cursor: pointer;
-}
-.project-stack .dossier.is-front {
-  cursor: default;
+  transition: transform 0.45s var(--ease), opacity 0.45s var(--ease),
+    filter 0.45s var(--ease);
 }
 .project-stack .dossier:not(.is-front) {
   pointer-events: none;
 }
+.stack-nav {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.stack-nav:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 10px 2px color-mix(in srgb, var(--accent) 50%, transparent);
+}
 
-/* Dot pagination below the row — click a dot to bring that card to the
-   front of the stack. */
+/* Dot position indicator below the row — not clickable, just shows which
+   card is up front; needs real breathing room so it doesn't read as part
+   of the card. */
 .stack-dots {
   display: flex;
   justify-content: center;
   gap: 12px;
-  padding-top: 6px;
+  padding-top: 48px;
 }
 .stack-dot {
   width: 8px;
   height: 8px;
-  padding: 0;
   border-radius: 50%;
-  border: none;
   background: var(--line);
-  cursor: pointer;
-  box-shadow: 0 0 0 0 transparent;
   transition: background-color 0.3s var(--ease), transform 0.3s var(--ease),
     box-shadow 0.3s var(--ease);
-}
-.stack-dot:hover {
-  background: var(--accent);
-  transform: scale(1.25);
-  box-shadow: 0 0 10px 2px color-mix(in srgb, var(--accent) 70%, transparent);
 }
 .stack-dot.is-active {
   background: var(--accent);
