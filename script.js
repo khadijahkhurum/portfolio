@@ -246,13 +246,18 @@
           return c.offsetHeight;
         })
       );
-      stack.style.height = tallest + 16 + "px"; // + room for the back card's peek offset
+      // The container's set height IS the reserved page-flow space (its
+      // children are absolutely positioned, so they don't add to it) —
+      // no extra buffer needed for the back card's peek, which sits
+      // inside the front card's own height.
+      stack.style.height = tallest + "px";
     }
 
     function render() {
       order.forEach(function (cardIndex, pos) {
         var card = cards[cardIndex];
         card.classList.toggle("is-front", pos === 0);
+        card.setAttribute("aria-hidden", pos === 0 ? "false" : "true");
         card.style.zIndex = cards.length - pos;
         if (pos === 0) {
           card.style.transform = "none";

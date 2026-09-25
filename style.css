@@ -799,6 +799,7 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
 }
 .project-stack .dossier:not(.is-front) {
   pointer-events: none;
+  user-select: none;
 }
 .stack-nav {
   flex: 0 0 auto;
