@@ -677,12 +677,12 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
    title, thesis or visual above it. */
 .dossier-stack {
   padding: 0;
-  margin-top: 14px;
-  padding-top: 14px;
+  margin-top: 10px;
+  padding-top: 10px;
   gap: 0;
 }
 .dossier-stack .stack-tag {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   color: var(--text-muted);
   background: none;
   border: none;
@@ -814,35 +814,37 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
 
 .projects .section-heading { margin-bottom: 4px; }
 
-/* Editorial chapter list — each project is a full-width block read top to
-   bottom (number/category, title, thesis, visual, detail, CTA), separated
-   by real vertical rhythm rather than packed like a dashboard. */
+/* Editorial chapter list — a controlled column (not full-bleed) read top
+   to bottom (number/category, title, thesis, visual, detail, CTA), each
+   project a compact case-study preview rather than a full-screen block. */
 .project-list {
   display: flex;
   flex-direction: column;
-  gap: 88px;
+  gap: 44px;
 }
 
 .dossier-index {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.7rem;
   letter-spacing: 0.04em;
   color: var(--text-muted);
   text-transform: uppercase;
-  margin: 0 0 10px;
+  margin: 0 0 6px;
 }
 
 .dossier-thesis {
-  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  font-size: clamp(0.92rem, 1.1vw, 1.02rem);
   font-weight: 500;
   color: var(--text);
   max-width: 32ch;
-  margin: 0 0 24px;
+  margin: 0 0 14px;
 }
 
 .dossier {
   position: relative;
-  padding: 28px;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 22px;
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background: var(--surface);
@@ -884,8 +886,8 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
    overlay names the project's core transformation. */
 .dossier-thumb {
   position: relative;
-  height: 260px;
-  margin: 0 -28px 28px;
+  height: 160px;
+  margin: 0 -22px 18px;
   background: var(--accent-gradient);
   overflow: hidden;
   display: grid;
@@ -896,7 +898,7 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
 .dossier-thumb-mark {
   font-family: var(--font-mono);
   font-weight: 700;
-  font-size: 4.2rem;
+  font-size: 2.6rem;
   color: color-mix(in srgb, var(--bg) 70%, transparent);
   letter-spacing: -0.02em;
 }
@@ -906,11 +908,11 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   inset: 0;
   display: grid;
   place-items: center;
-  padding: 16px 18px;
+  padding: 12px 16px;
   background: color-mix(in srgb, var(--dark-bg) 82%, transparent);
   color: var(--dark-text);
   font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   text-align: center;
@@ -924,30 +926,31 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
 
 .dossier-title {
   font-family: var(--font-mono);
-  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+  font-size: clamp(1.1rem, 1.6vw, 1.3rem);
   font-weight: 600;
-  margin: 0 0 12px;
+  margin: 0 0 8px;
 }
 
 .dossier-body {
   max-width: var(--measure);
   color: var(--text-muted);
-  margin: 0 0 14px;
+  font-size: 0.92rem;
+  margin: 0 0 10px;
 }
 
 .dossier-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  margin-top: 22px;
+  gap: 14px;
+  margin-top: 14px;
 }
 
 .dossier-link {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   font-family: var(--font-mono);
-  font-size: 0.92rem;
+  font-size: 0.85rem;
   text-decoration: none;
 }
 
@@ -955,8 +958,8 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   border: 1px solid var(--line);
   transition: background-color 0.3s var(--ease), transform 0.3s var(--ease), border-color 0.3s var(--ease);
@@ -1223,14 +1226,13 @@ a:focus-visible, button:focus-visible {
   section[id] { scroll-margin-top: 0; }
 
   /* Projects: smaller visual and tighter chapter gap on narrow screens. */
-  .dossier { padding: 20px; }
+  .dossier { padding: 16px; }
   .dossier-thumb {
-    height: 160px;
-    margin: 0 -20px 20px;
+    height: 110px;
+    margin: 0 -16px 14px;
   }
-  .dossier-thumb-mark { font-size: 2.8rem; }
-  .dossier-body { font-size: 0.92rem; }
-  .project-list { gap: 56px; }
+  .dossier-thumb-mark { font-size: 2rem; }
+  .project-list { gap: 28px; }
 }
 
 @media (prefers-contrast: more) {
