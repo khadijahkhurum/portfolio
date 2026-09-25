@@ -822,8 +822,8 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
 .stack-dots {
   display: flex;
   justify-content: center;
-  gap: 8px;
-  margin-top: -8px;
+  gap: 12px;
+  padding-top: 6px;
 }
 .stack-dot {
   width: 8px;
@@ -833,14 +833,19 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   border: none;
   background: var(--line);
   cursor: pointer;
-  transition: background-color 0.3s var(--ease), transform 0.3s var(--ease);
+  box-shadow: 0 0 0 0 transparent;
+  transition: background-color 0.3s var(--ease), transform 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
 }
 .stack-dot:hover {
-  background: color-mix(in srgb, var(--accent) 60%, var(--line));
+  background: var(--accent);
+  transform: scale(1.25);
+  box-shadow: 0 0 10px 2px color-mix(in srgb, var(--accent) 70%, transparent);
 }
 .stack-dot.is-active {
   background: var(--accent);
   transform: scale(1.3);
+  box-shadow: 0 0 12px 3px color-mix(in srgb, var(--accent) 65%, transparent);
 }
 
 .dossier {
