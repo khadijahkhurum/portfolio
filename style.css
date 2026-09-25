@@ -788,8 +788,14 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   display: none;
 }
 .project-stack .dossier {
-  flex: 0 0 420px;
+  flex: 0 0 320px;
   scroll-snap-align: start;
+}
+.project-stack .dossier-thumb {
+  height: 120px;
+}
+.project-stack .dossier-thumb-mark {
+  font-size: 2.6rem;
 }
 /* Signal there's more to scroll to without a raw OS scrollbar. */
 .projects .wrap {
@@ -808,6 +814,36 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
 .projects .section-heading {
   position: relative;
   z-index: 1;
+}
+
+/* Explicit scroll controls — the hidden native scrollbar leaves no other
+   visible affordance that the row scrolls. */
+.projects-scroll-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+.stack-arrow {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+.stack-arrow:hover {
+  border-color: var(--accent);
+}
+.stack-arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
 }
 
 .dossier {

@@ -213,6 +213,33 @@
     }
   })();
 
+  // Project stack: explicit prev/next buttons, since the native scrollbar
+  // is hidden and drag/wheel alone leaves no visible affordance.
+  (function () {
+    var stack = document.querySelector(".project-stack");
+    var prevBtn = document.querySelector('[data-stack-scroll="prev"]');
+    var nextBtn = document.querySelector('[data-stack-scroll="next"]');
+    if (!stack || !prevBtn || !nextBtn) return;
+
+    function cardStep() {
+      var card = stack.querySelector(".dossier");
+      return card ? card.getBoundingClientRect().width + 20 : stack.clientWidth;
+    }
+    function updateButtons() {
+      var max = stack.scrollWidth - stack.clientWidth - 1;
+      prevBtn.disabled = stack.scrollLeft <= 0;
+      nextBtn.disabled = stack.scrollLeft >= max;
+    }
+    prevBtn.addEventListener("click", function () {
+      stack.scrollBy({ left: -cardStep(), behavior: "smooth" });
+    });
+    nextBtn.addEventListener("click", function () {
+      stack.scrollBy({ left: cardStep(), behavior: "smooth" });
+    });
+    stack.addEventListener("scroll", updateButtons);
+    updateButtons();
+  })();
+
   // Custom cursor: a small dot tracks the pointer exactly, a larger ring
   // trails behind it with lerp easing (the "floating" feel), and both grow
   // on hover over interactive elements. Desktop mouse only.
