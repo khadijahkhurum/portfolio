@@ -76,6 +76,126 @@
     el.textContent = document.querySelectorAll(el.getAttribute("data-stat-count")).length;
   });
 
+  // Hero spark: click toggles a tiny system-readout panel. Click-based (not
+  // hover-only) so it works on touch and keyboard, not just mouse.
+  (function () {
+    var trigger = document.getElementById("spark-trigger");
+    var panel = document.getElementById("spark-panel");
+    if (!trigger || !panel) return;
+    trigger.addEventListener("click", function () {
+      var open = panel.hidden;
+      panel.hidden = !open;
+      trigger.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    document.addEventListener("click", function (e) {
+      if (!panel.hidden && !panel.contains(e.target) && e.target !== trigger && !trigger.contains(e.target)) {
+        panel.hidden = true;
+        trigger.setAttribute("aria-expanded", "false");
+      }
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !panel.hidden) {
+        panel.hidden = true;
+        trigger.setAttribute("aria-expanded", "false");
+        trigger.focus();
+      }
+    });
+  })();
+
+  // Per-project view tabs (Overview / GRC / Technical, Overview / Red / Blue).
+  // Generic: any [data-view-btn] group toggles its sibling [data-view-panel]s
+  // within the same dossier article.
+  document.querySelectorAll(".dossier").forEach(function (dossier) {
+    var tabs = dossier.querySelectorAll("[data-view-btn]");
+    var panels = dossier.querySelectorAll("[data-view-panel]");
+    if (!tabs.length) return;
+    tabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        var target = tab.getAttribute("data-view-btn");
+        tabs.forEach(function (t) {
+          t.setAttribute("aria-selected", t === tab ? "true" : "false");
+        });
+        panels.forEach(function (p) {
+          p.hidden = p.getAttribute("data-view-panel") !== target;
+        });
+      });
+    });
+  });
+
+  // FAIR risk pipeline: click a stage to swap the caption below it.
+  (function () {
+    var pipeline = document.querySelector("[data-pipeline]");
+    if (!pipeline) return;
+    var buttons = pipeline.querySelectorAll("[data-stage-btn]");
+    var details = document.querySelectorAll("[data-pipeline-detail]");
+    buttons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var stage = btn.getAttribute("data-stage-btn");
+        buttons.forEach(function (b) {
+          b.setAttribute("aria-expanded", b === btn ? "true" : "false");
+        });
+        details.forEach(function (d) {
+          d.hidden = d.getAttribute("data-pipeline-detail") !== stage;
+        });
+      });
+    });
+  })();
+
+  // Pit Wall attack-strength slider: two documented data points, not a live
+  // model — see the note rendered alongside the readout.
+  (function () {
+    var range = document.getElementById("attack-range");
+    var readout = document.querySelector("[data-attack-readout]");
+    if (!range || !readout) return;
+    range.addEventListener("input", function () {
+      readout.textContent =
+        range.value === "1"
+          ? "At ~2% perturbation: 9.75% peak confidence (down from 17.3% baseline). Headline accuracy: 99.4%."
+          : "Baseline peak confidence: 17.3%. Headline accuracy: 99.4%.";
+    });
+  })();
+
+  // "Currently exploring" ticker — cycles topics; only animates the swap
+  // when motion is allowed, but keeps rotating the text either way.
+  (function () {
+    var el = document.querySelector("[data-exploring]");
+    if (!el) return;
+    var topics = ["Quantitative cyber risk", "AI security", "Compliance engineering"];
+    var i = 0;
+    setInterval(function () {
+      i = (i + 1) % topics.length;
+      if (reduceMotion) {
+        el.textContent = topics[i];
+        return;
+      }
+      el.style.opacity = 0;
+      setTimeout(function () {
+        el.textContent = topics[i];
+        el.style.opacity = 1;
+      }, 400);
+    }, 3600);
+  })();
+
+  // Scroll progress rail: fills top-to-bottom with how far down the page you are.
+  (function () {
+    var fill = document.querySelector("[data-scroll-fill]");
+    if (!fill) return;
+    var ticking = false;
+    function update() {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var pct = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+      fill.style.transform = "scaleY(" + pct + ")";
+      ticking = false;
+    }
+    window.addEventListener("scroll", function () {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    });
+    update();
+  })();
+
   // Scroll-reveal: fade/slide sections in as they enter view (native IntersectionObserver, no library)
   if ("IntersectionObserver" in window) {
     var observer = new IntersectionObserver(

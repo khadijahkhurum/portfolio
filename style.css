@@ -961,6 +961,261 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   transform: translateX(3px);
 }
 
+.dossier:hover .dossier-title { transform: translateX(2px); }
+.dossier-title { transition: transform 0.25s var(--ease); }
+
+.live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-left: auto;
+  align-self: center;
+}
+.live-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ============================================================
+   Scroll progress — thin fixed rail, filled by scroll position (script.js)
+   ============================================================ */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 3px;
+  height: 100vh;
+  background: var(--line);
+  z-index: 50;
+}
+.scroll-progress-fill {
+  width: 100%;
+  height: 100%;
+  transform: scaleY(0);
+  transform-origin: top;
+  background: var(--accent);
+}
+
+/* ============================================================
+   Hero spark — click reveals a tiny system readout
+   ============================================================ */
+.spark-trigger {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  z-index: 5;
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: inherit;
+  line-height: 0;
+}
+.spark-trigger .hero-spark { position: static; }
+.spark-trigger:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 8px; }
+
+.spark-panel {
+  position: absolute;
+  top: 184px;
+  right: 40px;
+  z-index: 5;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+  padding: 12px 16px;
+  min-width: 190px;
+}
+.spark-panel-line {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin: 0;
+  padding: 3px 0;
+}
+.spark-panel-sub { color: var(--accent-soft); }
+
+/* ============================================================
+   Per-project view tabs (Overview / GRC / Technical, Overview / Red / Blue)
+   ============================================================ */
+.dossier-tabs {
+  display: flex;
+  gap: 4px;
+  margin: 14px 0 10px;
+}
+.dossier-tab {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background-color 0.2s var(--ease);
+}
+.dossier-tab:hover { color: var(--text); }
+.dossier-tab[aria-selected="true"] {
+  color: var(--bg);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.dossier-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.dossier-emphasis {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+.dossier-emphasis li { position: relative; padding-left: 14px; }
+.dossier-emphasis li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 1px;
+  background: var(--accent-soft);
+}
+
+/* ============================================================
+   FAIR risk pipeline — compact clickable stage strip
+   ============================================================ */
+.pipeline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 14px 0 8px;
+}
+.pipeline-stage {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.pipeline-stage:hover,
+.pipeline-stage[aria-expanded="true"] {
+  color: var(--accent-soft);
+  border-color: var(--accent-soft);
+}
+.pipeline-stage:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.pipeline-arrow { color: var(--text-muted); font-size: 0.75rem; }
+.pipeline-detail {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0 0 10px;
+}
+
+/* ============================================================
+   Pit Wall attack-strength slider
+   ============================================================ */
+.attack-slider { margin: 14px 0 10px; }
+.attack-slider-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.attack-slider-track {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+.attack-slider-track input[type="range"] {
+  flex: 1;
+  accent-color: var(--accent);
+}
+.attack-slider-readout {
+  font-size: 0.86rem;
+  color: var(--text);
+  margin: 8px 0 2px;
+}
+.attack-slider-note {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ============================================================
+   Framework hover detail (register rows)
+   ============================================================ */
+.register-detail {
+  grid-column: 1 / -1;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: var(--accent-soft);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.25s var(--ease), opacity 0.25s var(--ease);
+}
+.register-row:hover .register-detail,
+.register-row:focus-within .register-detail {
+  max-height: 2em;
+  opacity: 1;
+  margin-top: 4px;
+}
+
+/* ============================================================
+   Currently exploring (about section)
+   ============================================================ */
+.exploring { margin-top: 20px; }
+.exploring-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin: 0 0 4px;
+}
+.exploring-item {
+  font-size: 0.92rem;
+  color: var(--accent-soft);
+  margin: 0;
+  transition: opacity 0.4s var(--ease);
+}
+
+/* ============================================================
+   Footer system readout
+   ============================================================ */
+.footer-readout {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin: 0 0 14px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dossier-title, .dossier-tab, .pipeline-stage, .register-detail, .exploring-item { transition: none !important; }
+}
+
 /* ============================================================
    Impact (quantified metrics + donut infographic)
    ============================================================ */
@@ -1208,7 +1463,9 @@ a:focus-visible, button:focus-visible {
   .register-list::before,
   .register-row::before,
   .register-row::after { display: none; }
-  .hero-spark { display: none; }
+  .spark-trigger { top: 16px; right: 16px; }
+  .hero-spark { width: 60px; height: 60px; }
+  .spark-panel { top: 100px; right: 16px; left: 16px; min-width: 0; }
   .impact-grid { grid-template-columns: 1fr; }
   .impact-stats { grid-template-columns: 1fr; }
   .site-header { position: static; }
@@ -1222,6 +1479,10 @@ a:focus-visible, button:focus-visible {
   }
   .dossier-thumb-mark { font-size: 2rem; }
   .project-list { gap: 28px; }
+  .pipeline { gap: 4px; }
+  .pipeline-stage { font-size: 0.6rem; padding: 3px 7px; }
+  .dossier-tabs { flex-wrap: wrap; }
+  .live-badge { margin-left: 0; }
 }
 
 @media (prefers-contrast: more) {
@@ -1279,19 +1540,7 @@ a:focus-visible, button:focus-visible {
   cursor: none;
 }
 
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 0%;
-  height: 3px;
-  background: var(--accent-gradient);
-  z-index: 1000;
-  transition: width 0.1s linear;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .cursor { animation: none; opacity: 1; }
   .pointer-dot, .pointer-ring { display: none; }
-  .scroll-progress { transition: none; }
 }

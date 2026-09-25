@@ -14,6 +14,8 @@
 
 <a class="skip-link" href="#top">Skip to content</a>
 
+<div class="scroll-progress" aria-hidden="true"><div class="scroll-progress-fill" data-scroll-fill></div></div>
+
 <header class="site-header">
   <div class="wrap header-row">
     <a class="wordmark" href="#top">
@@ -36,9 +38,18 @@
 <main id="top">
 
   <section class="hero">
-    <svg class="hero-spark" width="120" height="120" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M12 0c0 6.627 5.373 12 12 12-6.627 0-12 5.373-12 12 0-6.627-5.373-12-12-12C6.627 12 12 6.627 12 0z"/>
-    </svg>
+    <button type="button" class="spark-trigger" id="spark-trigger" aria-expanded="false" aria-controls="spark-panel" aria-label="System info">
+      <svg class="hero-spark" width="120" height="120" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 0c0 6.627 5.373 12 12 12-6.627 0-12 5.373-12 12 0-6.627-5.373-12-12-12C6.627 12 12 6.627 12 0z"/>
+      </svg>
+    </button>
+    <div class="spark-panel" id="spark-panel" hidden>
+      <p class="spark-panel-line">SYSTEM / 2026</p>
+      <p class="spark-panel-line spark-panel-sub">GRC &middot; RISK &middot; SECURITY ENGINEERING</p>
+      <p class="spark-panel-line"><span data-stat-count=".dossier">0</span> PROJECTS</p>
+      <p class="spark-panel-line"><span data-stat-count="[data-show='grc'] .register-row">0</span> FRAMEWORKS</p>
+      <p class="spark-panel-line"><span data-stat-count="[data-show='technical'] .register-row">0</span> STACK ENTRIES</p>
+    </div>
     <div class="wrap">
       <p class="hero-eyebrow" data-show="grc">Portfolio &mdash; 2026</p>
       <p class="hero-eyebrow" data-show="technical">System: GRC + Security Engineering</p>
@@ -131,31 +142,37 @@
             <span class="register-id">NIST CSF 2.0</span>
             <span class="register-body">Govern, Identify &amp; Respond — control mapping, gap assessment</span>
             <span class="status-chip status-applied"><span class="proficiency" data-level="3" aria-hidden="true"></span>Applied</span>
+            <span class="register-detail">GOVERN &middot; IDENTIFY &middot; PROTECT &middot; DETECT &middot; RESPOND &middot; RECOVER</span>
           </div>
           <div class="register-row" data-reveal>
             <span class="register-id">ISO/IEC 27001:2022</span>
             <span class="register-body">Annex A control evaluation and evidence review</span>
             <span class="status-chip status-applied"><span class="proficiency" data-level="3" aria-hidden="true"></span>Applied</span>
+            <span class="register-detail">ISMS &middot; CONTROLS &middot; RISK TREATMENT</span>
           </div>
           <div class="register-row" data-reveal>
             <span class="register-id">SOC 2</span>
             <span class="register-body">Trust services criteria mapping</span>
             <span class="status-chip status-familiar"><span class="proficiency" data-level="2" aria-hidden="true"></span>Familiar</span>
+            <span class="register-detail">TRUST SERVICES CRITERIA</span>
           </div>
           <div class="register-row" data-reveal>
             <span class="register-id">PCI-DSS v4.0</span>
             <span class="register-body">Requirement-level control tracking</span>
             <span class="status-chip status-familiar"><span class="proficiency" data-level="2" aria-hidden="true"></span>Familiar</span>
+            <span class="register-detail">PAYMENT SECURITY CONTROLS</span>
           </div>
           <div class="register-row" data-reveal>
             <span class="register-id">EU AI Act</span>
             <span class="register-body">Risk-tiering for AI-assisted features</span>
             <span class="status-chip status-applied"><span class="proficiency" data-level="3" aria-hidden="true"></span>Applied</span>
+            <span class="register-detail">AI GOVERNANCE &middot; RISK CLASSIFICATION</span>
           </div>
           <div class="register-row" data-reveal>
             <span class="register-id">FAIR</span>
             <span class="register-body">Loss magnitude &amp; Monte Carlo frequency modelling</span>
             <span class="status-chip status-applied"><span class="proficiency" data-level="3" aria-hidden="true"></span>Applied</span>
+            <span class="register-detail">LOSS EVENT FREQUENCY &middot; LOSS MAGNITUDE</span>
           </div>
         </div>
       </div>
@@ -279,18 +296,59 @@
             <div class="dossier-thumb-overlay" aria-hidden="true">QUALITATIVE&nbsp;→&nbsp;QUANTITATIVE</div>
           </div>
 
-          <p class="dossier-body" data-show="grc">
-            A quantitative cyber-risk platform built on the FAIR model — Monte Carlo
-            simulation over loss-event data, mapped to compliance controls, with ROI
-            and risk-transfer calculations built in.
-          </p>
-          <p class="dossier-body" data-show="technical">
-            A quantitative cyber-risk platform: a Monte Carlo simulation engine over
-            FAIR-model loss distributions, a compliance-as-code layer that maps
-            simulation output back to named controls, and an ROI / risk-transfer
-            calculator on top. Built and deployed as a working application, not a
-            static report.
-          </p>
+          <div class="pipeline" data-pipeline aria-label="FAIR Risk Radar risk pipeline">
+            <button type="button" class="pipeline-stage" data-stage-btn="inputs">INPUTS</button>
+            <span class="pipeline-arrow" aria-hidden="true">→</span>
+            <button type="button" class="pipeline-stage" data-stage-btn="simulation">SIMULATION</button>
+            <span class="pipeline-arrow" aria-hidden="true">→</span>
+            <button type="button" class="pipeline-stage" data-stage-btn="loss">LOSS</button>
+            <span class="pipeline-arrow" aria-hidden="true">→</span>
+            <button type="button" class="pipeline-stage" data-stage-btn="decision">DECISION</button>
+          </div>
+          <p class="pipeline-detail" data-pipeline-detail="inputs">TEF, Vulnerability, Loss Magnitude &mdash; the loss-event data fed into the model.</p>
+          <p class="pipeline-detail" data-pipeline-detail="simulation" hidden>Monte Carlo, 4,000 trials &mdash; simulates thousands of possible loss outcomes.</p>
+          <p class="pipeline-detail" data-pipeline-detail="loss" hidden>Primary + Secondary Loss &mdash; the resulting loss distribution.</p>
+          <p class="pipeline-detail" data-pipeline-detail="decision" hidden>Risk / Budget / Control Decision &mdash; the board-ready output.</p>
+
+          <div class="dossier-tabs" role="tablist" aria-label="FAIR Risk Radar detail view">
+            <button type="button" class="dossier-tab" data-view-btn="overview" aria-selected="true">Overview</button>
+            <button type="button" class="dossier-tab" data-view-btn="grc" aria-selected="false">GRC View</button>
+            <button type="button" class="dossier-tab" data-view-btn="technical-view" aria-selected="false">Technical View</button>
+          </div>
+
+          <div class="dossier-view" data-view-panel="overview">
+            <p class="dossier-body" data-show="grc">
+              A quantitative cyber-risk platform built on the FAIR model — Monte Carlo
+              simulation over loss-event data, mapped to compliance controls, with ROI
+              and risk-transfer calculations built in.
+            </p>
+            <p class="dossier-body" data-show="technical">
+              A quantitative cyber-risk platform: a Monte Carlo simulation engine over
+              FAIR-model loss distributions, a compliance-as-code layer that maps
+              simulation output back to named controls, and an ROI / risk-transfer
+              calculator on top. Built and deployed as a working application, not a
+              static report.
+            </p>
+          </div>
+          <div class="dossier-view" data-view-panel="grc" hidden>
+            <ul class="dossier-emphasis">
+              <li>Risk quantification</li>
+              <li>Control coverage</li>
+              <li>Loss exposure</li>
+              <li>Decision support</li>
+              <li>Board-level risk communication</li>
+            </ul>
+          </div>
+          <div class="dossier-view" data-view-panel="technical-view" hidden>
+            <ul class="dossier-emphasis">
+              <li>FAIR</li>
+              <li>Monte Carlo simulation</li>
+              <li>Loss distributions</li>
+              <li>Risk modelling</li>
+              <li>Server-side assessment</li>
+              <li>Control provenance</li>
+            </ul>
+          </div>
 
           <div class="stack-tags dossier-stack">
             <span class="stack-tag">Next.js</span>
@@ -311,6 +369,7 @@
               <span>View on GitHub</span>
               <span class="arrow-btn" aria-hidden="true">→</span>
             </a>
+            <span class="live-badge"><span class="live-dot" aria-hidden="true"></span>LIVE</span>
           </div>
         </article>
 
@@ -328,18 +387,52 @@
             <div class="dossier-thumb-overlay" aria-hidden="true">RED&nbsp;TEAM&nbsp;→&nbsp;BLUE&nbsp;TEAM</div>
           </div>
 
-          <p class="dossier-body" data-show="grc">
-            Research project modelling a cyber-physical threat: data-injection attacks
-            against Formula 1 telemetry systems. Frames the risk in terms recognisable
-            to a GRC audience — attack surface, integrity impact, and the controls that
-            would catch or contain it.
-          </p>
-          <p class="dossier-body" data-show="technical">
-            A cyber-physical threat model built around data-injection attacks on
-            real-time telemetry pipelines, using Formula 1 as the case study. Covers
-            attack-surface analysis and the integrity failures that data injection
-            produces downstream.
-          </p>
+          <div class="dossier-tabs" role="tablist" aria-label="Pit Wall Adversary detail view">
+            <button type="button" class="dossier-tab" data-view-btn="overview" aria-selected="true">Overview</button>
+            <button type="button" class="dossier-tab" data-view-btn="red" aria-selected="false">Red Team</button>
+            <button type="button" class="dossier-tab" data-view-btn="blue" aria-selected="false">Blue Team</button>
+          </div>
+
+          <div class="dossier-view" data-view-panel="overview">
+            <p class="dossier-body" data-show="grc">
+              Research project modelling a cyber-physical threat: data-injection attacks
+              against Formula 1 telemetry systems. Frames the risk in terms recognisable
+              to a GRC audience — attack surface, integrity impact, and the controls that
+              would catch or contain it.
+            </p>
+            <p class="dossier-body" data-show="technical">
+              A cyber-physical threat model built around data-injection attacks on
+              real-time telemetry pipelines, using Formula 1 as the case study. Covers
+              attack-surface analysis and the integrity failures that data injection
+              produces downstream.
+            </p>
+          </div>
+          <div class="dossier-view" data-view-panel="red" hidden>
+            <ul class="dossier-emphasis">
+              <li>Telemetry perturbation</li>
+              <li>Adversarial manipulation</li>
+              <li>Attack impact</li>
+            </ul>
+          </div>
+          <div class="dossier-view" data-view-panel="blue" hidden>
+            <ul class="dossier-emphasis">
+              <li>Noise-augmented training</li>
+              <li>Robustness</li>
+              <li>Defensive performance</li>
+              <li>Residual risk</li>
+            </ul>
+          </div>
+
+          <div class="attack-slider">
+            <label class="attack-slider-label" for="attack-range">Attack strength</label>
+            <div class="attack-slider-track">
+              <span>0%</span>
+              <input type="range" id="attack-range" min="0" max="1" step="1" value="0" aria-describedby="attack-readout">
+              <span>~2%</span>
+            </div>
+            <p class="attack-slider-readout" id="attack-readout" data-attack-readout>Baseline peak confidence: 17.3%. Headline accuracy: 99.4%.</p>
+            <p class="attack-slider-note">Documented project results, not a live model running in your browser. Attack &rarr; model response &rarr; defense &rarr; residual risk.</p>
+          </div>
 
           <div class="stack-tags dossier-stack">
             <span class="stack-tag">Python</span>
@@ -357,6 +450,7 @@
               <span>View on GitHub</span>
               <span class="arrow-btn" aria-hidden="true">→</span>
             </a>
+            <span class="live-badge"><span class="live-dot" aria-hidden="true"></span>LIVE</span>
           </div>
         </article>
       </div>
@@ -377,6 +471,10 @@
         background to build the tools those roles usually just ask for in a
         spreadsheet.
       </p>
+      <div class="exploring">
+        <p class="exploring-label">Currently exploring</p>
+        <p class="exploring-item" data-exploring aria-live="off">Quantitative cyber risk</p>
+      </div>
     </div>
   </section>
 
@@ -415,9 +513,17 @@
 </main>
 
 <footer class="site-footer">
-  <div class="wrap footer-row">
-    <span>Khadijah Khurum</span>
-    <span>Built and deployed by hand — no tracking, no analytics.</span>
+  <div class="wrap">
+    <p class="footer-readout">
+      SESSION COMPLETE<br>
+      GRC / RISK / SECURITY ENGINEERING<br>
+      PORTFOLIO / 2026<br>
+      STATUS: OPEN TO OPPORTUNITIES
+    </p>
+    <div class="footer-row">
+      <span>Khadijah Khurum</span>
+      <span>Built and deployed by hand — no tracking, no analytics.</span>
+    </div>
   </div>
 </footer>
 
