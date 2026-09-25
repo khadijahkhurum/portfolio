@@ -213,31 +213,47 @@
     }
   })();
 
-  // Project stack: explicit prev/next buttons, since the native scrollbar
-  // is hidden and drag/wheel alone leaves no visible affordance.
+  // Project stack: one dot per card, underneath the row — clearer on a
+  // laptop trackpad than small arrow buttons, and a familiar carousel
+  // pattern for "there's more, swipe/scroll". Click a dot to jump to that
+  // card; the active dot follows scroll position either way.
   (function () {
     var stack = document.querySelector(".project-stack");
-    var prevBtn = document.querySelector('[data-stack-scroll="prev"]');
-    var nextBtn = document.querySelector('[data-stack-scroll="next"]');
-    if (!stack || !prevBtn || !nextBtn) return;
+    var dotsWrap = document.querySelector(".stack-dots");
+    if (!stack || !dotsWrap) return;
 
-    function cardStep() {
-      var card = stack.querySelector(".dossier");
-      return card ? card.getBoundingClientRect().width + 20 : stack.clientWidth;
-    }
-    function updateButtons() {
-      var max = stack.scrollWidth - stack.clientWidth - 1;
-      prevBtn.disabled = stack.scrollLeft <= 0;
-      nextBtn.disabled = stack.scrollLeft >= max;
-    }
-    prevBtn.addEventListener("click", function () {
-      stack.scrollBy({ left: -cardStep(), behavior: "smooth" });
+    var cards = Array.prototype.slice.call(stack.querySelectorAll(".dossier"));
+    if (cards.length < 2) return; // nothing to page through yet
+
+    var dots = cards.map(function (card, i) {
+      var dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "stack-dot";
+      dot.setAttribute("aria-label", "Go to project " + (i + 1));
+      dot.addEventListener("click", function () {
+        stack.scrollTo({ left: card.offsetLeft, behavior: "smooth" });
+      });
+      dotsWrap.appendChild(dot);
+      return dot;
     });
-    nextBtn.addEventListener("click", function () {
-      stack.scrollBy({ left: cardStep(), behavior: "smooth" });
-    });
-    stack.addEventListener("scroll", updateButtons);
-    updateButtons();
+
+    function updateActive() {
+      var pos = stack.scrollLeft;
+      var closest = 0;
+      var closestDist = Infinity;
+      cards.forEach(function (card, i) {
+        var dist = Math.abs(card.offsetLeft - pos);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closest = i;
+        }
+      });
+      dots.forEach(function (dot, i) {
+        dot.classList.toggle("is-active", i === closest);
+      });
+    }
+    stack.addEventListener("scroll", updateActive);
+    updateActive();
   })();
 
   // Custom cursor: a small dot tracks the pointer exactly, a larger ring

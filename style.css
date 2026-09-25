@@ -788,14 +788,14 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   display: none;
 }
 .project-stack .dossier {
-  flex: 0 0 320px;
+  flex: 0 0 260px;
   scroll-snap-align: start;
 }
 .project-stack .dossier-thumb {
-  height: 120px;
+  height: 100px;
 }
 .project-stack .dossier-thumb-mark {
-  font-size: 2.6rem;
+  font-size: 2.1rem;
 }
 /* Signal there's more to scroll to without a raw OS scrollbar. */
 .projects .wrap {
@@ -816,34 +816,31 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   z-index: 1;
 }
 
-/* Explicit scroll controls — the hidden native scrollbar leaves no other
-   visible affordance that the row scrolls. */
-.projects-scroll-controls {
+/* Dot pagination below the row — the hidden native scrollbar leaves no
+   other visible affordance that it scrolls, and dots read clearer on a
+   laptop trackpad than small arrow buttons did. */
+.stack-dots {
   display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-  margin-bottom: 12px;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
 }
-.stack-arrow {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
+.stack-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
   border-radius: 50%;
-  border: 1px solid var(--line);
-  background: var(--surface);
-  color: var(--accent);
-  font-family: var(--font-mono);
-  font-size: 1rem;
+  border: none;
+  background: var(--line);
   cursor: pointer;
-  transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+  transition: background-color 0.3s var(--ease), transform 0.3s var(--ease);
 }
-.stack-arrow:hover {
-  border-color: var(--accent);
+.stack-dot:hover {
+  background: color-mix(in srgb, var(--accent) 60%, var(--line));
 }
-.stack-arrow:disabled {
-  opacity: 0.35;
-  cursor: default;
+.stack-dot.is-active {
+  background: var(--accent);
+  transform: scale(1.3);
 }
 
 .dossier {
