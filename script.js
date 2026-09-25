@@ -213,47 +213,84 @@
     }
   })();
 
-  // Project stack: one dot per card, underneath the row — clearer on a
-  // laptop trackpad than small arrow buttons, and a familiar carousel
-  // pattern for "there's more, swipe/scroll". Click a dot to jump to that
-  // card; the active dot follows scroll position either way.
+  // Project stack: cards overlap like a physical deck. The front card is
+  // fully readable; the rest peek behind it, offset and scaled down by
+  // position. Click a dot, or a peeking card itself, to bring it forward.
   (function () {
     var stack = document.querySelector(".project-stack");
     var dotsWrap = document.querySelector(".stack-dots");
     if (!stack || !dotsWrap) return;
 
     var cards = Array.prototype.slice.call(stack.querySelectorAll(".dossier"));
-    if (cards.length < 2) return; // nothing to page through yet
+    if (cards.length < 2) return; // nothing to stack yet
 
-    var dots = cards.map(function (card, i) {
+    var order = cards.map(function (_, i) {
+      return i;
+    }); // order[0] is the front card's index into `cards`
+
+    var dots = cards.map(function (_, i) {
       var dot = document.createElement("button");
       dot.type = "button";
       dot.className = "stack-dot";
-      dot.setAttribute("aria-label", "Go to project " + (i + 1));
+      dot.setAttribute("aria-label", "Bring project " + (i + 1) + " to front");
       dot.addEventListener("click", function () {
-        stack.scrollTo({ left: card.offsetLeft, behavior: "smooth" });
+        bringToFront(i);
       });
       dotsWrap.appendChild(dot);
       return dot;
     });
 
-    function updateActive() {
-      var pos = stack.scrollLeft;
-      var closest = 0;
-      var closestDist = Infinity;
-      cards.forEach(function (card, i) {
-        var dist = Math.abs(card.offsetLeft - pos);
-        if (dist < closestDist) {
-          closestDist = dist;
-          closest = i;
+    function setStackHeight() {
+      var tallest = Math.max.apply(
+        null,
+        cards.map(function (c) {
+          return c.offsetHeight;
+        })
+      );
+      stack.style.height = tallest + 16 + "px"; // + room for the back card's peek offset
+    }
+
+    function render() {
+      order.forEach(function (cardIndex, pos) {
+        var card = cards[cardIndex];
+        card.classList.toggle("is-front", pos === 0);
+        card.style.zIndex = cards.length - pos;
+        if (pos === 0) {
+          card.style.transform = "none";
+          card.style.opacity = "1";
+        } else if (pos === 1) {
+          card.style.transform = "translateY(16px) scale(0.96)";
+          card.style.opacity = "0.75";
+        } else {
+          // any further back stay hidden under the peek card rather than
+          // fanning out indefinitely
+          card.style.transform = "translateY(16px) scale(0.94)";
+          card.style.opacity = "0";
         }
       });
       dots.forEach(function (dot, i) {
-        dot.classList.toggle("is-active", i === closest);
+        dot.classList.toggle("is-active", order[0] === i);
       });
     }
-    stack.addEventListener("scroll", updateActive);
-    updateActive();
+
+    function bringToFront(cardIndex) {
+      order = [cardIndex].concat(
+        order.filter(function (i) {
+          return i !== cardIndex;
+        })
+      );
+      render();
+    }
+
+    cards.forEach(function (card, i) {
+      card.addEventListener("click", function () {
+        if (order[0] !== i) bringToFront(i);
+      });
+    });
+
+    setStackHeight();
+    render();
+    window.addEventListener("resize", setStackHeight);
   })();
 
   // Custom cursor: a small dot tracks the pointer exactly, a larger ring
