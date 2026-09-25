@@ -670,28 +670,18 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   border-top: 1px solid var(--line);
 }
 
-/* Per-project language/tool line — quiet metadata, not a row of buttons.
-   Plain text with middot separators instead of the pill treatment the
-   global frameworks/stack section uses, so it never competes with the
-   title, thesis or visual above it. */
+/* Per-project tech tabs — same pill identity as the global stack tags,
+   scaled down so they read as secondary metadata rather than buttons. */
 .dossier-stack {
-  padding: 0;
+  gap: 6px;
+  padding: 10px 0 0;
   margin-top: 10px;
-  padding-top: 10px;
-  gap: 0;
+  border-top: 1px solid var(--line);
 }
 .dossier-stack .stack-tag {
-  font-size: 0.68rem;
-  color: var(--text-muted);
-  background: none;
-  border: none;
-  padding: 0;
-  border-radius: 0;
-}
-.dossier-stack .stack-tag:not(:last-child)::after {
-  content: " \00b7 ";
-  color: var(--text-muted);
-  opacity: 0.6;
+  font-size: 0.66rem;
+  padding: 3px 9px;
+  border-width: 1px;
 }
 
 .stack-tags-grc {
