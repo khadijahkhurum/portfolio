@@ -1234,6 +1234,18 @@ a:focus-visible, button:focus-visible {
   .impact-stats { grid-template-columns: 1fr; }
   .site-header { position: static; }
   section[id] { scroll-margin-top: 0; }
+
+  /* Project stack: smaller card, and drop the nav buttons — swiping the
+     card itself is the natural gesture on touch. */
+  .dossier { padding: 20px; }
+  .project-stack .dossier-thumb {
+    height: 110px;
+    margin: -20px -20px 16px;
+  }
+  .project-stack .dossier-thumb-mark { font-size: 2.4rem; }
+  .dossier-title { font-size: 1.05rem; }
+  .dossier-body { font-size: 0.92rem; }
+  .stack-nav { display: none; }
 }
 
 @media (prefers-contrast: more) {
