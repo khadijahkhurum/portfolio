@@ -781,12 +781,33 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   gap: 20px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding-bottom: 8px;
-  margin-bottom: -8px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.project-stack::-webkit-scrollbar {
+  display: none;
 }
 .project-stack .dossier {
   flex: 0 0 420px;
   scroll-snap-align: start;
+}
+/* Signal there's more to scroll to without a raw OS scrollbar. */
+.projects .wrap {
+  position: relative;
+}
+.projects .wrap::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 48px;
+  background: linear-gradient(to right, transparent, var(--bg));
+  pointer-events: none;
+}
+.projects .section-heading {
+  position: relative;
+  z-index: 1;
 }
 
 .dossier {
