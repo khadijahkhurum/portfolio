@@ -783,6 +783,12 @@ body[data-mode="technical"] [data-show="grc"] { display: none; }
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  /* overflow-x:auto forces overflow-y into a scroll container too, which
+     was hard-clipping the hover glow's box-shadow at the card's top/bottom
+     edge. Pad the scroll area to give the shadow room, then pull that
+     padding back out so it doesn't add visible spacing. */
+  padding: 30px 2px;
+  margin: -30px -2px;
 }
 .project-stack::-webkit-scrollbar {
   display: none;
