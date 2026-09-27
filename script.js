@@ -70,11 +70,11 @@
       },
       { threshold: 0.15 }
     );
-    document.querySelectorAll("[data-reveal], .approach-item").forEach(function (el) {
+    document.querySelectorAll("[data-reveal]").forEach(function (el) {
       revealObserver.observe(el);
     });
   } else {
-    document.querySelectorAll("[data-reveal], .approach-item").forEach(function (el) {
+    document.querySelectorAll("[data-reveal]").forEach(function (el) {
       el.classList.add("is-visible");
     });
   }
@@ -174,9 +174,9 @@
         strip.className = "roll-strip";
         var inner = document.createElement("span");
         inner.className = "roll-strip-inner";
-        // Two full loops of 0-9 then land on the target digit.
+        // One full loop of 0-9 then land on the target digit.
         var sequence = [];
-        for (var loop = 0; loop < 2; loop++) {
+        for (var loop = 0; loop < 1; loop++) {
           for (var d = 0; d < 10; d++) sequence.push(d);
         }
         sequence.push(target);

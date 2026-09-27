@@ -58,6 +58,7 @@ a { color: var(--ivory); }
    Section markers / editorial statements (shared)
    ============================================================ */
 .section-marker {
+  position: relative;
   font-family: var(--font-sans);
   text-transform: uppercase;
   font-weight: 600;
@@ -65,6 +66,16 @@ a { color: var(--ivory); }
   letter-spacing: 0.08em;
   color: var(--lime);
   margin: 0 0 20px;
+  padding-left: 20px;
+}
+.section-marker::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 12px;
+  height: 1px;
+  background: var(--lime);
 }
 
 .editorial-statement {
@@ -250,6 +261,10 @@ section { padding: var(--gap-section) 0; border-top: 1px solid var(--graphite); 
 }
 .hero-scroll { color: var(--stone); text-decoration: none; transition: color 0.25s var(--ease); }
 .hero-scroll:hover { color: var(--ivory); }
+.hero-scroll span { color: var(--lime); }
+
+/* The accent as a recurring "signal": every inline CTA arrow picks it up. */
+a > span[aria-hidden="true"] { color: var(--lime); }
 
 .hero-support { color: var(--stone); font-size: 1rem; line-height: 1.6; max-width: 38ch; margin: 0 0 40px; }
 
@@ -396,15 +411,23 @@ section { padding: var(--gap-section) 0; border-top: 1px solid var(--graphite); 
 }
 .case-pills span {
   font-family: var(--font-sans);
-  font-size: 0.66rem;
-  letter-spacing: 0.03em;
-  color: var(--stone);
-  border: 1px solid var(--graphite);
-  border-radius: 999px;
-  padding: 3px 10px;
-  transition: border-color 0.25s var(--ease), color 0.25s var(--ease);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.64rem;
+  letter-spacing: 0.05em;
+  color: var(--lime);
+  background: rgba(214, 255, 63, 0.06);
+  border: 1px solid rgba(214, 255, 63, 0.35);
+  border-radius: 3px;
+  padding: 5px 10px;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.2s var(--ease);
 }
-.case-pills span:hover { border-color: var(--lime); color: var(--ivory); }
+.case-pills span:hover {
+  background: var(--lime);
+  border-color: var(--lime);
+  color: var(--obsidian);
+  transform: translateY(-1px);
+}
 
 .case-links { display: flex; flex-wrap: wrap; gap: 22px; }
 .case-link {
@@ -428,7 +451,7 @@ section { padding: var(--gap-section) 0; border-top: 1px solid var(--graphite); 
   transition: transform 0.3s var(--ease);
 }
 .case-link:hover::after { transform: scaleX(1); }
-.case-link span { display: inline-block; transition: transform 0.25s var(--ease); }
+.case-link span { display: inline-block; color: var(--lime); transition: transform 0.25s var(--ease); }
 .case-link:hover span { transform: translateX(3px); }
 
 .case-visual {
@@ -593,16 +616,16 @@ button.flow-node:not(.flow-node-red):not(.flow-node-blue):not(.flow-node-residua
   background: var(--lime);
   transition: width 0.4s var(--ease), background 0.4s var(--ease);
 }
-.impact-item:hover::after { width: 100%; background: var(--magenta); }
+.impact-item:hover::after { width: 100%; }
 .impact-number {
   font-family: var(--font-serif);
   font-size: clamp(2.4rem, 5vw, 3.4rem);
   color: var(--lime);
   margin: 0 0 10px;
   display: inline-block;
-  transition: transform 0.35s var(--ease), color 0.35s var(--ease);
+  transition: transform 0.35s var(--ease);
 }
-.impact-item:hover .impact-number { transform: scale(1.08); color: var(--magenta); }
+.impact-item:hover .impact-number { transform: scale(1.08); }
 .impact-caption { font-size: 0.82rem; color: var(--stone); line-height: 1.5; margin: 0 0 10px; max-width: 22ch; }
 .impact-tag {
   display: inline-block;
@@ -619,60 +642,139 @@ button.flow-node:not(.flow-node-red):not(.flow-node-blue):not(.flow-node-residua
 .impact-item:hover .impact-tag { opacity: 1; transform: translateY(0); }
 
 /* ============================================================
-   05 / Approach
+   04 / Approach — 5-stage methodology
    ============================================================ */
-.approach-list { display: flex; flex-direction: column; gap: 8px; }
-.approach-item {
-  font-family: var(--font-serif);
-  font-size: clamp(1.8rem, 5vw, 3.4rem);
-  line-height: 1.15;
-  color: var(--ash);
-  margin: 0;
-  transition: color 0.5s var(--ease);
-  display: flex;
-  gap: 24px;
-  align-items: baseline;
+.method-flow {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 60px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
 }
-.approach-item.is-visible { color: var(--ivory); }
-.approach-item.is-visible .approach-num { color: var(--lime); }
-.approach-num {
+.method-stage {
+  position: relative;
+  padding: 24px 20px 0 0;
+  border-top: 1px solid var(--graphite);
+  transition: border-color 0.3s var(--ease);
+}
+.method-stage::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--lime);
+  transition: width 0.4s var(--ease);
+}
+.method-stage:hover::before,
+.method-stage:focus-within::before { width: 100%; }
+.method-num {
   font-family: var(--font-sans);
   font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--graphite);
-  flex-shrink: 0;
-  transition: color 0.5s var(--ease);
+  font-size: 0.78rem;
+  color: var(--ash);
+  margin: 0 0 10px;
+  transition: color 0.3s var(--ease);
 }
+.method-stage:hover .method-num,
+.method-stage:focus-within .method-num { color: var(--lime); }
+.method-name {
+  font-family: var(--font-serif);
+  font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+  margin: 0 0 10px;
+  color: var(--ivory);
+}
+.method-desc { font-size: 0.82rem; color: var(--stone); line-height: 1.5; margin: 0 0 10px; max-width: 24ch; }
+.method-link {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
+  color: var(--ash);
+  margin: 0;
+}
+
+.method-loop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding-top: 32px;
+  border-top: 1px solid var(--graphite);
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  color: var(--stone);
+}
+.method-loop span::after {
+  content: "\2192";
+  margin-left: 10px;
+  color: var(--lime);
+}
+.method-loop span:last-child::after { content: ""; margin: 0; }
+.method-loop-end { color: var(--lime); }
 
 /* ============================================================
    Frameworks
    ============================================================ */
-.framework-list { list-style: none; padding: 0; margin: 0; }
-.framework-row {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--graphite);
+.framework-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--graphite);
+  border-left: 1px solid var(--graphite);
 }
-.framework-name { font-family: var(--font-sans); font-weight: 600; font-size: 1.05rem; }
+.framework-cell {
+  position: relative;
+  padding: 24px 20px;
+  border-right: 1px solid var(--graphite);
+  border-bottom: 1px solid var(--graphite);
+  transition: background 0.25s var(--ease);
+}
+.framework-cell::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--lime);
+  transition: width 0.3s var(--ease);
+}
+.framework-cell:hover,
+.framework-cell:focus-within { background: var(--graphite); }
+.framework-cell:hover::before,
+.framework-cell:focus-within::before { width: 100%; }
+.framework-name {
+  display: block;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
 .framework-detail {
+  display: block;
   font-family: var(--font-sans);
   text-transform: uppercase;
   font-weight: 600;
-  font-size: 0.72rem;
+  font-size: 0.66rem;
   letter-spacing: 0.03em;
   color: var(--lime);
-  text-align: right;
+  margin-top: 8px;
   opacity: 0;
   transform: translateY(4px);
   transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
 }
-.framework-row:hover .framework-detail,
-.framework-row:focus-within .framework-detail { opacity: 1; transform: translateY(0); }
-.framework-row:hover .framework-name,
-.framework-row:focus-within .framework-name { color: var(--lime); transition: color 0.25s var(--ease); }
+.framework-cell:hover .framework-detail,
+.framework-cell:focus-within .framework-detail { opacity: 1; transform: translateY(0); }
+.framework-cell:hover .framework-name,
+.framework-cell:focus-within .framework-name { color: var(--lime); transition: color 0.25s var(--ease); }
 
 /* ============================================================
    Tech stack
@@ -709,18 +811,29 @@ button.flow-node:not(.flow-node-red):not(.flow-node-blue):not(.flow-node-residua
 .stack-tech { font-size: 0.92rem; color: var(--stone); text-align: right; }
 
 /* ============================================================
-   Currently exploring
+   Currently exploring — slim status strip
    ============================================================ */
-.exploring-list { list-style: none; padding: 0; margin: 0 0 24px; }
+.exploring { padding: 48px 0; }
+.exploring-label {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  color: var(--lime);
+  margin: 0 0 14px;
+}
+.exploring-list { list-style: none; padding: 0; margin: 0; }
 .exploring-row {
-  padding: 20px 0;
+  padding: 12px 0;
   border-bottom: 1px solid var(--graphite);
   cursor: default;
 }
 .exploring-name {
   display: block;
-  font-family: var(--font-serif);
-  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.95rem;
   color: var(--ivory);
   transition: color 0.3s var(--ease), transform 0.3s var(--ease);
 }
@@ -977,7 +1090,7 @@ button.flow-node:not(.flow-node-red):not(.flow-node-blue):not(.flow-node-residua
 }
 .roll-strip-inner {
   display: block;
-  transition: transform 1.05s var(--ease);
+  transition: transform 0.55s var(--ease);
 }
 .roll-strip-inner span { display: block; height: 1em; line-height: 1; }
 
@@ -1000,6 +1113,10 @@ button.flow-node:not(.flow-node-red):not(.flow-node-blue):not(.flow-node-residua
   .impact-row { grid-template-columns: repeat(2, 1fr); gap: 28px; }
   .case { padding: 60px 0; }
   .nav-links { gap: 18px; }
+  .method-flow { grid-template-columns: 1fr; gap: 28px; }
+  .method-stage { padding: 20px 0 0; border-top: 1px solid var(--graphite); }
+  .method-desc { max-width: none; }
+  .framework-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 560px) {
