@@ -21,9 +21,9 @@
       KHADIJAH KHURUM
     </a>
     <nav class="nav-links" aria-label="Primary">
-      <a href="#work">Work</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+      <a href="#work">Work<span class="nav-link-dot" aria-hidden="true"></span></a>
+      <a href="#about">About<span class="nav-link-dot" aria-hidden="true"></span></a>
+      <a href="#contact">Contact<span class="nav-link-dot" aria-hidden="true"></span></a>
     </nav>
   </div>
 </header>
@@ -75,7 +75,7 @@
   <section class="profile" id="profile" aria-label="Profile">
     <div class="wrap" data-reveal>
       <p class="section-marker">02 / PROFILE</p>
-      <h2 class="editorial-statement">Cybersecurity,<br>but I like to<br><em>build</em> things.</h2>
+      <h2 class="editorial-statement" data-scroll-shift>Cybersecurity,<br>but I like to<br><em>build</em> things.</h2>
       <p class="profile-body">
         I work across governance, risk and security engineering — translating
         frameworks and risk requirements into systems that can actually be
@@ -131,7 +131,7 @@
         <div class="wrap case-grid">
           <div class="case-copy">
             <p class="case-meta">
-              01<br>
+              <span class="case-number">01</span><br>
               GRC Engineering<br>
               Quantitative Risk
             </p>
@@ -156,8 +156,9 @@
 
           <div class="case-visual" data-parallax>
             <div class="case-visual-inner">
-              <p class="case-visual-tag">FAIR &middot; Monte Carlo &middot; 4,000 trials &middot; NIST / ISO</p>
-              <div class="pipeline" data-pipeline>
+              <p class="case-visual-tag">FAIR &middot; Monte Carlo &middot; <span data-reveal-number>4,000 trials</span> &middot; NIST / ISO</p>
+              <div class="pipeline" data-pipeline data-cursor="explore">
+                <span class="pipeline-track" aria-hidden="true"><span class="pipeline-progress"></span></span>
                 <button type="button" class="pipeline-node" data-stage-btn="inputs" aria-expanded="true">Inputs</button>
                 <span class="pipeline-rule" aria-hidden="true"></span>
                 <button type="button" class="pipeline-node" data-stage-btn="simulation">Simulation</button>
@@ -183,15 +184,15 @@
               <p class="case-visual-tag">Real result &middot; adversarial-training notebook</p>
 
               <div class="flow" data-flow>
-                <button type="button" class="flow-node" data-flow-node="red">Red Team</button>
+                <button type="button" class="flow-node flow-node-red" data-flow-node="red" data-cursor="explore">Red Team</button>
                 <span class="flow-rule" aria-hidden="true"></span>
                 <span class="flow-node flow-node-static">Data Injection</span>
                 <span class="flow-rule" aria-hidden="true"></span>
                 <span class="flow-node flow-node-static">Model</span>
                 <span class="flow-rule" aria-hidden="true"></span>
-                <button type="button" class="flow-node" data-flow-node="blue">Blue Team</button>
+                <button type="button" class="flow-node flow-node-blue" data-flow-node="blue" data-cursor="explore">Blue Team</button>
                 <span class="flow-rule" aria-hidden="true"></span>
-                <button type="button" class="flow-node" data-flow-node="residual">Residual Risk</button>
+                <button type="button" class="flow-node flow-node-residual" data-flow-node="residual" data-cursor="explore">Residual Risk</button>
               </div>
 
               <svg viewBox="0 0 300 60" class="telemetry-svg" data-telemetry aria-hidden="true">
@@ -202,9 +203,9 @@
               <p class="flow-detail" data-flow-detail="residual" hidden>Residual risk &middot; noise returns, reduced</p>
 
               <div class="finding">
-                <p class="finding-number">17.3% &rarr; 9.75%</p>
+                <p class="finding-number" data-roll>17.3% &rarr; 9.75%</p>
                 <p class="finding-caption">Confidence under &plusmn;2% perturbation</p>
-                <p class="finding-number finding-number-small">99.4%</p>
+                <p class="finding-number finding-number-small" data-roll>99.4%</p>
                 <p class="finding-caption">Headline accuracy</p>
               </div>
             </div>
@@ -212,7 +213,7 @@
 
           <div class="case-copy">
             <p class="case-meta">
-              02<br>
+              <span class="case-number">02</span><br>
               Security Research<br>
               Cyber-Physical Systems / Adversarial ML
             </p>
@@ -233,6 +234,9 @@
                 <input type="range" id="attack-range" min="0" max="1" step="1" value="0" aria-describedby="attack-readout">
                 <span>~2%</span>
               </div>
+              <svg viewBox="0 0 300 28" class="attack-signal" data-attack-signal aria-hidden="true">
+                <polyline class="attack-signal-line" points="0,14 300,14"></polyline>
+              </svg>
               <p class="attack-slider-readout" id="attack-readout" data-attack-readout>Baseline peak confidence: 17.3%.</p>
               <p class="attack-slider-note">Documented project results — not a live model running in your browser.</p>
             </div>
@@ -260,20 +264,24 @@
       <p class="section-marker">04 / IMPACT</p>
       <div class="impact-row">
         <div class="impact-item">
-          <p class="impact-number">25%</p>
+          <p class="impact-number" data-roll>25%</p>
           <p class="impact-caption">Improvement in overall system resilience following intern-led risk-mitigation recommendations</p>
+          <span class="impact-tag">Risk mitigation</span>
         </div>
         <div class="impact-item">
-          <p class="impact-number">20+</p>
+          <p class="impact-number" data-roll>20+</p>
           <p class="impact-caption">Security weaknesses identified and documented across enterprise IT systems</p>
+          <span class="impact-tag">Enterprise IT</span>
         </div>
         <div class="impact-item">
-          <p class="impact-number">10+</p>
+          <p class="impact-number" data-roll>10+</p>
           <p class="impact-caption">Client environments evaluated against NIST CSF and ISO 27001 controls</p>
+          <span class="impact-tag">NIST &middot; ISO</span>
         </div>
         <div class="impact-item">
-          <p class="impact-number">50+</p>
+          <p class="impact-number" data-roll>50+</p>
           <p class="impact-caption">Staff and visitors supported under live network operations at a high-traffic event</p>
+          <span class="impact-tag">Live operations</span>
         </div>
       </div>
     </div>
@@ -300,27 +308,27 @@
     <div class="wrap" data-reveal>
       <h2 class="editorial-statement editorial-statement-sm">Frameworks<br>I work with.</h2>
       <ul class="framework-list">
-        <li class="framework-row">
+        <li class="framework-row" data-cursor="explore">
           <span class="framework-name">NIST CSF 2.0</span>
           <span class="framework-detail">Identify &middot; Protect &middot; Detect &middot; Respond &middot; Recover &middot; Govern</span>
         </li>
-        <li class="framework-row">
+        <li class="framework-row" data-cursor="explore">
           <span class="framework-name">ISO/IEC 27001:2022</span>
-          <span class="framework-detail">Information security management and control framework</span>
+          <span class="framework-detail">Control &middot; Management &middot; Risk &middot; Assurance</span>
         </li>
-        <li class="framework-row">
+        <li class="framework-row" data-cursor="explore">
           <span class="framework-name">FAIR</span>
-          <span class="framework-detail">Quantitative cyber-risk analysis</span>
+          <span class="framework-detail">Threat &middot; Frequency &middot; Loss &middot; Exposure</span>
         </li>
-        <li class="framework-row">
+        <li class="framework-row" data-cursor="explore">
           <span class="framework-name">SOC 2</span>
           <span class="framework-detail">Trust services criteria mapping</span>
         </li>
-        <li class="framework-row">
+        <li class="framework-row" data-cursor="explore">
           <span class="framework-name">PCI DSS v4.0</span>
           <span class="framework-detail">Payment security controls</span>
         </li>
-        <li class="framework-row">
+        <li class="framework-row" data-cursor="explore">
           <span class="framework-name">EU AI Act</span>
           <span class="framework-detail">AI governance &middot; risk classification</span>
         </li>
@@ -344,7 +352,20 @@
   <section class="exploring" aria-label="Currently exploring">
     <div class="wrap" data-reveal>
       <h2 class="editorial-statement editorial-statement-sm">Currently<br>exploring.</h2>
-      <p class="exploring-item" data-exploring>Quantitative cyber risk</p>
+      <ul class="exploring-list">
+        <li class="exploring-row" data-cursor="explore">
+          <span class="exploring-name">Quantitative Cyber Risk</span>
+          <span class="exploring-detail">FAIR &middot; Monte Carlo &middot; Risk modelling</span>
+        </li>
+        <li class="exploring-row" data-cursor="explore">
+          <span class="exploring-name">Compliance Engineering</span>
+          <span class="exploring-detail">NIST CSF &middot; ISO 27001 &middot; Controls-as-code</span>
+        </li>
+        <li class="exploring-row" data-cursor="explore">
+          <span class="exploring-name">Security Automation</span>
+          <span class="exploring-detail">Python &middot; Pipelines &middot; Tooling</span>
+        </li>
+      </ul>
       <p class="exploring-tag">Always building something slightly outside my current comfort zone.</p>
     </div>
   </section>
@@ -413,7 +434,8 @@
 
 </main>
 
-<footer class="site-footer">
+<footer class="site-footer" data-footer-reveal>
+  <span class="footer-accent" aria-hidden="true"></span>
   <div class="wrap footer-row">
     <button type="button" class="footer-mark" id="footer-mark" aria-label="Built by Khadijah Khurum">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

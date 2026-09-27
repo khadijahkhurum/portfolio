@@ -102,36 +102,133 @@
   })();
 
   // Pit Wall attack-strength slider: two documented data points, not a live model.
+  // The track's signal line just gets visually noisier at the higher setting —
+  // an illustrative representation of the two documented points, nothing live.
   (function () {
     var range = document.getElementById("attack-range");
     var readout = document.querySelector("[data-attack-readout]");
+    var signal = document.querySelector("[data-attack-signal]");
+    var line = signal && signal.querySelector(".attack-signal-line");
+    var slider = document.querySelector(".attack-slider");
     if (!range || !readout) return;
-    range.addEventListener("input", function () {
-      readout.textContent =
-        range.value === "1"
-          ? "At ~2% perturbation: 9.75% peak confidence (down from 17.3% baseline)."
-          : "Baseline peak confidence: 17.3%.";
-    });
+    function calmPoints() {
+      var pts = [];
+      for (var x = 0; x <= 300; x += 20) pts.push(x + "," + (14 + Math.sin(x / 40) * 2));
+      return pts.join(" ");
+    }
+    function noisyPoints() {
+      var pts = [];
+      for (var x = 0; x <= 300; x += 10) pts.push(x + "," + (14 + (Math.sin(x / 12) * 8 + Math.sin(x / 3) * 3)));
+      return pts.join(" ");
+    }
+    function update() {
+      var armed = range.value === "1";
+      readout.textContent = armed
+        ? "At ~2% perturbation: 9.75% peak confidence (down from 17.3% baseline)."
+        : "Baseline peak confidence: 17.3%.";
+      if (slider) slider.toggleAttribute("data-armed", armed);
+      if (line) line.setAttribute("points", armed ? noisyPoints() : calmPoints());
+    }
+    range.addEventListener("input", update);
+    update();
   })();
 
-  // "Currently exploring" — rotates through topics; text-only swap under reduced motion.
-  (function () {
-    var el = document.querySelector("[data-exploring]");
-    if (!el) return;
-    var topics = ["Quantitative cyber risk", "Compliance engineering", "Security automation"];
-    var i = 0;
-    setInterval(function () {
-      i = (i + 1) % topics.length;
-      if (reduceMotion) {
-        el.textContent = topics[i];
-        return;
+  // Digit-rolling numbers: each digit character gets its own vertical strip
+  // that lands on the target after a couple of loops. Non-digit characters
+  // (%, ., commas, →, spaces) pass through as static text. Fires once per
+  // element on scroll-into-view; skipped entirely under reduced motion.
+  function rollNumber(el) {
+    var text = el.textContent;
+    el.textContent = "";
+    text.split("").forEach(function (ch) {
+      if (/[0-9]/.test(ch)) {
+        var target = parseInt(ch, 10);
+        var strip = document.createElement("span");
+        strip.className = "roll-strip";
+        var inner = document.createElement("span");
+        inner.className = "roll-strip-inner";
+        // Two full loops of 0-9 then land on the target digit.
+        var sequence = [];
+        for (var loop = 0; loop < 2; loop++) {
+          for (var d = 0; d < 10; d++) sequence.push(d);
+        }
+        sequence.push(target);
+        sequence.forEach(function (d) {
+          var row = document.createElement("span");
+          row.textContent = String(d);
+          inner.appendChild(row);
+        });
+        strip.appendChild(inner);
+        el.appendChild(strip);
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            inner.style.transform = "translateY(-" + (sequence.length - 1) + "em)";
+          });
+        });
+      } else {
+        el.appendChild(document.createTextNode(ch));
       }
-      el.style.opacity = 0;
-      setTimeout(function () {
-        el.textContent = topics[i];
-        el.style.opacity = 1;
-      }, 350);
-    }, 3400);
+    });
+  }
+  (function () {
+    var els = document.querySelectorAll("[data-roll]");
+    if (!els.length) return;
+    if (reduceMotion || !("IntersectionObserver" in window)) return;
+    var rollObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            rollNumber(entry.target);
+            rollObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.6 }
+    );
+    els.forEach(function (el) { rollObserver.observe(el); });
+  })();
+
+  // "Currently exploring" items reveal their sub-terms on hover/focus via
+  // CSS alone; nothing to wire up here.
+
+  // Footer: a one-time traveling accent line the first time it scrolls in.
+  (function () {
+    var footer = document.querySelector("[data-footer-reveal]");
+    if (!footer || !("IntersectionObserver" in window)) return;
+    var footerObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            footer.classList.add("is-visible");
+            footerObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    footerObserver.observe(footer);
+  })();
+
+  // Profile section's big statement: subtle scroll-tied typographic shift
+  // (max ~12px) as the section passes through view. rAF-throttled.
+  (function () {
+    var el = document.querySelector("[data-scroll-shift]");
+    if (!el || reduceMotion) return;
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var r = el.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var progress = 1 - Math.min(Math.max((r.top + r.height / 2) / (vh + r.height), 0), 1);
+      el.style.transform = "translateY(" + (12 - progress * 12) + "px)";
+    }
+    window.addEventListener("scroll", function () {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }, { passive: true });
+    update();
   })();
 
   // Footer signature mark: click toggles the "Built by Khadijah" reveal too,
@@ -146,6 +243,32 @@
       reveal.style.transform = showing ? "" : "translateX(-50%) translateY(-6px)";
     });
   })();
+
+  // Hero: a living, mouse-reactive node network (max ~4px) and KHURUM
+  // drifting slightly relative to KHADIJAH. Desktop, fine-pointer only.
+  if (finePointer && !reduceMotion) {
+    var hero = document.querySelector(".hero");
+    var nodes = document.querySelectorAll(".hd-node");
+    var serif = document.querySelector(".hero-name-serif");
+    if (hero && (nodes.length || serif)) {
+      hero.addEventListener("mousemove", function (e) {
+        var r = hero.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width - 0.5;
+        var py = (e.clientY - r.top) / r.height - 0.5;
+        nodes.forEach(function (node, i) {
+          var mult = 1 + (i % 3) * 0.4;
+          node.style.transform = "translate(" + (px * 4 * mult) + "px, " + (py * 3 * mult) + "px)";
+        });
+        if (serif) {
+          serif.style.transform = "translate(" + (px * 3) + "px, " + (py * 2) + "px)";
+        }
+      });
+      hero.addEventListener("mouseleave", function () {
+        nodes.forEach(function (node) { node.style.transform = "translate(0, 0)"; });
+        if (serif) serif.style.transform = "translate(0, 0)";
+      });
+    }
+  }
 
   // Pointer parallax on project visuals — max 4px horizontal, 3px vertical.
   // Desktop, fine-pointer only; skipped entirely under reduced motion.
@@ -199,6 +322,16 @@
     document.querySelectorAll(".case-visual").forEach(function (el) {
       el.addEventListener("mouseenter", function () { ring.classList.add("is-view"); });
       el.addEventListener("mouseleave", function () { ring.classList.remove("is-view"); });
+    });
+    document.querySelectorAll('[data-cursor="explore"]').forEach(function (el) {
+      el.addEventListener("mouseenter", function () {
+        ringLabel.textContent = "EXPLORE";
+        ring.classList.add("is-explore");
+      });
+      el.addEventListener("mouseleave", function () {
+        ringLabel.textContent = "View →";
+        ring.classList.remove("is-explore");
+      });
     });
   }
 
