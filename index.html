@@ -382,9 +382,20 @@
           <h3 class="dossier-title">Adversarial Telemetry Manipulation in F1</h3>
           <p class="dossier-thesis">What happens when a telemetry feed lies to you.</p>
 
-          <div class="dossier-thumb dossier-thumb-alt">
-            <span class="dossier-thumb-mark" aria-hidden="true">F1</span>
-            <div class="dossier-thumb-overlay" aria-hidden="true">RED&nbsp;TEAM&nbsp;→&nbsp;BLUE&nbsp;TEAM</div>
+          <div class="dossier-thumb dossier-chart">
+            <svg viewBox="0 0 300 140" class="robustness-svg" role="img" aria-label="Real result from the project notebook: F1-score drops from 0.118 to 0 as attack strength (epsilon) rises from 0.01 to 0.02">
+              <line x1="30" y1="10" x2="30" y2="120" class="rc-axis" />
+              <line x1="30" y1="120" x2="280" y2="120" class="rc-axis" />
+              <polyline points="30,28 80,12 130,120 280,120" class="rc-line" />
+              <circle cx="30" cy="28" r="3.5" class="rc-dot" />
+              <circle cx="80" cy="12" r="3.5" class="rc-dot" />
+              <circle cx="130" cy="120" r="3.5" class="rc-dot" />
+              <circle cx="280" cy="120" r="3.5" class="rc-dot" />
+              <text x="8" y="16" class="rc-label">F1</text>
+              <text x="30" y="136" class="rc-label">0</text>
+              <text x="280" y="136" class="rc-label" text-anchor="end">&epsilon; 0.05</text>
+            </svg>
+            <p class="dossier-chart-caption">F1-score vs attack strength — real notebook result &middot; RED TEAM &rarr; BLUE TEAM</p>
           </div>
 
           <div class="dossier-tabs" role="tablist" aria-label="Pit Wall Adversary detail view">
@@ -439,6 +450,7 @@
             <span class="stack-tag">scikit-learn</span>
             <span class="stack-tag">NumPy</span>
             <span class="stack-tag">pandas</span>
+            <span class="stack-tag">FastF1</span>
           </div>
 
           <div class="dossier-links">
