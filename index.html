@@ -1,503 +1,392 @@
 <!DOCTYPE html>
-<html lang="en" data-mode="grc">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Khadijah Khurum — GRC &amp; Security Engineering</title>
-<meta name="description" content="Khadijah Khurum: GRC and security engineering portfolio. Compliance-as-code, quantitative risk, and cyber-physical threat research.">
+<title>Khadijah Khurum — Cybersecurity, GRC &amp; Security Engineering</title>
+<meta name="description" content="Khadijah Khurum: GRC and security engineering portfolio. Quantitative cyber risk, compliance engineering, and cyber-physical threat research.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-<body data-mode="grc">
+<body>
 
 <a class="skip-link" href="#top">Skip to content</a>
 
-<div class="scroll-progress" aria-hidden="true"><div class="scroll-progress-fill" data-scroll-fill></div></div>
-
-<header class="site-header">
-  <div class="wrap header-row">
-    <a class="wordmark" href="#top">
-      <svg class="spark" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M12 0c0 6.627 5.373 12 12 12-6.627 0-12 5.373-12 12 0-6.627-5.373-12-12-12C6.627 12 12 6.627 12 0z"/>
-      </svg>
-      <span class="wordmark-name">Khadijah Khurum</span>
-      <span class="wordmark-tag" data-show="grc">GRC &amp; Compliance Engineering</span>
-      <span class="wordmark-tag" data-show="technical">Security &amp; Risk Engineering</span>
+<header class="site-nav" id="site-nav">
+  <div class="wrap nav-row">
+    <a class="nav-name" href="#top">
+      <span class="nav-dot" aria-hidden="true"></span>
+      KHADIJAH KHURUM
     </a>
-
-    <div class="mode-switch" role="group" aria-label="Portfolio view">
-      <button type="button" class="mode-btn" data-mode-btn="grc" aria-pressed="true">GRC view</button>
-      <button type="button" class="mode-btn" data-mode-btn="technical" aria-pressed="false">Technical view</button>
-    </div>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </div>
 </header>
-<p class="visually-hidden" role="status" aria-live="polite" id="mode-announce"></p>
 
 <main id="top">
 
-  <section class="hero">
-    <button type="button" class="spark-trigger" id="spark-trigger" aria-expanded="false" aria-controls="spark-panel" aria-label="System info">
-      <svg class="hero-spark" width="120" height="120" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M12 0c0 6.627 5.373 12 12 12-6.627 0-12 5.373-12 12 0-6.627-5.373-12-12-12C6.627 12 12 6.627 12 0z"/>
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="hero" id="hero">
+    <div class="hero-lines" aria-hidden="true">
+      <svg viewBox="0 0 800 600" preserveAspectRatio="none" class="hero-diagram">
+        <line x1="40" y1="480" x2="760" y2="480" class="hd-line" />
+        <line x1="120" y1="40" x2="120" y2="480" class="hd-line" />
+        <line x1="480" y1="120" x2="760" y2="400" class="hd-line" />
+        <circle cx="120" cy="120" r="3" class="hd-node" />
+        <circle cx="480" cy="120" r="3" class="hd-node" />
+        <circle cx="760" cy="400" r="3" class="hd-node" />
+        <circle cx="120" cy="480" r="3" class="hd-node" />
       </svg>
-    </button>
-    <div class="spark-panel" id="spark-panel" hidden>
-      <p class="spark-panel-line">SYSTEM / 2026</p>
-      <p class="spark-panel-line spark-panel-sub">GRC &middot; RISK &middot; SECURITY ENGINEERING</p>
-      <p class="spark-panel-line"><span data-stat-count=".dossier">0</span> PROJECTS</p>
-      <p class="spark-panel-line"><span data-stat-count="[data-show='grc'] .register-row">0</span> FRAMEWORKS</p>
-      <p class="spark-panel-line"><span data-stat-count="[data-show='technical'] .register-row">0</span> STACK ENTRIES</p>
     </div>
-    <div class="wrap">
-      <p class="hero-eyebrow" data-show="grc">Portfolio &mdash; 2026</p>
-      <p class="hero-eyebrow" data-show="technical">System: GRC + Security Engineering</p>
 
-      <h1 class="hero-line" data-show="grc">
-        <span class="hl-dim">I map controls to standards,</span> then build the software that keeps them true.
-      </h1>
-      <h1 class="hero-line" data-show="technical">
-        <span class="hl-dim">I build the systems that turn compliance</span> from a spreadsheet into a running service<span class="cursor" aria-hidden="true"></span>
+    <div class="wrap hero-content">
+      <p class="hero-eyebrow" data-reveal-text>01 / CYBERSECURITY &middot; GRC &middot; SECURITY ENGINEERING</p>
+
+      <h1 class="hero-name">
+        <span class="hero-name-sans" data-reveal-text>KHADIJAH</span>
+        <span class="hero-name-serif" data-reveal-text>KHURUM</span>
       </h1>
 
-      <p class="hero-sub" data-show="grc">
-        Cybersecurity graduate working across NIST CSF 2.0, ISO 27001:2022 and quantitative
-        risk analysis — with the engineering background to ship the tooling, not just the
-        documentation.
+      <p class="hero-statement" data-reveal-text>I build the systems<br>behind secure decisions.</p>
+
+      <ul class="hero-meta">
+        <li>GRC</li>
+        <li>Quantitative Risk</li>
+        <li>Security Research</li>
+      </ul>
+
+      <div class="hero-foot">
+        <a class="hero-scroll" href="#profile">Scroll to explore <span aria-hidden="true">&darr;</span></a>
+        <span class="hero-place">UAE / 2026</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       02 / PROFILE
+       ============================================================ -->
+  <section class="profile" id="profile" aria-label="Profile">
+    <div class="wrap" data-reveal>
+      <p class="section-marker">02 / PROFILE</p>
+      <h2 class="editorial-statement">Cybersecurity,<br>but I like to<br><em>build</em> things.</h2>
+      <p class="profile-body">
+        I work across governance, risk and security engineering — translating
+        frameworks and risk requirements into systems that can actually be
+        used, measured and improved.
       </p>
-      <p class="hero-sub" data-show="technical">
-        Cybersecurity graduate who builds risk-quantification platforms, compliance-as-code
-        mappings, and threat models for cyber-physical systems — grounded in the standards
-        that software has to satisfy.
-      </p>
+      <ul class="profile-list">
+        <li>GRC</li>
+        <li>Cyber Risk</li>
+        <li>Compliance Engineering</li>
+        <li>Security Research</li>
+      </ul>
+    </div>
+  </section>
 
-      <div class="stat-line" data-show="technical" aria-hidden="true">
-        <span><span class="stat-num" data-stat-count=".dossier">0</span> shipped projects</span>
-        <span class="stat-dot">·</span>
-        <span><span class="stat-num" data-stat-count="[data-show='technical'] .register-row">0</span> stack entries</span>
-        <span class="stat-dot">·</span>
-        <span><span class="stat-num" data-stat-count="[data-show='grc'] .register-row">0</span> frameworks mapped</span>
+  <!-- ============================================================
+       HUMAN MOMENT
+       ============================================================ -->
+  <section class="human" aria-label="About the person behind the work">
+    <div class="wrap human-grid" data-reveal>
+      <div class="human-portrait" data-parallax>
+        <div class="portrait-frame">
+          <span class="portrait-mark" aria-hidden="true">KK</span>
+          <p class="portrait-note">Photograph — to be added</p>
+        </div>
       </div>
-
-      <div class="hero-links">
-        <a href="#projects">See the work</a>
-        <span class="hero-links-sep">/</span>
-        <a href="#contact">Get in touch</a>
+      <div class="human-copy">
+        <p class="human-statement">
+          I don't just want to understand<br>how systems work.<br>
+          <em>I want to understand<br>what happens when they don't.</em>
+        </p>
+        <p class="human-facts">
+          Based in the UAE<br>
+          BSc (Hons) Cybersecurity<br>
+          Bath Spa University
+        </p>
       </div>
     </div>
   </section>
 
-  <section class="timeline" id="timeline" aria-label="Experience timeline">
+  <!-- ============================================================
+       03 / SELECTED WORK
+       ============================================================ -->
+  <section class="work" id="work" aria-label="Selected work">
     <div class="wrap" data-reveal>
-      <p class="section-marker">01 / JOURNEY</p>
-      <h2 class="section-heading">How I got here</h2>
-      <div class="timeline-track">
-        <div class="timeline-node">
-          <span class="timeline-dot" aria-hidden="true"></span>
-          <span class="timeline-label">BSc Hons Cybersecurity</span>
-          <p class="timeline-sub">Bath Spa University</p>
-        </div>
-        <div class="timeline-node">
-          <span class="timeline-dot" aria-hidden="true"></span>
-          <span class="timeline-label">Compliance internship</span>
-          <p class="timeline-sub">Risk assessments, NIST CSF &amp; ISO 27001-aligned control evaluation</p>
-        </div>
-        <div class="timeline-node">
-          <span class="timeline-dot" aria-hidden="true"></span>
-          <span class="timeline-label">Live network operations</span>
-          <p class="timeline-sub">Kept a high-traffic event's network online for 50+ staff and visitors</p>
-        </div>
-        <div class="timeline-node">
-          <span class="timeline-dot" aria-hidden="true"></span>
-          <span class="timeline-label">FAIR Risk Radar</span>
-          <p class="timeline-sub">Built and shipped a quantitative risk platform, live in production</p>
-        </div>
-        <div class="timeline-node timeline-node-current">
-          <span class="timeline-dot" aria-hidden="true"></span>
-          <span class="timeline-label">Now</span>
-          <p class="timeline-sub">Open to GRC &amp; compliance-engineering roles</p>
-        </div>
-      </div>
+      <p class="section-marker">03 / SELECTED WORK</p>
+      <h2 class="editorial-statement">Things<br>I've built.</h2>
     </div>
-  </section>
 
-  <section class="register" id="register" aria-label="Skills and frameworks">
-    <div class="wrap" data-reveal>
-      <p class="section-marker">02 / FRAMEWORKS</p>
-      <h2 class="section-heading" data-show="grc">Frameworks &amp; control work</h2>
-      <h2 class="section-heading" data-show="technical">Stack &amp; technical depth</h2>
+    <div class="work-list">
 
-      <div class="grc-window" data-show="grc">
-        <div class="grc-titlebar">
-          <span class="window-title">Control register</span>
-          <span class="rag-legend" title="Risk rating legend">
-            <span class="grc-dot grc-dot-green"></span>
-            <span class="grc-dot grc-dot-amber"></span>
-            <span class="grc-dot grc-dot-red"></span>
-          </span>
-        </div>
-        <div class="register-list">
-          <div class="register-row" data-reveal>
-            <span class="register-id">NIST CSF 2.0</span>
-            <span class="register-body">Govern, Identify &amp; Respond — control mapping, gap assessment</span>
-            <span class="status-chip status-applied"><span class="proficiency" data-level="3" aria-hidden="true"></span>Applied</span>
-            <span class="register-detail">GOVERN &middot; IDENTIFY &middot; PROTECT &middot; DETECT &middot; RESPOND &middot; RECOVER</span>
-          </div>
-          <div class="register-row" data-reveal>
-            <span class="register-id">ISO/IEC 27001:2022</span>
-            <span class="register-body">Annex A control evaluation and evidence review</span>
-            <span class="status-chip status-applied"><span class="proficiency" data-level="3" aria-hidden="true"></span>Applied</span>
-            <span class="register-detail">ISMS &middot; CONTROLS &middot; RISK TREATMENT</span>
-          </div>
-          <div class="register-row" data-reveal>
-            <span class="register-id">SOC 2</span>
-            <span class="register-body">Trust services criteria mapping</span>
-            <span class="status-chip status-familiar"><span class="proficiency" data-level="2" aria-hidden="true"></span>Familiar</span>
-            <span class="register-detail">TRUST SERVICES CRITERIA</span>
-          </div>
-          <div class="register-row" data-reveal>
-            <span class="register-id">PCI-DSS v4.0</span>
-            <span class="register-body">Requirement-level control tracking</span>
-            <span class="status-chip status-familiar"><span class="proficiency" data-level="2" aria-hidden="true"></span>Familiar</span>
-            <span class="register-detail">PAYMENT SECURITY CONTROLS</span>
-          </div>
-          <div class="register-row" data-reveal>
-            <span class="register-id">EU AI Act</span>
-            <span class="register-body">Risk-tiering for AI-assisted features</span>
-            <span class="status-chip status-applied"><span class="proficiency" data-level="3" aria-hidden="true"></span>Applied</span>
-            <span class="register-detail">AI GOVERNANCE &middot; RISK CLASSIFICATION</span>
-          </div>
-          <div class="register-row" data-reveal>
-            <span class="register-id">FAIR</span>
-            <span class="register-body">Loss magnitude &amp; Monte Carlo frequency modelling</span>
-            <span class="status-chip status-applied"><span class="proficiency" data-level="3" aria-hidden="true"></span>Applied</span>
-            <span class="register-detail">LOSS EVENT FREQUENCY &middot; LOSS MAGNITUDE</span>
-          </div>
-        </div>
-      </div>
-      <div class="stack-tags stack-tags-grc" data-show="grc">
-        <span class="stack-tag">RSA Archer</span>
-        <span class="stack-tag">Drata</span>
-        <span class="stack-tag">Vanta</span>
-        <span class="stack-tag">Hyperproof</span>
-      </div>
-
-      <div class="term-window" data-show="technical">
-        <div class="term-titlebar">
-          <span class="window-title">Technical stack</span>
-        </div>
-        <div class="register-list">
-          <div class="register-row" data-reveal>
-            <span class="register-id">Risk engines</span>
-            <span class="register-body">Monte Carlo simulation, FAIR loss distributions, ROI calculation</span>
-            <span class="status-chip status-applied"><span class="proficiency" data-level="3" aria-hidden="true"></span>Built</span>
-          </div>
-          <div class="register-row" data-reveal>
-            <span class="register-id">Compliance-as-code</span>
-            <span class="register-body">NIST CSF / ISO 27001 as machine-checkable mappings</span>
-            <span class="status-chip status-applied"><span class="proficiency" data-level="3" aria-hidden="true"></span>Built</span>
-          </div>
-          <div class="register-row" data-reveal>
-            <span class="register-id">Threat modelling</span>
-            <span class="register-body">Data-injection &amp; telemetry manipulation, real-time systems</span>
-            <span class="status-chip status-applied"><span class="proficiency" data-level="3" aria-hidden="true"></span>Built</span>
-          </div>
-          <div class="register-row" data-reveal>
-            <span class="register-id">OWASP LLM Top 10</span>
-            <span class="register-body">Prompt-injection resistance, output handling, structured parsing</span>
-            <span class="status-chip status-familiar"><span class="proficiency" data-level="2" aria-hidden="true"></span>Applied</span>
-          </div>
-          <div class="register-row" data-reveal>
-            <span class="register-id">Deployment</span>
-            <span class="register-body">Vercel, GitHub Pages — public, working builds</span>
-            <span class="status-chip status-applied"><span class="proficiency" data-level="3" aria-hidden="true"></span>Built</span>
-          </div>
-        </div>
-        <div class="stack-tags">
-          <span class="stack-tag">Next.js</span>
-          <span class="stack-tag">TypeScript</span>
-          <span class="stack-tag">PostgreSQL</span>
-          <span class="stack-tag">Prisma</span>
-          <span class="stack-tag">Chart.js</span>
-          <span class="stack-tag">Tailwind CSS</span>
-          <span class="stack-tag">pdf-lib</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="impact" id="impact" aria-label="Measured impact">
-    <div class="wrap" data-reveal>
-      <p class="section-marker">03 / IMPACT</p>
-      <h2 class="section-heading" data-show="grc">Measured impact</h2>
-      <h2 class="section-heading" data-show="technical">Numbers, not adjectives</h2>
-
-      <div class="impact-grid">
-        <div class="impact-donut">
-          <div class="donut" data-pct="25" style="--pct: 0;">
-            <div class="donut-hole"><span class="donut-num">25%</span></div>
-          </div>
-          <p class="impact-label" data-show="grc">Improvement in overall system resilience following intern-led risk-mitigation recommendations</p>
-          <p class="impact-label" data-show="technical">System resilience improvement delivered by working directly with infrastructure teams on fixes</p>
-        </div>
-
-        <div class="impact-stats">
-          <div class="impact-stat" data-reveal>
-            <span class="impact-num">20+</span>
-            <p data-show="grc">Security weaknesses identified and documented across enterprise IT systems</p>
-            <p data-show="technical">Vulnerabilities found and documented through hands-on assessment work</p>
-          </div>
-          <div class="impact-stat" data-reveal>
-            <span class="impact-num">10+</span>
-            <p data-show="grc">Client environments evaluated against NIST CSF and ISO 27001 controls</p>
-            <p data-show="technical">Client environments audited for control gaps and misconfiguration</p>
-          </div>
-          <div class="impact-stat" data-reveal>
-            <span class="impact-num">50+</span>
-            <p data-show="grc">Staff and visitors supported under live network operations at a high-traffic event</p>
-            <p data-show="technical">Endpoints kept online across a live, high-traffic event network</p>
-          </div>
-          <div class="impact-stat" data-reveal>
-            <span class="impact-num">&plusmn;2%</span>
-            <p data-show="grc">Data-injection threshold modelled that evades standard monitoring controls undetected</p>
-            <p data-show="technical">Telemetry drift injected before standard monitoring flagged it</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- data-reveal sits on .wrap, not the section: this section (and its
-       siblings below) is itself the target of the "See the work" / "Get in
-       touch" in-page nav links. A scroll-linked transform on the actual
-       anchor target confuses the browser's native scroll-to-fragment
-       geometry (it snapshots a mid-animation position and never
-       recalculates), so the resting scroll lands past the heading. Moving
-       the animation to the inner wrapper keeps the identical fade-in look
-       with a transform-free, correctly-targetable section box. -->
-  <section class="projects" id="projects" aria-label="Projects">
-    <div class="wrap" data-reveal>
-      <p class="section-marker">04 / PROJECTS</p>
-      <h2 class="section-heading">Projects</h2>
-
-      <div class="project-list">
-        <article class="dossier">
-          <p class="dossier-index">
-            01 &middot;
-            <span data-show="grc">GRC Engineering / Quantitative Risk</span>
-            <span data-show="technical">Risk Engine / Simulation</span>
-          </p>
-          <h3 class="dossier-title">FAIR Risk Radar</h3>
-          <p class="dossier-thesis">Turns a risk register into a board-ready ROI number.</p>
-
-          <div class="dossier-thumb">
-            <span class="dossier-thumb-mark" aria-hidden="true">FR</span>
-            <div class="dossier-thumb-overlay" aria-hidden="true">QUALITATIVE&nbsp;→&nbsp;QUANTITATIVE</div>
-          </div>
-
-          <div class="pipeline" data-pipeline aria-label="FAIR Risk Radar risk pipeline">
-            <button type="button" class="pipeline-stage" data-stage-btn="inputs">INPUTS</button>
-            <span class="pipeline-arrow" aria-hidden="true">→</span>
-            <button type="button" class="pipeline-stage" data-stage-btn="simulation">SIMULATION</button>
-            <span class="pipeline-arrow" aria-hidden="true">→</span>
-            <button type="button" class="pipeline-stage" data-stage-btn="loss">LOSS</button>
-            <span class="pipeline-arrow" aria-hidden="true">→</span>
-            <button type="button" class="pipeline-stage" data-stage-btn="decision">DECISION</button>
-          </div>
-          <p class="pipeline-detail" data-pipeline-detail="inputs">TEF, Vulnerability, Loss Magnitude &mdash; the loss-event data fed into the model.</p>
-          <p class="pipeline-detail" data-pipeline-detail="simulation" hidden>Monte Carlo, 4,000 trials &mdash; simulates thousands of possible loss outcomes.</p>
-          <p class="pipeline-detail" data-pipeline-detail="loss" hidden>Primary + Secondary Loss &mdash; the resulting loss distribution.</p>
-          <p class="pipeline-detail" data-pipeline-detail="decision" hidden>Risk / Budget / Control Decision &mdash; the board-ready output.</p>
-
-          <div class="dossier-tabs" role="tablist" aria-label="FAIR Risk Radar detail view">
-            <button type="button" class="dossier-tab" data-view-btn="overview" aria-selected="true">Overview</button>
-            <button type="button" class="dossier-tab" data-view-btn="grc" aria-selected="false">GRC View</button>
-            <button type="button" class="dossier-tab" data-view-btn="technical-view" aria-selected="false">Technical View</button>
-          </div>
-
-          <div class="dossier-view" data-view-panel="overview">
-            <p class="dossier-body" data-show="grc">
-              A quantitative cyber-risk platform built on the FAIR model — Monte Carlo
-              simulation over loss-event data, mapped to compliance controls, with ROI
-              and risk-transfer calculations built in.
+      <!-- ---------------- PROJECT 01 — FAIR RISK RADAR ---------------- -->
+      <article class="case" data-reveal>
+        <div class="wrap case-grid">
+          <div class="case-copy">
+            <p class="case-meta">
+              01<br>
+              GRC Engineering<br>
+              Quantitative Risk
             </p>
-            <p class="dossier-body" data-show="technical">
-              A quantitative cyber-risk platform: a Monte Carlo simulation engine over
-              FAIR-model loss distributions, a compliance-as-code layer that maps
-              simulation output back to named controls, and an ROI / risk-transfer
-              calculator on top. Built and deployed as a working application, not a
-              static report.
+            <h3 class="case-title">FAIR<br><em>Risk Radar</em></h3>
+            <p class="case-thesis">Turns a risk register into a board-ready number.</p>
+            <p class="case-body">
+              A quantitative cyber-risk platform using FAIR methodology and Monte
+              Carlo simulation to model loss exposure, connect risk to controls,
+              and support security investment decisions.
             </p>
-          </div>
-          <div class="dossier-view" data-view-panel="grc" hidden>
-            <ul class="dossier-emphasis">
-              <li>Risk quantification</li>
-              <li>Control coverage</li>
-              <li>Loss exposure</li>
-              <li>Decision support</li>
-              <li>Board-level risk communication</li>
-            </ul>
-          </div>
-          <div class="dossier-view" data-view-panel="technical-view" hidden>
-            <ul class="dossier-emphasis">
-              <li>FAIR</li>
-              <li>Monte Carlo simulation</li>
-              <li>Loss distributions</li>
-              <li>Risk modelling</li>
-              <li>Server-side assessment</li>
-              <li>Control provenance</li>
-            </ul>
-          </div>
 
-          <div class="stack-tags dossier-stack">
-            <span class="stack-tag">Next.js</span>
-            <span class="stack-tag">TypeScript</span>
-            <span class="stack-tag">PostgreSQL</span>
-            <span class="stack-tag">Prisma</span>
-            <span class="stack-tag">Chart.js</span>
-            <span class="stack-tag">Tailwind CSS</span>
-            <span class="stack-tag">pdf-lib</span>
-          </div>
-
-          <div class="dossier-links">
-            <a class="dossier-link" href="https://fair-risk-engine.vercel.app/" target="_blank" rel="noopener">
-              <span>Explore the platform</span>
-              <span class="arrow-btn" aria-hidden="true">→</span>
-            </a>
-            <a class="dossier-link" href="https://github.com/khadijahkhurum/fair-risk-radar" target="_blank" rel="noopener">
-              <span>View on GitHub</span>
-              <span class="arrow-btn" aria-hidden="true">→</span>
-            </a>
-            <span class="live-badge"><span class="live-dot" aria-hidden="true"></span>LIVE</span>
-          </div>
-        </article>
-
-        <article class="dossier">
-          <p class="dossier-index">
-            02 &middot;
-            <span data-show="grc">Cyber-Physical Risk Research</span>
-            <span data-show="technical">Adversarial ML / Threat Modelling</span>
-          </p>
-          <h3 class="dossier-title">Adversarial Telemetry Manipulation in F1</h3>
-          <p class="dossier-thesis">What happens when a telemetry feed lies to you.</p>
-
-          <div class="dossier-thumb dossier-chart">
-            <svg viewBox="0 0 300 140" class="robustness-svg" role="img" aria-label="Real result from the project notebook: F1-score drops from 0.118 to 0 as attack strength (epsilon) rises from 0.01 to 0.02">
-              <line x1="30" y1="10" x2="30" y2="120" class="rc-axis" />
-              <line x1="30" y1="120" x2="280" y2="120" class="rc-axis" />
-              <polyline points="30,28 80,12 130,120 280,120" class="rc-line" />
-              <circle cx="30" cy="28" r="3.5" class="rc-dot" />
-              <circle cx="80" cy="12" r="3.5" class="rc-dot" />
-              <circle cx="130" cy="120" r="3.5" class="rc-dot" />
-              <circle cx="280" cy="120" r="3.5" class="rc-dot" />
-              <text x="8" y="16" class="rc-label">F1</text>
-              <text x="30" y="136" class="rc-label">0</text>
-              <text x="280" y="136" class="rc-label" text-anchor="end">&epsilon; 0.05</text>
-            </svg>
-            <p class="dossier-chart-caption">F1-score vs attack strength — real notebook result &middot; RED TEAM &rarr; BLUE TEAM</p>
-          </div>
-
-          <div class="dossier-tabs" role="tablist" aria-label="Pit Wall Adversary detail view">
-            <button type="button" class="dossier-tab" data-view-btn="overview" aria-selected="true">Overview</button>
-            <button type="button" class="dossier-tab" data-view-btn="red" aria-selected="false">Red Team</button>
-            <button type="button" class="dossier-tab" data-view-btn="blue" aria-selected="false">Blue Team</button>
-          </div>
-
-          <div class="dossier-view" data-view-panel="overview">
-            <p class="dossier-body" data-show="grc">
-              Research project modelling a cyber-physical threat: data-injection attacks
-              against Formula 1 telemetry systems. Frames the risk in terms recognisable
-              to a GRC audience — attack surface, integrity impact, and the controls that
-              would catch or contain it.
-            </p>
-            <p class="dossier-body" data-show="technical">
-              A cyber-physical threat model built around data-injection attacks on
-              real-time telemetry pipelines, using Formula 1 as the case study. Covers
-              attack-surface analysis and the integrity failures that data injection
-              produces downstream.
-            </p>
-          </div>
-          <div class="dossier-view" data-view-panel="red" hidden>
-            <ul class="dossier-emphasis">
-              <li>Telemetry perturbation</li>
-              <li>Adversarial manipulation</li>
-              <li>Attack impact</li>
-            </ul>
-          </div>
-          <div class="dossier-view" data-view-panel="blue" hidden>
-            <ul class="dossier-emphasis">
-              <li>Noise-augmented training</li>
-              <li>Robustness</li>
-              <li>Defensive performance</li>
-              <li>Residual risk</li>
-            </ul>
-          </div>
-
-          <div class="attack-slider">
-            <label class="attack-slider-label" for="attack-range">Attack strength</label>
-            <div class="attack-slider-track">
-              <span>0%</span>
-              <input type="range" id="attack-range" min="0" max="1" step="1" value="0" aria-describedby="attack-readout">
-              <span>~2%</span>
+            <div class="case-pills">
+              <span>Next.js</span><span>TypeScript</span><span>PostgreSQL</span>
+              <span>Prisma</span><span>Chart.js</span><span>Tailwind</span><span>pdf-lib</span>
             </div>
-            <p class="attack-slider-readout" id="attack-readout" data-attack-readout>Baseline peak confidence: 17.3%. Headline accuracy: 99.4%.</p>
-            <p class="attack-slider-note">Documented project results, not a live model running in your browser. Attack &rarr; model response &rarr; defense &rarr; residual risk.</p>
+
+            <div class="case-links">
+              <a class="case-link" href="https://fair-risk-engine.vercel.app/" target="_blank" rel="noopener">Explore project <span aria-hidden="true">&rarr;</span></a>
+              <a class="case-link" href="https://github.com/khadijahkhurum/fair-risk-radar" target="_blank" rel="noopener">GitHub <span aria-hidden="true">&rarr;</span></a>
+            </div>
           </div>
 
-          <div class="stack-tags dossier-stack">
-            <span class="stack-tag">Python</span>
-            <span class="stack-tag">scikit-learn</span>
-            <span class="stack-tag">NumPy</span>
-            <span class="stack-tag">pandas</span>
-            <span class="stack-tag">FastF1</span>
+          <div class="case-visual" data-parallax>
+            <div class="case-visual-inner">
+              <p class="case-visual-tag">FAIR &middot; Monte Carlo &middot; 4,000 trials &middot; NIST / ISO</p>
+              <div class="pipeline" data-pipeline>
+                <button type="button" class="pipeline-node" data-stage-btn="inputs" aria-expanded="true">Inputs</button>
+                <span class="pipeline-rule" aria-hidden="true"></span>
+                <button type="button" class="pipeline-node" data-stage-btn="simulation">Simulation</button>
+                <span class="pipeline-rule" aria-hidden="true"></span>
+                <button type="button" class="pipeline-node" data-stage-btn="loss">Loss</button>
+                <span class="pipeline-rule" aria-hidden="true"></span>
+                <button type="button" class="pipeline-node" data-stage-btn="decision">Decision</button>
+              </div>
+              <p class="pipeline-detail" data-pipeline-detail="inputs">TEF &middot; Vulnerability &middot; Loss Magnitude</p>
+              <p class="pipeline-detail" data-pipeline-detail="simulation" hidden>Monte Carlo &middot; 4,000 trials</p>
+              <p class="pipeline-detail" data-pipeline-detail="loss" hidden>Primary + Secondary Loss</p>
+              <p class="pipeline-detail" data-pipeline-detail="decision" hidden>Risk / Budget / Control Decision</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ---------------- PROJECT 02 — PIT WALL ADVERSARY ---------------- -->
+      <article class="case case-alt" data-reveal>
+        <div class="wrap case-grid case-grid-alt">
+          <div class="case-visual" data-parallax>
+            <div class="case-visual-inner">
+              <p class="case-visual-tag">Real result &middot; adversarial-training notebook</p>
+
+              <div class="flow" data-flow>
+                <button type="button" class="flow-node" data-flow-node="red">Red Team</button>
+                <span class="flow-rule" aria-hidden="true"></span>
+                <span class="flow-node flow-node-static">Data Injection</span>
+                <span class="flow-rule" aria-hidden="true"></span>
+                <span class="flow-node flow-node-static">Model</span>
+                <span class="flow-rule" aria-hidden="true"></span>
+                <button type="button" class="flow-node" data-flow-node="blue">Blue Team</button>
+                <span class="flow-rule" aria-hidden="true"></span>
+                <button type="button" class="flow-node" data-flow-node="residual">Residual Risk</button>
+              </div>
+
+              <svg viewBox="0 0 300 60" class="telemetry-svg" data-telemetry aria-hidden="true">
+                <polyline points="0,30 20,30 30,12 40,46 50,16 60,40 70,30 90,30 110,30 130,30 150,30 170,30 190,30 210,30 230,30 250,30 270,30 300,30" class="telemetry-line" />
+              </svg>
+              <p class="flow-detail" data-flow-detail="red" hidden>Telemetry perturbation &middot; adversarial manipulation &middot; attack impact</p>
+              <p class="flow-detail" data-flow-detail="blue" hidden>Noise-augmented training &middot; robustness &middot; defensive performance</p>
+              <p class="flow-detail" data-flow-detail="residual" hidden>Residual risk &middot; noise returns, reduced</p>
+
+              <div class="finding">
+                <p class="finding-number">17.3% &rarr; 9.75%</p>
+                <p class="finding-caption">Confidence under &plusmn;2% perturbation</p>
+                <p class="finding-number finding-number-small">99.4%</p>
+                <p class="finding-caption">Headline accuracy</p>
+              </div>
+            </div>
           </div>
 
-          <div class="dossier-links">
-            <a class="dossier-link" href="https://pit-wall-adversary.vercel.app" target="_blank" rel="noopener">
-              <span>Explore the research</span>
-              <span class="arrow-btn" aria-hidden="true">→</span>
-            </a>
-            <a class="dossier-link" href="https://github.com/khadijahkhurum/ResearchProject" target="_blank" rel="noopener">
-              <span>View on GitHub</span>
-              <span class="arrow-btn" aria-hidden="true">→</span>
-            </a>
-            <span class="live-badge"><span class="live-dot" aria-hidden="true"></span>LIVE</span>
+          <div class="case-copy">
+            <p class="case-meta">
+              02<br>
+              Security Research<br>
+              Cyber-Physical Systems / Adversarial ML
+            </p>
+            <h3 class="case-title">Pit Wall<br><em>Adversary</em></h3>
+            <p class="case-thesis">What happens when the telemetry lies?</p>
+            <p class="case-body">
+              A cyber-physical threat model built around Formula 1 telemetry: a
+              red-team attack injects small, malicious perturbations into
+              race-telemetry data, and a blue-team robust-training defense is
+              evaluated against it — testing model confidence and control
+              coverage, not just raw accuracy.
+            </p>
+
+            <div class="attack-slider">
+              <label class="attack-slider-label" for="attack-range">Attack strength</label>
+              <div class="attack-slider-track">
+                <span>0%</span>
+                <input type="range" id="attack-range" min="0" max="1" step="1" value="0" aria-describedby="attack-readout">
+                <span>~2%</span>
+              </div>
+              <p class="attack-slider-readout" id="attack-readout" data-attack-readout>Baseline peak confidence: 17.3%.</p>
+              <p class="attack-slider-note">Documented project results — not a live model running in your browser.</p>
+            </div>
+
+            <div class="case-pills">
+              <span>Python</span><span>scikit-learn</span><span>NumPy</span><span>pandas</span><span>FastF1</span>
+            </div>
+
+            <div class="case-links">
+              <a class="case-link" href="https://pit-wall-adversary.vercel.app" target="_blank" rel="noopener">Explore research <span aria-hidden="true">&rarr;</span></a>
+              <a class="case-link" href="https://github.com/khadijahkhurum/ResearchProject" target="_blank" rel="noopener">GitHub <span aria-hidden="true">&rarr;</span></a>
+            </div>
           </div>
-        </article>
-      </div>
+        </div>
+      </article>
+
     </div>
   </section>
 
-  <section class="about" id="about" aria-label="Background">
+  <!-- ============================================================
+       04 / IMPACT
+       ============================================================ -->
+  <section class="impact" aria-label="Measured impact">
     <div class="wrap" data-reveal>
-      <p class="section-marker">05 / BACKGROUND</p>
-      <h2 class="section-heading">Background</h2>
-      <p class="about-body">
-        BSc (Hons) Cybersecurity from Bath Spa University, following an earlier
-        BA (Hons) in English — the second degree shapes how I write findings up:
-        clearly, and for the person who has to act on them, not just the auditor
-        who has to sign off on them. Internship work has covered risk assessments,
-        control evaluation, and NIST CSF / ISO 27001-aligned reviews. Currently
-        building toward GRC and compliance-engineering roles, with the software
-        background to build the tools those roles usually just ask for in a
-        spreadsheet.
-      </p>
-      <div class="exploring">
-        <p class="exploring-label">Currently exploring</p>
-        <p class="exploring-item" data-exploring aria-live="off">Quantitative cyber risk</p>
+      <p class="section-marker">04 / IMPACT</p>
+      <div class="impact-row">
+        <div class="impact-item">
+          <p class="impact-number">25%</p>
+          <p class="impact-caption">Improvement in overall system resilience following intern-led risk-mitigation recommendations</p>
+        </div>
+        <div class="impact-item">
+          <p class="impact-number">20+</p>
+          <p class="impact-caption">Security weaknesses identified and documented across enterprise IT systems</p>
+        </div>
+        <div class="impact-item">
+          <p class="impact-number">10+</p>
+          <p class="impact-caption">Client environments evaluated against NIST CSF and ISO 27001 controls</p>
+        </div>
+        <div class="impact-item">
+          <p class="impact-number">50+</p>
+          <p class="impact-caption">Staff and visitors supported under live network operations at a high-traffic event</p>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- ============================================================
+       05 / APPROACH
+       ============================================================ -->
+  <section class="approach" id="approach" aria-label="How I think">
+    <div class="wrap">
+      <p class="section-marker">05 / APPROACH</p>
+      <div class="approach-list">
+        <p class="approach-item" data-reveal><span class="approach-num">01</span>Understand<br>the system.</p>
+        <p class="approach-item" data-reveal><span class="approach-num">02</span>Quantify<br>the risk.</p>
+        <p class="approach-item" data-reveal><span class="approach-num">03</span>Build<br>the control.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FRAMEWORKS
+       ============================================================ -->
+  <section class="frameworks" aria-label="Frameworks">
+    <div class="wrap" data-reveal>
+      <h2 class="editorial-statement editorial-statement-sm">Frameworks<br>I work with.</h2>
+      <ul class="framework-list">
+        <li class="framework-row">
+          <span class="framework-name">NIST CSF 2.0</span>
+          <span class="framework-detail">Identify &middot; Protect &middot; Detect &middot; Respond &middot; Recover &middot; Govern</span>
+        </li>
+        <li class="framework-row">
+          <span class="framework-name">ISO/IEC 27001:2022</span>
+          <span class="framework-detail">Information security management and control framework</span>
+        </li>
+        <li class="framework-row">
+          <span class="framework-name">FAIR</span>
+          <span class="framework-detail">Quantitative cyber-risk analysis</span>
+        </li>
+        <li class="framework-row">
+          <span class="framework-name">SOC 2</span>
+          <span class="framework-detail">Trust services criteria mapping</span>
+        </li>
+        <li class="framework-row">
+          <span class="framework-name">PCI DSS v4.0</span>
+          <span class="framework-detail">Payment security controls</span>
+        </li>
+        <li class="framework-row">
+          <span class="framework-name">EU AI Act</span>
+          <span class="framework-detail">AI governance &middot; risk classification</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TECH STACK
+       ============================================================ -->
+  <section class="stack" aria-label="Technology stack">
+    <div class="wrap" data-reveal>
+      <p class="stack-label">Building with</p>
+      <p class="stack-line">Python &middot; TypeScript &middot; Next.js &middot; PostgreSQL &middot; Prisma &middot; FastF1 &middot; scikit-learn &middot; Chart.js</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CURRENTLY EXPLORING
+       ============================================================ -->
+  <section class="exploring" aria-label="Currently exploring">
+    <div class="wrap" data-reveal>
+      <h2 class="editorial-statement editorial-statement-sm">Currently<br>exploring.</h2>
+      <p class="exploring-item" data-exploring>Quantitative cyber risk</p>
+      <p class="exploring-tag">Always building something slightly outside my current comfort zone.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       06 / ABOUT
+       ============================================================ -->
+  <section class="about" id="about" aria-label="About">
+    <div class="wrap about-grid" data-reveal>
+      <div>
+        <p class="section-marker">06 / ABOUT</p>
+        <h2 class="editorial-statement">A little<br>more about<br>me.</h2>
+      </div>
+      <div class="about-copy">
+        <p>
+          BSc (Hons) Cybersecurity from Bath Spa University, following an
+          earlier BA (Hons) in English — the second degree shapes how I write
+          findings up: clearly, and for the person who has to act on them, not
+          just the auditor who has to sign off on them.
+        </p>
+        <p>
+          Internship work has covered risk assessments, control evaluation,
+          and NIST CSF / ISO 27001-aligned reviews. That work sits alongside
+          two shipped technical projects — a quantitative risk platform built
+          on FAIR, and adversarial ML research on cyber-physical telemetry
+          systems — the software background behind the GRC work.
+        </p>
+        <div class="about-links">
+          <a href="https://www.linkedin.com/in/khadijah-khurum" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">&rarr;</span></a>
+          <a href="https://github.com/khadijahkhurum" target="_blank" rel="noopener">GitHub <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT
+       ============================================================ -->
   <section class="contact" id="contact" aria-label="Contact">
     <div class="wrap" data-reveal>
-      <p class="section-marker">06 / CONTACT</p>
-      <h2 class="section-heading">Get in touch</h2>
-      <p class="contact-note">
-        No phone number or address published here — reach out through the form
-        below or on LinkedIn, and I'll follow up from there.
-      </p>
+      <h2 class="editorial-statement">Let's build<br>something<br><em>secure.</em></h2>
+      <p class="contact-line">Open to GRC, cyber risk, compliance engineering and security engineering opportunities.</p>
 
       <form class="contact-form" action="https://formspree.io/f/xaenjlrz" method="POST" id="contact-form">
         <label class="form-field">
@@ -510,32 +399,34 @@
         </label>
         <label class="form-field">
           <span>Message</span>
-          <textarea name="message" rows="5" required></textarea>
+          <textarea name="message" rows="4" required></textarea>
         </label>
-        <button type="submit" class="form-submit">Send message</button>
-        <p class="form-fallback">
-          Prefer not to fill in a form? Connect on
-          <a href="https://www.linkedin.com/in/khadijah-khurum" target="_blank" rel="noopener">LinkedIn</a>
-          instead.
-        </p>
+        <button type="submit" class="form-submit">Send message <span aria-hidden="true">&rarr;</span></button>
       </form>
+
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/khadijah-khurum" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">&rarr;</span></a>
+        <a href="https://github.com/khadijahkhurum" target="_blank" rel="noopener">GitHub <span aria-hidden="true">&rarr;</span></a>
+      </div>
     </div>
   </section>
 
 </main>
 
 <footer class="site-footer">
-  <div class="wrap">
-    <p class="footer-readout">
-      SESSION COMPLETE<br>
-      GRC / RISK / SECURITY ENGINEERING<br>
-      PORTFOLIO / 2026<br>
-      STATUS: OPEN TO OPPORTUNITIES
+  <div class="wrap footer-row">
+    <button type="button" class="footer-mark" id="footer-mark" aria-label="Built by Khadijah Khurum">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 0c0 6.627 5.373 12 12 12-6.627 0-12 5.373-12 12 0-6.627-5.373-12-12-12C6.627 12 12 6.627 12 0z"/>
+      </svg>
+      <span class="footer-mark-reveal" id="footer-mark-reveal">Built by Khadijah</span>
+    </button>
+    <p class="footer-text">
+      Khadijah Khurum<br>
+      GRC &middot; Risk &middot; Security Engineering<br>
+      UAE / 2026
     </p>
-    <div class="footer-row">
-      <span>Khadijah Khurum</span>
-      <span>Built and deployed by hand — no tracking, no analytics.</span>
-    </div>
+    <p class="footer-copy">&copy; 2026</p>
   </div>
 </footer>
 

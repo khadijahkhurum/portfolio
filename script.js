@@ -1,128 +1,69 @@
 (function () {
   "use strict";
 
-  var STORAGE_KEY = "portfolio-mode";
-  var buttons = document.querySelectorAll("[data-mode-btn]");
-  var announce = document.getElementById("mode-announce");
-  var isFirstApply = true;
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-  function applyMode(mode) {
-    document.body.setAttribute("data-mode", mode);
-    document.documentElement.setAttribute("data-mode", mode);
-    buttons.forEach(function (btn) {
-      var isActive = btn.getAttribute("data-mode-btn") === mode;
-      btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+  // Floating nav: adds a translucent background once the hero is scrolled past.
+  (function () {
+    var nav = document.getElementById("site-nav");
+    if (!nav) return;
+    function update() {
+      nav.classList.toggle("is-scrolled", window.scrollY > 40);
+    }
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+  })();
+
+  // Hero load-in: staggered fade/rise, per the timing spec. Skips straight
+  // to the resolved state under reduced motion instead of firing timers.
+  (function () {
+    var items = document.querySelectorAll("[data-reveal-text]");
+    if (!items.length) return;
+    if (reduceMotion) {
+      items.forEach(function (el) { el.classList.add("is-in"); });
+      return;
+    }
+    var delays = [300, 500, 650, 900];
+    items.forEach(function (el, i) {
+      setTimeout(function () { el.classList.add("is-in"); }, delays[i] || 300 + i * 200);
     });
-    if (announce && !isFirstApply) {
-      announce.textContent =
-        mode === "technical" ? "Switched to technical view" : "Switched to GRC view";
-    }
-    isFirstApply = false;
-    try {
-      window.localStorage.setItem(STORAGE_KEY, mode);
-    } catch (e) {
-      /* storage unavailable — mode still applies for this view */
-    }
+  })();
+
+  // Scroll reveal (generic + approach statements, which color in one at a time)
+  if ("IntersectionObserver" in window) {
+    var revealObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    document.querySelectorAll("[data-reveal], .approach-item").forEach(function (el) {
+      revealObserver.observe(el);
+    });
+  } else {
+    document.querySelectorAll("[data-reveal], .approach-item").forEach(function (el) {
+      el.classList.add("is-visible");
+    });
   }
 
-  function initMode() {
-    var stored = null;
-    try {
-      stored = window.localStorage.getItem(STORAGE_KEY);
-    } catch (e) {
-      /* no persisted preference available */
-    }
-    applyMode(stored === "technical" || stored === "grc" ? stored : "grc");
-  }
-
-  buttons.forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      applyMode(btn.getAttribute("data-mode-btn"));
-    });
-  });
-
-  initMode();
-
-  // Same-page anchor links (e.g. "See the work" -> #projects). Two things
-  // to guard against here:
-  // 1. If web fonts are still swapping in when the jump happens, the
-  //    fallback-font layout above the target reflows once they load,
-  //    which can drift an already-completed native scroll off target —
-  //    wait for fonts first so the layout used to compute the scroll is
-  //    final.
-  // 2. The target section's scroll-linked reveal (see the [data-reveal]
-  //    rules above) is tied to scroll position, not time — a jump can
-  //    land it mid-reveal (partly faded/blurred) with no further scrolling
-  //    to finish the animation. A deliberate nav click should show its
-  //    destination fully resolved, not mid-animation, so force it (see
-  //    .reveal-force).
-  var reduceMotionForScroll = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Same-page anchor links: smooth-scroll (native jump under reduced motion).
   document.querySelectorAll('a[href^="#"]').forEach(function (a) {
     a.addEventListener("click", function (e) {
       var id = a.getAttribute("href").slice(1);
       var target = document.getElementById(id);
       if (!target) return;
       e.preventDefault();
-      var ready = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
-      ready.then(function () {
-        target.scrollIntoView({ behavior: reduceMotionForScroll ? "auto" : "smooth", block: "start" });
-        if (id !== "top") target.classList.add("reveal-force");
-      });
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
     });
   });
 
-  // Live stat counts in the technical hero (counts real DOM content, not fabricated numbers)
-  document.querySelectorAll("[data-stat-count]").forEach(function (el) {
-    el.textContent = document.querySelectorAll(el.getAttribute("data-stat-count")).length;
-  });
-
-  // Hero spark: click toggles a tiny system-readout panel. Click-based (not
-  // hover-only) so it works on touch and keyboard, not just mouse.
-  (function () {
-    var trigger = document.getElementById("spark-trigger");
-    var panel = document.getElementById("spark-panel");
-    if (!trigger || !panel) return;
-    trigger.addEventListener("click", function () {
-      var open = panel.hidden;
-      panel.hidden = !open;
-      trigger.setAttribute("aria-expanded", open ? "true" : "false");
-    });
-    document.addEventListener("click", function (e) {
-      if (!panel.hidden && !panel.contains(e.target) && e.target !== trigger && !trigger.contains(e.target)) {
-        panel.hidden = true;
-        trigger.setAttribute("aria-expanded", "false");
-      }
-    });
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && !panel.hidden) {
-        panel.hidden = true;
-        trigger.setAttribute("aria-expanded", "false");
-        trigger.focus();
-      }
-    });
-  })();
-
-  // Per-project view tabs (Overview / GRC / Technical, Overview / Red / Blue).
-  // Generic: any [data-view-btn] group toggles its sibling [data-view-panel]s
-  // within the same dossier article.
-  document.querySelectorAll(".dossier").forEach(function (dossier) {
-    var tabs = dossier.querySelectorAll("[data-view-btn]");
-    var panels = dossier.querySelectorAll("[data-view-panel]");
-    if (!tabs.length) return;
-    tabs.forEach(function (tab) {
-      tab.addEventListener("click", function () {
-        var target = tab.getAttribute("data-view-btn");
-        tabs.forEach(function (t) {
-          t.setAttribute("aria-selected", t === tab ? "true" : "false");
-        });
-        panels.forEach(function (p) {
-          p.hidden = p.getAttribute("data-view-panel") !== target;
-        });
-      });
-    });
-  });
-
-  // FAIR risk pipeline: click a stage to swap the caption below it.
+  // FAIR pipeline: click a stage to swap the caption below it.
   (function () {
     var pipeline = document.querySelector("[data-pipeline]");
     if (!pipeline) return;
@@ -131,18 +72,36 @@
     buttons.forEach(function (btn) {
       btn.addEventListener("click", function () {
         var stage = btn.getAttribute("data-stage-btn");
-        buttons.forEach(function (b) {
-          b.setAttribute("aria-expanded", b === btn ? "true" : "false");
-        });
-        details.forEach(function (d) {
-          d.hidden = d.getAttribute("data-pipeline-detail") !== stage;
-        });
+        buttons.forEach(function (b) { b.setAttribute("aria-expanded", b === btn ? "true" : "false"); });
+        details.forEach(function (d) { d.hidden = d.getAttribute("data-pipeline-detail") !== stage; });
       });
     });
   })();
 
-  // Pit Wall attack-strength slider: two documented data points, not a live
-  // model — see the note rendered alongside the readout.
+  // Pit Wall flow: hover/focus a node to reveal its caption and nudge the
+  // telemetry line (destabilise on Red Team, settle on Blue Team, a little
+  // noise back on Residual Risk).
+  (function () {
+    var flow = document.querySelector("[data-flow]");
+    var telemetry = document.querySelector("[data-telemetry]");
+    if (!flow) return;
+    var nodes = flow.querySelectorAll("[data-flow-node]");
+    var details = document.querySelectorAll("[data-flow-detail]");
+    function setState(name) {
+      details.forEach(function (d) { d.hidden = d.getAttribute("data-flow-detail") !== name; });
+      if (telemetry) telemetry.setAttribute("data-state", name || "");
+    }
+    nodes.forEach(function (node) {
+      var name = node.getAttribute("data-flow-node");
+      node.addEventListener("mouseenter", function () { setState(name); });
+      node.addEventListener("focus", function () { setState(name); });
+      node.addEventListener("click", function () { setState(name); });
+      node.addEventListener("mouseleave", function () { setState(null); });
+      node.addEventListener("blur", function () { setState(null); });
+    });
+  })();
+
+  // Pit Wall attack-strength slider: two documented data points, not a live model.
   (function () {
     var range = document.getElementById("attack-range");
     var readout = document.querySelector("[data-attack-readout]");
@@ -150,17 +109,16 @@
     range.addEventListener("input", function () {
       readout.textContent =
         range.value === "1"
-          ? "At ~2% perturbation: 9.75% peak confidence (down from 17.3% baseline). Headline accuracy: 99.4%."
-          : "Baseline peak confidence: 17.3%. Headline accuracy: 99.4%.";
+          ? "At ~2% perturbation: 9.75% peak confidence (down from 17.3% baseline)."
+          : "Baseline peak confidence: 17.3%.";
     });
   })();
 
-  // "Currently exploring" ticker — cycles topics; only animates the swap
-  // when motion is allowed, but keeps rotating the text either way.
+  // "Currently exploring" — rotates through topics; text-only swap under reduced motion.
   (function () {
     var el = document.querySelector("[data-exploring]");
     if (!el) return;
-    var topics = ["Quantitative cyber risk", "AI security", "Compliance engineering"];
+    var topics = ["Quantitative cyber risk", "Compliance engineering", "Security automation"];
     var i = 0;
     setInterval(function () {
       i = (i + 1) % topics.length;
@@ -172,232 +130,75 @@
       setTimeout(function () {
         el.textContent = topics[i];
         el.style.opacity = 1;
-      }, 400);
-    }, 3600);
+      }, 350);
+    }, 3400);
   })();
 
-  // Scroll progress rail: fills top-to-bottom with how far down the page you are.
+  // Footer signature mark: click toggles the "Built by Khadijah" reveal too,
+  // so it isn't hover-only on touch devices (CSS already handles hover/focus).
   (function () {
-    var fill = document.querySelector("[data-scroll-fill]");
-    if (!fill) return;
-    var ticking = false;
-    function update() {
-      var max = document.documentElement.scrollHeight - window.innerHeight;
-      var pct = max > 0 ? Math.min(1, window.scrollY / max) : 0;
-      fill.style.transform = "scaleY(" + pct + ")";
-      ticking = false;
-    }
-    window.addEventListener("scroll", function () {
-      if (!ticking) {
-        requestAnimationFrame(update);
-        ticking = true;
-      }
+    var mark = document.getElementById("footer-mark");
+    var reveal = document.getElementById("footer-mark-reveal");
+    if (!mark || !reveal) return;
+    mark.addEventListener("click", function () {
+      var showing = reveal.style.opacity === "1";
+      reveal.style.opacity = showing ? "" : "1";
+      reveal.style.transform = showing ? "" : "translateX(-50%) translateY(-6px)";
     });
-    update();
   })();
 
-  // Scroll-reveal: fade/slide sections in as they enter view (native IntersectionObserver, no library)
-  if ("IntersectionObserver" in window) {
-    var observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
-    document.querySelectorAll("[data-reveal]").forEach(function (el) {
-      observer.observe(el);
-    });
-  } else {
-    document.querySelectorAll("[data-reveal]").forEach(function (el) {
-      el.classList.add("is-visible");
-    });
-  }
-
-  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  // Rolls each digit like a slot machine reel — two full 0-9 spins, then
-  // settling on the real digit — instead of just ticking the text up.
-  // Prefix/suffix ("±", "+", "%") stay put as plain text either side.
-  var ROLL_LOOPS = 2;
-  function countUp(el, duration) {
-    if (!el) return;
-    // Cache the real target text on first run — after that, el.textContent
-    // is the roll markup's own digits concatenated, not the real number,
-    // so replays (scrolling past this element again) need the original.
-    if (!el.dataset.rollText) el.dataset.rollText = el.textContent;
-    var text = el.dataset.rollText;
-    var match = text.match(/\d+/);
-    if (!match) return;
-    if (reduceMotion) return; // leave the real number showing as-is
-
-    var digits = match[0];
-    var prefix = text.slice(0, match.index);
-    var suffix = text.slice(match.index + digits.length);
-
-    el.textContent = "";
-    if (prefix) el.appendChild(document.createTextNode(prefix));
-
-    var strips = digits.split("").map(function (d) {
-      var wrap = document.createElement("span");
-      wrap.className = "roll-digit";
-      var strip = document.createElement("span");
-      strip.className = "roll-strip";
-      var rows = ROLL_LOOPS * 10 + parseInt(d, 10);
-      for (var n = 0; n <= rows; n++) {
-        var row = document.createElement("span");
-        row.textContent = n % 10;
-        strip.appendChild(row);
-      }
-      wrap.appendChild(strip);
-      el.appendChild(wrap);
-      return { strip: strip, rows: rows };
-    });
-    if (suffix) el.appendChild(document.createTextNode(suffix));
-
-    el.offsetHeight; // force layout so the strip's start position (row 0) actually paints
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        strips.forEach(function (s, i) {
-          s.strip.style.transitionDuration = duration + "ms";
-          s.strip.style.transitionDelay = i * 80 + "ms";
-          s.strip.style.transform = "translateY(-" + s.rows + "em)";
-        });
+  // Pointer parallax on project visuals — max 4px horizontal, 3px vertical.
+  // Desktop, fine-pointer only; skipped entirely under reduced motion.
+  if (finePointer && !reduceMotion) {
+    document.querySelectorAll("[data-parallax]").forEach(function (el) {
+      el.addEventListener("mousemove", function (e) {
+        var r = el.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width - 0.5;
+        var py = (e.clientY - r.top) / r.height - 0.5;
+        el.style.transform = "translate(" + (px * 8) + "px, " + (py * 6) + "px)";
+      });
+      el.addEventListener("mouseleave", function () {
+        el.style.transform = "translate(0, 0)";
       });
     });
   }
 
-  // Impact section: the donut fills and counts up first; only once that's
-  // done do the four stat cards reveal and count up, staggered. On desktop
-  // (mouse + hover — scroll-jacking is unreliable on touch), scrolling past
-  // is briefly held during the sequence so it's actually seen, not skipped.
-  // Replays every time the section is scrolled into view — either
-  // direction — resetting to zero when it's scrolled back out.
-  (function () {
-    var impact = document.getElementById("impact");
-    var donut = impact && impact.querySelector(".donut");
-    if (!impact || !donut) return;
-
-    var donutNum = impact.querySelector(".donut-num");
-    var stats = Array.prototype.slice.call(impact.querySelectorAll(".impact-stat"));
-    var pct = donut.getAttribute("data-pct");
-    var canLock = window.matchMedia("(hover: hover) and (pointer: fine)").matches && !reduceMotion;
-    var pendingTimers = [];
-
-    function blockDownscroll(e) {
-      if (e.deltaY > 0) e.preventDefault();
-    }
-
-    function resetRoll(el) {
-      if (el && el.dataset.rollText) el.textContent = el.dataset.rollText;
-    }
-
-    function clearPending() {
-      pendingTimers.forEach(clearTimeout);
-      pendingTimers = [];
-      if (canLock) window.removeEventListener("wheel", blockDownscroll);
-    }
-
-    function playSequence() {
-      clearPending(); // in case a previous play was interrupted mid-sequence
-      impact.classList.add("impact-sequenced");
-      donut.style.setProperty("--pct", pct);
-      countUp(donutNum, 1400);
-
-      if (canLock) window.addEventListener("wheel", blockDownscroll, { passive: false });
-
-      pendingTimers.push(
-        setTimeout(
-          function () {
-            stats.forEach(function (stat, i) {
-              pendingTimers.push(
-                setTimeout(function () {
-                  stat.classList.add("is-visible");
-                  countUp(stat.querySelector(".impact-num"), 600);
-                }, i * 150)
-              );
-            });
-            pendingTimers.push(
-              setTimeout(
-                function () {
-                  if (canLock) window.removeEventListener("wheel", blockDownscroll);
-                },
-                stats.length * 150 + 600
-              )
-            );
-          },
-          reduceMotion ? 0 : 1400
-        )
-      );
-    }
-
-    function resetSequence() {
-      clearPending();
-      donut.style.setProperty("--pct", 0);
-      resetRoll(donutNum);
-      stats.forEach(function (stat) {
-        stat.classList.remove("is-visible");
-        resetRoll(stat.querySelector(".impact-num"));
-      });
-    }
-
-    if ("IntersectionObserver" in window) {
-      var impactObserver = new IntersectionObserver(
-        function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) playSequence();
-            else resetSequence();
-          });
-        },
-        { threshold: 0.3 }
-      );
-      impactObserver.observe(impact);
-    } else {
-      playSequence();
-    }
-  })();
-
-  // Custom cursor: a small dot tracks the pointer exactly, a larger ring
-  // trails behind it with lerp easing (the "floating" feel), and both grow
-  // on hover over interactive elements. Desktop mouse only.
-  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches && !reduceMotion) {
+  // Custom cursor: small dot + trailing ring, "View" label over project
+  // visuals. Desktop, fine-pointer only.
+  if (finePointer && !reduceMotion) {
+    document.body.classList.add("has-custom-cursor");
     var dot = document.createElement("div");
     dot.className = "cursor-dot";
     var ring = document.createElement("div");
     ring.className = "cursor-ring";
+    var ringLabel = document.createElement("span");
+    ringLabel.className = "cursor-ring-label";
+    ringLabel.textContent = "View →";
+    ring.appendChild(ringLabel);
     document.body.appendChild(dot);
     document.body.appendChild(ring);
 
-    var mx = window.innerWidth / 2,
-      my = window.innerHeight / 2,
-      rx = mx,
-      ry = my;
-
+    var mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my;
     window.addEventListener("mousemove", function (e) {
       mx = e.clientX;
       my = e.clientY;
       dot.style.transform = "translate(" + mx + "px, " + my + "px) translate(-50%, -50%)";
     });
-
     function loop() {
-      rx += (mx - rx) * 0.15;
-      ry += (my - ry) * 0.15;
+      rx += (mx - rx) * 0.18;
+      ry += (my - ry) * 0.18;
       ring.style.transform = "translate(" + rx + "px, " + ry + "px) translate(-50%, -50%)";
       requestAnimationFrame(loop);
     }
     requestAnimationFrame(loop);
 
     document.querySelectorAll("a, button, input, textarea").forEach(function (el) {
-      el.addEventListener("mouseenter", function () {
-        ring.classList.add("is-hover");
-      });
-      el.addEventListener("mouseleave", function () {
-        ring.classList.remove("is-hover");
-      });
+      el.addEventListener("mouseenter", function () { ring.classList.add("is-hover"); });
+      el.addEventListener("mouseleave", function () { ring.classList.remove("is-hover"); });
+    });
+    document.querySelectorAll(".case-visual").forEach(function (el) {
+      el.addEventListener("mouseenter", function () { ring.classList.add("is-view"); });
+      el.addEventListener("mouseleave", function () { ring.classList.remove("is-view"); });
     });
   }
 
