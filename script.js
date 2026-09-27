@@ -15,6 +15,33 @@
     update();
   })();
 
+  // Nav active-section indicator: highlight the link for whichever
+  // section id is currently in view.
+  (function () {
+    var links = document.querySelectorAll('.nav-links a[href^="#"]');
+    if (!links.length || !("IntersectionObserver" in window)) return;
+    var sections = [];
+    links.forEach(function (link) {
+      var section = document.getElementById(link.getAttribute("href").slice(1));
+      if (section) sections.push({ link: link, section: section });
+    });
+    if (!sections.length) return;
+    var navObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          var match = sections.find(function (s) { return s.section === entry.target; });
+          if (!match) return;
+          if (entry.isIntersecting) {
+            links.forEach(function (l) { l.classList.remove("is-active"); });
+            match.link.classList.add("is-active");
+          }
+        });
+      },
+      { rootMargin: "-45% 0px -45% 0px" }
+    );
+    sections.forEach(function (s) { navObserver.observe(s.section); });
+  })();
+
   // Hero load-in: staggered fade/rise, per the timing spec. Skips straight
   // to the resolved state under reduced motion instead of firing timers.
   (function () {
@@ -207,28 +234,6 @@
       { threshold: 0.3 }
     );
     footerObserver.observe(footer);
-  })();
-
-  // Profile section's big statement: subtle scroll-tied typographic shift
-  // (max ~12px) as the section passes through view. rAF-throttled.
-  (function () {
-    var el = document.querySelector("[data-scroll-shift]");
-    if (!el || reduceMotion) return;
-    var ticking = false;
-    function update() {
-      ticking = false;
-      var r = el.getBoundingClientRect();
-      var vh = window.innerHeight;
-      var progress = 1 - Math.min(Math.max((r.top + r.height / 2) / (vh + r.height), 0), 1);
-      el.style.transform = "translateY(" + (12 - progress * 12) + "px)";
-    }
-    window.addEventListener("scroll", function () {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(update);
-      }
-    }, { passive: true });
-    update();
   })();
 
   // Footer signature mark: click toggles the "Built by Khadijah" reveal too,
