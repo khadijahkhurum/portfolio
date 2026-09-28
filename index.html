@@ -442,52 +442,87 @@
       <p class="section-marker">04 / APPROACH</p>
       <h2 class="editorial-statement">How I approach<br>security problems.</h2>
 
-      <ol class="method-flow">
-        <li class="method-stage" data-cursor="explore">
-          <p class="method-num">01</p>
-          <h3 class="method-name">Understand</h3>
-          <p class="method-desc">Map the system, environment, requirements and threat context.</p>
-          <p class="method-link">System &middot; environment &middot; threat context</p>
-        </li>
-        <li class="method-stage" data-cursor="explore">
-          <p class="method-num">02</p>
-          <h3 class="method-name">Quantify</h3>
-          <p class="method-desc">Turn uncertainty into measurable risk, exposure or data.</p>
-          <p class="method-link">FAIR &middot; Monte Carlo &middot; quantitative risk</p>
-        </li>
-        <li class="method-stage" data-cursor="explore">
-          <p class="method-num">03</p>
-          <h3 class="method-name">Test</h3>
-          <p class="method-desc">Challenge assumptions through analysis, simulation or adversarial testing.</p>
-          <p class="method-link">Adversarial ML &middot; security testing</p>
-        </li>
-        <li class="method-stage" data-cursor="explore">
-          <p class="method-num">04</p>
-          <h3 class="method-name">Build</h3>
-          <p class="method-desc">Translate findings into controls, systems, models or tooling.</p>
-          <p class="method-link">Risk Radar &middot; technical systems</p>
-        </li>
-        <li class="method-stage" data-cursor="explore">
-          <p class="method-num">05</p>
-          <h3 class="method-name">Measure</h3>
-          <p class="method-desc">Evaluate outcomes and whether the intervention changed the risk.</p>
-          <p class="method-link">Control coverage &middot; residual risk &middot; outcomes</p>
-        </li>
-      </ol>
+      <div data-track-variant="all">
+        <ol class="method-flow">
+          <li class="method-stage" data-cursor="explore">
+            <p class="method-num">01</p>
+            <h3 class="method-name">Understand</h3>
+            <p class="method-desc">Map the system, environment, requirements and threat context.</p>
+            <p class="method-link">System &middot; environment &middot; threat context</p>
+          </li>
+          <li class="method-stage" data-cursor="explore">
+            <p class="method-num">02</p>
+            <h3 class="method-name">Quantify</h3>
+            <p class="method-desc">Turn uncertainty into measurable risk, exposure or data.</p>
+            <p class="method-link">FAIR &middot; Monte Carlo &middot; quantitative risk</p>
+          </li>
+          <li class="method-stage" data-cursor="explore">
+            <p class="method-num">03</p>
+            <h3 class="method-name">Test</h3>
+            <p class="method-desc">Challenge assumptions through analysis, simulation or adversarial testing.</p>
+            <p class="method-link">Adversarial ML &middot; security testing</p>
+          </li>
+          <li class="method-stage" data-cursor="explore">
+            <p class="method-num">04</p>
+            <h3 class="method-name">Build</h3>
+            <p class="method-desc">Translate findings into controls, systems, models or tooling.</p>
+            <p class="method-link">Risk Radar &middot; technical systems</p>
+          </li>
+          <li class="method-stage" data-cursor="explore">
+            <p class="method-num">05</p>
+            <h3 class="method-name">Measure</h3>
+            <p class="method-desc">Evaluate outcomes and whether the intervention changed the risk.</p>
+            <p class="method-link">Control coverage &middot; residual risk &middot; outcomes</p>
+          </li>
+        </ol>
 
-      <div class="method-loop" aria-hidden="true">
-        <span>Security problem</span>
-        <span>Understand</span>
-        <span>Quantify</span>
-        <span>Test</span>
-        <span>Build</span>
-        <span>Measure</span>
-        <span class="method-loop-end">Secure decision</span>
+        <div class="method-loop" aria-hidden="true">
+          <span>Security problem</span>
+          <span>Understand</span>
+          <span>Quantify</span>
+          <span>Test</span>
+          <span>Build</span>
+          <span>Measure</span>
+          <span class="method-loop-end">Secure decision</span>
+        </div>
       </div>
 
-      <div class="method-soc-flow" data-soc-only hidden>
-        <p class="stack-label">Security operations workflow</p>
+      <div data-track-variant="soc" hidden>
+        <ol class="method-flow">
+          <li class="method-stage" data-cursor="explore">
+            <p class="method-num">01</p>
+            <h3 class="method-name">Detect</h3>
+            <p class="method-desc">Identify suspicious activity, anomalies, alerts and relevant telemetry.</p>
+            <p class="method-link">Alerts &middot; anomalies &middot; telemetry</p>
+          </li>
+          <li class="method-stage" data-cursor="explore">
+            <p class="method-num">02</p>
+            <h3 class="method-name">Triage</h3>
+            <p class="method-desc">Separate meaningful security signals from noise and establish priority.</p>
+            <p class="method-link">Signal vs noise &middot; prioritisation</p>
+          </li>
+          <li class="method-stage" data-cursor="explore">
+            <p class="method-num">03</p>
+            <h3 class="method-name">Investigate</h3>
+            <p class="method-desc">Correlate logs, network activity, endpoint evidence and indicators to understand what happened.</p>
+            <p class="method-link">Splunk &middot; Wireshark &middot; log analysis</p>
+          </li>
+          <li class="method-stage" data-cursor="explore">
+            <p class="method-num">04</p>
+            <h3 class="method-name">Contain</h3>
+            <p class="method-desc">Limit exposure, isolate affected systems or accounts, and reduce further risk.</p>
+            <p class="method-link">Exposure reduction &middot; isolation</p>
+          </li>
+          <li class="method-stage" data-cursor="explore">
+            <p class="method-num">05</p>
+            <h3 class="method-name">Recover</h3>
+            <p class="method-desc">Document findings, restore normal operations and feed lessons back into defensive controls.</p>
+            <p class="method-link">Documentation &middot; defensive controls</p>
+          </li>
+        </ol>
+
         <div class="method-loop" aria-hidden="true">
+          <span>Telemetry</span>
           <span>Detect</span>
           <span>Triage</span>
           <span>Investigate</span>
@@ -495,32 +530,98 @@
           <span class="method-loop-end">Recover</span>
         </div>
       </div>
+
+      <div data-track-variant="grc" hidden>
+        <ol class="method-flow">
+          <li class="method-stage" data-cursor="explore">
+            <p class="method-num">01</p>
+            <h3 class="method-name">Understand</h3>
+            <p class="method-desc">Define the business context, assets, threats and risk scenario.</p>
+            <p class="method-link">Business context &middot; assets &middot; threats</p>
+          </li>
+          <li class="method-stage" data-cursor="explore">
+            <p class="method-num">02</p>
+            <h3 class="method-name">Quantify</h3>
+            <p class="method-desc">Estimate likelihood, frequency and potential loss rather than relying only on qualitative labels.</p>
+            <p class="method-link">FAIR &middot; Monte Carlo &middot; loss exposure</p>
+          </li>
+          <li class="method-stage" data-cursor="explore">
+            <p class="method-num">03</p>
+            <h3 class="method-name">Assess</h3>
+            <p class="method-desc">Evaluate existing controls, gaps, assumptions and framework requirements.</p>
+            <p class="method-link">Control mapping &middot; gap analysis</p>
+          </li>
+          <li class="method-stage" data-cursor="explore">
+            <p class="method-num">04</p>
+            <h3 class="method-name">Treat</h3>
+            <p class="method-desc">Determine practical control improvements and risk-reduction actions.</p>
+            <p class="method-link">Risk treatment &middot; control improvement</p>
+          </li>
+          <li class="method-stage" data-cursor="explore">
+            <p class="method-num">05</p>
+            <h3 class="method-name">Decide</h3>
+            <p class="method-desc">Translate the analysis into a decision around exposure, appetite, investment and priorities.</p>
+            <p class="method-link">Risk appetite &middot; investment &middot; priorities</p>
+          </li>
+        </ol>
+
+        <div class="method-loop" aria-hidden="true">
+          <span>Business context</span>
+          <span>Understand</span>
+          <span>Quantify</span>
+          <span>Assess</span>
+          <span>Treat</span>
+          <span class="method-loop-end">Decide</span>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ============================================================
-       SOC TOOLKIT (SOC / Blue Team mode only)
+       TECHNOLOGY / TOOLKIT (mode-aware: overview / SOC / GRC)
        ============================================================ -->
-  <section class="stack soc-only-section" aria-label="Security operations toolkit" data-soc-only hidden>
+  <section class="stack" aria-label="Technology toolkit">
     <div class="wrap">
-      <p class="stack-label">SOC toolkit</p>
-      <p class="soc-toolkit-note">Hands-on exposure from practical labs &mdash; not professional SOC ownership.</p>
-      <ul class="stack-index">
-        <li><span class="stack-project">SIEM</span><span class="stack-tech">Splunk</span></li>
-        <li><span class="stack-project">Network</span><span class="stack-tech">Wireshark &middot; Nmap</span></li>
-        <li><span class="stack-project">Threat / Attack</span><span class="stack-tech">MITRE ATT&amp;CK &middot; Metasploit</span></li>
-        <li><span class="stack-project">Malware</span><span class="stack-tech">Static Analysis &middot; Process Monitor &middot; TCPView</span></li>
-        <li><span class="stack-project">Forensics</span><span class="stack-tech">Autopsy &middot; Kali Linux</span></li>
-        <li><span class="stack-project">Response</span><span class="stack-tech">Incident Response &middot; Containment &middot; Escalation &middot; Recovery</span></li>
-        <li><span class="stack-project">Networking</span><span class="stack-tech">TCP/IP &middot; DNS &middot; DHCP &middot; VPN &middot; Firewalls</span></li>
-      </ul>
+      <div data-track-variant="all">
+        <p class="stack-label">Technology overview</p>
+        <ul class="stack-index">
+          <li><span class="stack-project">Security Operations</span><span class="stack-tech">Splunk &middot; Wireshark &middot; Nmap &middot; MITRE ATT&amp;CK</span></li>
+          <li><span class="stack-project">Cyber Risk</span><span class="stack-tech">FAIR &middot; NIST CSF &middot; ISO 27001 &middot; COBIT</span></li>
+          <li><span class="stack-project">Forensics / Security Research</span><span class="stack-tech">Autopsy &middot; Kali &middot; Python &middot; scikit-learn</span></li>
+        </ul>
+      </div>
+      <div data-track-variant="soc" hidden>
+        <p class="stack-label">SOC toolkit</p>
+        <p class="soc-toolkit-note">Hands-on exposure from practical labs &mdash; not professional SOC ownership.</p>
+        <ul class="stack-index">
+          <li><span class="stack-project">SIEM</span><span class="stack-tech">Splunk</span></li>
+          <li><span class="stack-project">Network</span><span class="stack-tech">Wireshark &middot; Nmap</span></li>
+          <li><span class="stack-project">Threat / Attack</span><span class="stack-tech">MITRE ATT&amp;CK &middot; Metasploit</span></li>
+          <li><span class="stack-project">Forensics</span><span class="stack-tech">Autopsy &middot; Kali Linux</span></li>
+          <li><span class="stack-project">Malware / Endpoint</span><span class="stack-tech">Static Analysis &middot; Process Monitor &middot; TCPView</span></li>
+          <li><span class="stack-project">Credential / Auth</span><span class="stack-tech">Responder &middot; John the Ripper</span></li>
+          <li><span class="stack-project">Networking</span><span class="stack-tech">TCP/IP &middot; DNS &middot; DHCP &middot; VPN &middot; Firewalls</span></li>
+        </ul>
+      </div>
+      <div data-track-variant="grc" hidden>
+        <p class="stack-label">Risk &amp; governance toolkit</p>
+        <p class="soc-toolkit-note">Practical labs and coursework &mdash; not enterprise GRC ownership.</p>
+        <ul class="stack-index">
+          <li><span class="stack-project">Risk</span><span class="stack-tech">FAIR &middot; Quantitative Risk Modelling</span></li>
+          <li><span class="stack-project">Frameworks</span><span class="stack-tech">NIST CSF 2.0 &middot; ISO 27001 &middot; COBIT</span></li>
+          <li><span class="stack-project">Control Assessment</span><span class="stack-tech">Control Mapping &middot; Gap Analysis &middot; Risk Treatment</span></li>
+          <li><span class="stack-project">Compliance</span><span class="stack-tech">SOC 2 &middot; PCI DSS &middot; EU AI Act</span></li>
+          <li><span class="stack-project">Analysis</span><span class="stack-tech">Python &middot; Pandas &middot; Monte Carlo Simulation</span></li>
+          <li><span class="stack-project">Decision Support</span><span class="stack-tech">Risk Appetite &middot; Loss Modelling &middot; Control Effectiveness</span></li>
+        </ul>
+      </div>
     </div>
   </section>
 
   <!-- ============================================================
        WHAT I WORK WITH (SOC / Blue Team mode only)
        ============================================================ -->
-  <section class="exploring soc-only-section" aria-label="What I work with" data-soc-only hidden>
+  <section class="exploring" aria-label="What I work with" data-track-variant="soc" hidden>
     <div class="wrap">
       <p class="exploring-label">What I work with</p>
       <ul class="exploring-list">
@@ -641,16 +742,49 @@
     <div class="wrap" data-reveal>
       <p class="section-marker">06 / ABOUT</p>
       <div class="about-copy">
-        <p>
-          I'm Khadijah — a cybersecurity graduate working across security
-          operations, cyber risk and security engineering.
-        </p>
-        <p>
-          I like turning security requirements into systems that can be
-          measured, tested and improved. My work sits between governance and
-          engineering: risk models, security controls, adversarial ML and the
-          systems connecting them. Based in the UAE.
-        </p>
+        <div data-track-variant="all">
+          <p>
+            I'm Khadijah — a cybersecurity graduate interested in how systems
+            behave, where they become vulnerable, and how security decisions
+            get made.
+          </p>
+          <p>
+            My work spans hands-on security operations, cyber risk and
+            security engineering, combining technical investigation with
+            risk and control thinking. Based in the UAE.
+          </p>
+        </div>
+        <div data-track-variant="soc" hidden>
+          <p>
+            I'm Khadijah — a cybersecurity graduate interested in what
+            happens when security systems are put under pressure.
+          </p>
+          <p>
+            My work has taken me through network analysis, vulnerability
+            assessment, log investigation, incident-response and
+            digital-forensics labs, alongside offensive-security exercises
+            that help me understand how attacks appear from the defender's
+            side. I'm particularly interested in security operations:
+            investigating signals, understanding what happened, and turning
+            technical findings into a response. Based in the UAE.
+          </p>
+        </div>
+        <div data-track-variant="grc" hidden>
+          <p>
+            I'm Khadijah — a cybersecurity graduate interested in turning
+            technical security problems into measurable risk and practical
+            decisions.
+          </p>
+          <p>
+            My work spans quantitative risk modelling, control assessment,
+            compliance frameworks and security strategy, with projects built
+            around FAIR, NIST CSF, ISO 27001 and structured risk analysis.
+            I'm particularly interested in the space between technical
+            exposure and business decision-making: understanding what can
+            happen, how much it could cost, and what controls can change the
+            outcome. Based in the UAE.
+          </p>
+        </div>
         <p>
           GRC is a writing discipline as much as a technical one — policies,
           risk narratives, audit responses, board papers all have to hold up

@@ -131,10 +131,32 @@
     var filterBtns = document.querySelectorAll("[data-track-btn]");
     var contextLines = document.querySelectorAll("[data-track-context-line]");
     var cards = document.querySelectorAll(".work-list .case");
-    var socOnly = document.querySelectorAll("[data-soc-only]");
     if (!section || !filterBtns.length || !cards.length) return;
 
     var hideDelay = reduceMotion ? 0 : 260;
+
+    // Mode-aware content blocks (About copy, Approach stages, Technology
+    // toolkit, What I Work With) each carry data-track-variant="all|soc|grc".
+    // Only the block matching the active track is ever attached to the
+    // document - the others are genuinely removed (not display:none'd) so
+    // no track's content leaks into another and no mode leaves a gap.
+    // Each block's original parent + next-sibling is captured once up
+    // front so it can be reinserted in the same spot when its track is
+    // selected again.
+    var variantState = Array.prototype.map.call(document.querySelectorAll("[data-track-variant]"), function (el) {
+      el.removeAttribute("hidden");
+      return { el: el, variant: el.getAttribute("data-track-variant"), parent: el.parentNode, anchor: el.nextSibling };
+    });
+    function applyVariants(track) {
+      variantState.forEach(function (v) {
+        if (v.variant === track) {
+          if (!v.el.isConnected) v.parent.insertBefore(v.el, v.anchor);
+        } else if (v.el.isConnected) {
+          v.el.remove();
+        }
+      });
+    }
+    applyVariants("all"); // strip non-ALL variants from the initial document state
 
     function renumber() {
       var n = 0;
@@ -149,7 +171,7 @@
     function applyTrack(track) {
       section.setAttribute("data-track", track);
       document.body.setAttribute("data-track", track);
-      socOnly.forEach(function (el) { el.hidden = track !== "soc"; });
+      applyVariants(track);
 
       filterBtns.forEach(function (btn) {
         var active = btn.getAttribute("data-track-btn") === track;
