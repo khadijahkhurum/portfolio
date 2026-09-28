@@ -18,7 +18,14 @@
   --measure: 58ch;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --gap-section: 160px;
+
+  /* Primary accent - lime by default (ALL/SOC), swapped to magenta
+     site-wide in GRC mode below, so hover/focus states, link arrows
+     and emphasis text follow the active track. Fixed brand chrome
+     (scrollbar, logo dot) stays lime always - see their own rules. */
+  --accent: var(--lime);
 }
+body[data-track="grc"] { --accent: var(--magenta); }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -93,7 +100,7 @@ a { color: var(--ivory); }
   font-weight: 600;
   font-size: 0.72rem;
   letter-spacing: 0.08em;
-  color: var(--lime);
+  color: var(--accent);
   margin: 0 0 20px;
   padding-left: 20px;
 }
@@ -104,7 +111,7 @@ a { color: var(--ivory); }
   top: 0.5em;
   width: 12px;
   height: 1px;
-  background: var(--lime);
+  background: var(--accent);
 }
 
 .editorial-statement {
@@ -115,7 +122,7 @@ a { color: var(--ivory); }
   margin: 0 0 28px;
   max-width: 14ch;
 }
-.editorial-statement em { color: var(--lime); font-style: italic; }
+.editorial-statement em { color: var(--accent); font-style: italic; }
 .editorial-statement-sm { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 20px; }
 
 section { padding: var(--gap-section) 0; border-top: 1px solid var(--graphite); }
@@ -324,7 +331,7 @@ html.mode-chosen .mode-gate { display: none; }
   bottom: 0;
   width: 100%;
   height: 1px;
-  background: var(--lime);
+  background: var(--accent);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s var(--ease);
@@ -337,7 +344,7 @@ html.mode-chosen .mode-gate { display: none; }
   height: 4px;
   margin-left: 6px;
   border-radius: 50%;
-  background: var(--lime);
+  background: var(--accent);
   opacity: 0;
   transform: scale(0);
   transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
@@ -365,7 +372,7 @@ html.mode-chosen .mode-gate { display: none; }
 }
 .hero-diagram { width: 100%; height: 100%; }
 .hd-line { stroke: var(--graphite); stroke-width: 1; }
-.hd-node { fill: var(--lime); opacity: 0.6; transition: transform 0.6s var(--ease); }
+.hd-node { fill: var(--accent); opacity: 0.6; transition: transform 0.6s var(--ease); }
 .hero-name-serif { transition: transform 0.6s var(--ease); }
 
 .hero-content { position: relative; padding-top: 90px; padding-bottom: 60px; width: 100%; }
@@ -376,7 +383,7 @@ html.mode-chosen .mode-gate { display: none; }
   font-weight: 600;
   font-size: 0.76rem;
   letter-spacing: 0.08em;
-  color: var(--lime);
+  color: var(--accent);
   margin: 0 0 28px;
   transition: opacity 0.18s var(--ease);
 }
@@ -432,10 +439,10 @@ html.mode-chosen .mode-gate { display: none; }
 }
 .hero-scroll { color: var(--stone); text-decoration: none; transition: color 0.25s var(--ease); }
 .hero-scroll:hover { color: var(--ivory); }
-.hero-scroll span { color: var(--lime); }
+.hero-scroll span { color: var(--accent); }
 
 /* The accent as a recurring "signal": every inline CTA arrow picks it up. */
-a > span[aria-hidden="true"] { color: var(--lime); }
+a > span[aria-hidden="true"] { color: var(--accent); }
 
 .hero-support { color: var(--stone); font-size: 1rem; line-height: 1.6; max-width: 38ch; margin: 0 0 24px; }
 .hero-signal {
@@ -444,7 +451,7 @@ a > span[aria-hidden="true"] { color: var(--lime); }
   font-weight: 600;
   font-size: 0.68rem;
   letter-spacing: 0.05em;
-  color: var(--lime);
+  color: var(--accent);
   margin: 0 0 40px;
 }
 
@@ -485,9 +492,9 @@ a > span[aria-hidden="true"] { color: var(--lime); }
   font-weight: 600;
   font-size: 0.64rem;
   letter-spacing: 0.05em;
-  color: var(--lime);
+  color: var(--accent);
 }
-.status-state::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--lime); }
+.status-state::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
 
 /* Mode-aware readout: heading + 3-stat grid + workflow line. Accent
    shifts with body[data-track] - lime-dominant in SOC, magenta in GRC,
@@ -603,8 +610,8 @@ body[data-track="grc"] .status-stat-num { color: var(--magenta); }
 }
 .work-filter-btn:hover { color: var(--ivory); border-color: var(--stone); }
 .work-filter-btn.is-active {
-  background: var(--lime);
-  border-color: var(--lime);
+  background: var(--track-accent, var(--lime));
+  border-color: var(--track-accent, var(--lime));
   color: var(--obsidian);
 }
 .work-filter-context {
@@ -921,14 +928,14 @@ button.flow-node:not(.flow-node-red):not(.flow-node-blue):not(.flow-node-residua
   left: 0; bottom: 0;
   width: 32px;
   height: 1px;
-  background: var(--lime);
+  background: var(--accent);
   transition: width 0.4s var(--ease), background 0.4s var(--ease);
 }
 .impact-item:hover::after { width: 100%; }
 .impact-number {
   font-family: var(--font-serif);
   font-size: clamp(2.6rem, 5.5vw, 3.6rem);
-  color: var(--lime);
+  color: var(--accent);
   margin: 0 0 10px;
   display: inline-block;
   transition: transform 0.35s var(--ease);
@@ -1064,7 +1071,7 @@ body[data-track="grc"] .approach .method-loop-end { color: var(--magenta); }
   left: 0;
   width: 0;
   height: 2px;
-  background: var(--lime);
+  background: var(--accent);
   transition: width 0.3s var(--ease);
 }
 .framework-cell:hover,
@@ -1084,7 +1091,7 @@ body[data-track="grc"] .approach .method-loop-end { color: var(--magenta); }
   font-weight: 600;
   font-size: 0.66rem;
   letter-spacing: 0.03em;
-  color: var(--lime);
+  color: var(--accent);
   margin-top: 8px;
   opacity: 0;
   transform: translateY(4px);
@@ -1093,7 +1100,7 @@ body[data-track="grc"] .approach .method-loop-end { color: var(--magenta); }
 .framework-cell:hover .framework-detail,
 .framework-cell:focus-within .framework-detail { opacity: 1; transform: translateY(0); }
 .framework-cell:hover .framework-name,
-.framework-cell:focus-within .framework-name { color: var(--lime); transition: color 0.25s var(--ease); }
+.framework-cell:focus-within .framework-name { color: var(--accent); transition: color 0.25s var(--ease); }
 
 /* Keyboard focus gets its own state — pink as the secondary signal,
    distinct from the lime mouse-hover state above. */
@@ -1111,7 +1118,7 @@ body[data-track="grc"] .approach .method-loop-end { color: var(--magenta); }
   font-weight: 600;
   font-size: 0.72rem;
   letter-spacing: 0.06em;
-  color: var(--lime);
+  color: var(--accent);
   margin: 0 0 14px;
 }
 .soc-toolkit-note { font-size: 0.82rem; color: var(--ash); margin: 0 0 20px; max-width: 46ch; }
@@ -1146,7 +1153,7 @@ body[data-track="grc"] .approach .method-loop-end { color: var(--magenta); }
   font-weight: 600;
   letter-spacing: 0.08em;
   font-size: 0.72rem;
-  color: var(--lime);
+  color: var(--accent);
   margin: 0 0 14px;
 }
 .exploring-list { list-style: none; padding: 0; margin: 0; }
@@ -1164,7 +1171,7 @@ body[data-track="grc"] .approach .method-loop-end { color: var(--magenta); }
   transition: color 0.3s var(--ease), transform 0.3s var(--ease);
 }
 .exploring-row:hover .exploring-name,
-.exploring-row:focus-within .exploring-name { color: var(--lime); transform: translateX(6px); }
+.exploring-row:focus-within .exploring-name { color: var(--accent); transform: translateX(6px); }
 .exploring-detail {
   display: block;
   font-family: var(--font-sans);
@@ -1209,7 +1216,7 @@ body[data-track="grc"] .approach .method-loop-end { color: var(--magenta); }
   content: "";
   position: absolute;
   left: 0; bottom: 0; width: 100%; height: 1px;
-  background: var(--lime);
+  background: var(--accent);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s var(--ease);
@@ -1245,7 +1252,7 @@ body[data-track="grc"] .approach .method-loop-end { color: var(--magenta); }
   transition: border-color 0.25s var(--ease);
 }
 .form-field input:focus,
-.form-field textarea:focus { border-color: var(--lime); outline: none; }
+.form-field textarea:focus { border-color: var(--accent); outline: none; }
 .form-submit {
   font-family: var(--font-sans);
   font-size: 0.85rem;
@@ -1258,7 +1265,7 @@ body[data-track="grc"] .approach .method-loop-end { color: var(--magenta); }
   cursor: pointer;
   transition: border-color 0.25s var(--ease), color 0.25s var(--ease);
 }
-.form-submit:hover { border-color: var(--lime); color: var(--lime); }
+.form-submit:hover { border-color: var(--accent); color: var(--accent); }
 
 .contact-links { display: flex; gap: 26px; }
 .contact-links a {
@@ -1273,7 +1280,7 @@ body[data-track="grc"] .approach .method-loop-end { color: var(--magenta); }
   content: "";
   position: absolute;
   left: 0; bottom: 0; width: 100%; height: 1px;
-  background: var(--lime);
+  background: var(--accent);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s var(--ease);
@@ -1308,7 +1315,7 @@ body[data-track="grc"] .approach .method-loop-end { color: var(--magenta); }
   content: "";
   position: absolute;
   left: 0; bottom: 0; width: 100%; height: 1px;
-  background: var(--lime);
+  background: var(--accent);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s var(--ease);
