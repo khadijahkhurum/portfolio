@@ -185,6 +185,27 @@
       });
     }
 
+    // Contact headline verb: same fade-swap pattern as the hero eyebrow,
+    // but keyed on its own map since it's a single word inside markup
+    // (line breaks, <em>) rather than a full text node.
+    var verbText = { all: "build", soc: "investigate", grc: "assess" };
+    var verbEls = document.querySelectorAll("[data-track-verb]");
+    function applyTrackVerb(track) {
+      verbEls.forEach(function (el) {
+        var next = verbText[track];
+        if (!next || el.textContent === next) return;
+        if (reduceMotion) {
+          el.textContent = next;
+          return;
+        }
+        el.classList.add("is-swapping");
+        window.setTimeout(function () {
+          el.textContent = next;
+          el.classList.remove("is-swapping");
+        }, 180);
+      });
+    }
+
     function renumber() {
       var n = 0;
       cards.forEach(function (card) {
@@ -200,6 +221,7 @@
       document.body.setAttribute("data-track", track);
       applyVariants(track);
       applyTrackText(track);
+      applyTrackVerb(track);
 
       // Re-roll the hero readout's digits into their new values whenever
       // the track changes (not on initial load - that's handled once by

@@ -359,6 +359,9 @@ html.mode-chosen .mode-gate { display: none; }
 }
 .hero-eyebrow.is-swapping { opacity: 0; }
 
+.contact-verb { display: inline-block; transition: opacity 0.18s var(--ease); }
+.contact-verb.is-swapping { opacity: 0; }
+
 .hero-name {
   margin: 0 0 32px;
   line-height: 0.92;
