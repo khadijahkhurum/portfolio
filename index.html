@@ -9,10 +9,47 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script>
+  // Runs before body paint so a returning visitor's remembered mode never
+  // flashes the entry gate. If nothing is stored yet, the gate's default
+  // CSS state (visible) stands and script.js drives the first-visit flow.
+  (function () {
+    try {
+      if (localStorage.getItem("portfolioMode")) {
+        document.documentElement.classList.add("mode-chosen");
+      }
+    } catch (e) {}
+  })();
+</script>
 </head>
-<body>
+<body class="has-mode-gate">
 
 <a class="skip-link" href="#top">Skip to content</a>
+
+<!-- ============================================================
+     ENTRY MODE GATE (first visit only - see script.js)
+     ============================================================ -->
+<div class="mode-gate" id="mode-gate" role="dialog" aria-modal="true" aria-label="Choose how to explore the portfolio">
+  <div class="mode-gate-inner">
+    <p class="mode-gate-name">Khadijah Khurum</p>
+    <p class="mode-gate-title">Cybersecurity</p>
+    <p class="mode-gate-question">How do you want to explore?</p>
+    <div class="mode-gate-choices">
+      <button type="button" class="mode-gate-choice" data-mode-choice="soc">
+        <span class="mode-gate-choice-label">Security Operations</span>
+        <span class="mode-gate-choice-sub">SOC / Blue Team</span>
+      </button>
+      <button type="button" class="mode-gate-choice" data-mode-choice="grc">
+        <span class="mode-gate-choice-label">Cyber Risk</span>
+        <span class="mode-gate-choice-sub">GRC / Governance</span>
+      </button>
+      <button type="button" class="mode-gate-choice" data-mode-choice="all">
+        <span class="mode-gate-choice-label">Explore Everything</span>
+        <span class="mode-gate-choice-sub">Full portfolio</span>
+      </button>
+    </div>
+  </div>
+</div>
 
 <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress-bar"></span></div>
 
@@ -27,6 +64,12 @@
       <a href="#about">About<span class="nav-link-dot" aria-hidden="true"></span></a>
       <a href="#contact">Contact<span class="nav-link-dot" aria-hidden="true"></span></a>
     </nav>
+    <div class="nav-mode" role="group" aria-label="Portfolio mode">
+      <span class="nav-mode-label">Mode</span>
+      <button type="button" class="nav-mode-btn" data-track-btn="all" aria-pressed="true">All</button>
+      <button type="button" class="nav-mode-btn" data-track-btn="soc" aria-pressed="false">SOC</button>
+      <button type="button" class="nav-mode-btn" data-track-btn="grc" aria-pressed="false">GRC</button>
+    </div>
   </div>
 </header>
 

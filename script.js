@@ -240,10 +240,56 @@
     }
 
     filterBtns.forEach(function (btn) {
-      btn.addEventListener("click", function () { applyTrack(btn.getAttribute("data-track-btn")); });
+      btn.addEventListener("click", function () {
+        var track = btn.getAttribute("data-track-btn");
+        applyTrack(track);
+        try { localStorage.setItem("portfolioMode", track); } catch (e) {}
+      });
     });
 
     renumber();
+
+    // Returning visitor: load straight into their remembered mode instead
+    // of the default ALL. The inline <head> script already hid the entry
+    // gate before paint (html.mode-chosen); this is what actually
+    // configures the page to match.
+    var storedMode = null;
+    try { storedMode = localStorage.getItem("portfolioMode"); } catch (e) {}
+    if (storedMode === "soc" || storedMode === "grc" || storedMode === "all") {
+      applyTrack(storedMode);
+    }
+
+    // Entry mode gate (first-visit only; skipped for returning visitors
+    // via the html.mode-chosen CSS rule set from the inline head script).
+    var gate = document.getElementById("mode-gate");
+    if (gate) {
+      var dismissGate = function () {
+        document.body.classList.remove("has-mode-gate");
+        if (reduceMotion) {
+          gate.remove();
+          return;
+        }
+        gate.classList.add("is-leaving");
+        gate.addEventListener("transitionend", function () { gate.remove(); }, { once: true });
+        // Fallback in case transitionend doesn't fire (e.g. display change race).
+        window.setTimeout(function () { if (gate.parentNode) gate.remove(); }, 500);
+      };
+      if (storedMode === "soc" || storedMode === "grc" || storedMode === "all") {
+        // Already resolved above; just clear the scroll lock, no exit animation.
+        document.body.classList.remove("has-mode-gate");
+        gate.remove();
+      } else {
+        gate.querySelectorAll("[data-mode-choice]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var mode = btn.getAttribute("data-mode-choice");
+            applyTrack(mode);
+            try { localStorage.setItem("portfolioMode", mode); } catch (e) {}
+            document.documentElement.classList.add("mode-chosen");
+            dismissGate();
+          });
+        });
+      }
+    }
   })();
 
   // Pit Wall flow: hover/focus a node to reveal its caption and nudge the
