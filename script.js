@@ -173,6 +173,16 @@
       document.body.setAttribute("data-track", track);
       applyVariants(track);
 
+      // Re-roll the hero readout's digits into their new values whenever
+      // the track changes (not on initial load - that's handled once by
+      // the scroll-into-view observer below). Skipped under reduced motion,
+      // where the plain final numbers are already correct as-is.
+      if (!reduceMotion) {
+        document.querySelectorAll('.status-panel [data-track-variant="' + track + '"] [data-roll]').forEach(function (el) {
+          rollNumber(el);
+        });
+      }
+
       filterBtns.forEach(function (btn) {
         var active = btn.getAttribute("data-track-btn") === track;
         btn.classList.toggle("is-active", active);
@@ -266,9 +276,13 @@
   // Digit-rolling numbers: each digit character gets its own vertical strip
   // that lands on the target after a couple of loops. Non-digit characters
   // (%, ., commas, →, spaces) pass through as static text. Fires once per
-  // element on scroll-into-view; skipped entirely under reduced motion.
+  // element on scroll-into-view (skipped entirely under reduced motion),
+  // and can be safely replayed later (e.g. the hero readout re-rolling on
+  // track change) - the original digit string is cached on first call so
+  // a replay never tries to re-parse its own roll-strip markup.
   function rollNumber(el) {
-    var text = el.textContent;
+    var text = el.dataset.rollValue || el.textContent;
+    el.dataset.rollValue = text;
     el.textContent = "";
     text.split("").forEach(function (ch) {
       if (/[0-9]/.test(ch)) {

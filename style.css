@@ -346,8 +346,36 @@ a > span[aria-hidden="true"] { color: var(--lime); }
   color: var(--lime);
 }
 .status-state::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--lime); }
+
+/* Mode-aware readout: heading + 3-stat grid + workflow line. Accent
+   shifts with body[data-track] - lime-dominant in SOC, magenta in GRC,
+   neutral ivory in the balanced ALL view. */
+.status-heading {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  color: var(--ivory);
+  margin: 0 0 16px;
+  transition: color 0.3s var(--ease);
+}
+body[data-track="soc"] .status-heading { color: var(--lime); }
+body[data-track="grc"] .status-heading { color: var(--magenta); }
+
 .status-stats { display: flex; gap: 22px; border-top: 1px solid var(--graphite); padding-top: 16px; margin-bottom: 16px; }
-.status-stat-num { font-family: var(--font-serif); font-size: 1.7rem; color: var(--ivory); margin: 0; line-height: 1; }
+.status-stats-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.status-stat-num {
+  font-family: var(--font-serif);
+  font-size: 1.7rem;
+  color: var(--ivory);
+  margin: 0;
+  line-height: 1;
+  transition: color 0.3s var(--ease);
+}
+.status-stats-3 .status-stat-num { font-size: clamp(1.15rem, 4vw, 1.4rem); }
+body[data-track="soc"] .status-stat-num { color: var(--lime); }
+body[data-track="grc"] .status-stat-num { color: var(--magenta); }
 .status-stat-label {
   display: block;
   font-family: var(--font-sans);
@@ -357,6 +385,16 @@ a > span[aria-hidden="true"] { color: var(--lime); }
   letter-spacing: 0.05em;
   color: var(--ash);
   margin-top: 4px;
+}
+.status-flow {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.6rem;
+  letter-spacing: 0.03em;
+  line-height: 1.7;
+  color: var(--stone);
+  margin: 0 0 16px;
 }
 .status-loc {
   font-family: var(--font-sans);
