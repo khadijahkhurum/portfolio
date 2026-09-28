@@ -1,6 +1,7 @@
 /* ============================================================
-   Tokens — near-black / off-white, acid lime as the primary accent,
-   a touch of muted magenta reserved for alert/attack states only
+   Tokens — near-black / off-white, acid lime as the primary/system
+   signal, magenta as a restrained secondary signal (attack states,
+   secondary metrics, scrollbar hover) — lime stays dominant
    ============================================================ */
 :root {
   --obsidian: #0A0A0A;
@@ -21,6 +22,34 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+
+/* Custom scrollbar — lime thumb, magenta on hover, part of the design system */
+html { scrollbar-color: var(--lime) var(--obsidian); scrollbar-width: thin; }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--obsidian); }
+::-webkit-scrollbar-thumb { background: var(--lime); border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: var(--magenta); }
+
+/* Scroll progress — thin lime line at the top, grows with scroll position */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 300;
+  background: transparent;
+}
+.scroll-progress span {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: var(--lime);
+  transform-origin: left;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .scroll-progress span { transition: width 0.1s linear; }
+}
 
 body {
   margin: 0;
@@ -559,10 +588,10 @@ button.flow-node:not(.flow-node-red):not(.flow-node-blue):not(.flow-node-residua
 .finding-number {
   font-family: var(--font-serif);
   font-size: 2.1rem;
-  color: var(--ivory);
+  color: var(--magenta);
   margin: 0;
 }
-.finding-number-small { font-size: 1.3rem; margin-top: 10px; }
+.finding-number-small { font-size: 1.3rem; margin-top: 10px; color: var(--lime); }
 .finding-caption {
   font-family: var(--font-sans);
   font-size: 0.66rem;
@@ -1108,8 +1137,11 @@ button.flow-node:not(.flow-node-red):not(.flow-node-blue):not(.flow-node-residua
   .case-grid,
   .case-grid-alt,
   .hero-content-grid { grid-template-columns: 1fr; gap: 32px; }
-  .case-grid-alt .case-copy,
-  .case-grid-alt .case-visual { order: initial; }
+  /* Force reading order on mobile: heading/description before the
+     visual (Pit Wall's training-notebook flow must not jump above
+     its own project heading), regardless of desktop column order. */
+  .case-grid-alt .case-copy { order: 1; }
+  .case-grid-alt .case-visual { order: 2; }
   .impact-row { grid-template-columns: repeat(2, 1fr); gap: 28px; }
   .case { padding: 60px 0; }
   .nav-links { gap: 18px; }

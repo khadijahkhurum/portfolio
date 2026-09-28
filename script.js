@@ -15,6 +15,20 @@
     update();
   })();
 
+  // Scroll progress: thin lime line at the top, width = scroll position.
+  (function () {
+    var bar = document.getElementById("scroll-progress-bar");
+    if (!bar) return;
+    function update() {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+      bar.style.width = pct + "%";
+    }
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  })();
+
   // Nav active-section indicator: highlight the link for whichever
   // section id is currently in view.
   (function () {
