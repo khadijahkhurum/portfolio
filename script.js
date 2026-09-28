@@ -242,6 +242,8 @@
     var navPanel = document.querySelector(".nav-panel");
     var navToggle = document.querySelector(".nav-toggle");
 
+    var navMode = document.querySelector(".nav-mode");
+
     filterBtns.forEach(function (btn) {
       btn.addEventListener("click", function () {
         applyTrack(btn.getAttribute("data-track-btn"));
@@ -250,6 +252,13 @@
         if (navPanel && navPanel.contains(btn)) {
           navPanel.classList.remove("is-open");
           if (navToggle) navToggle.setAttribute("aria-expanded", "false");
+        }
+        // The nav mode switcher re-frames the whole portfolio (headline,
+        // About, Approach, projects), so jump back to the top to see it
+        // from the start - unlike the Work section's own filter buttons,
+        // which stay put since you're already looking at the projects.
+        if (navMode && navMode.contains(btn)) {
+          window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
         }
       });
     });
