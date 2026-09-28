@@ -401,10 +401,6 @@ a > span[aria-hidden="true"] { color: var(--lime); }
   gap: 56px;
   align-items: start;
 }
-.case-grid-alt { grid-template-columns: 1.1fr 0.9fr; }
-.case-grid-alt .case-copy { order: 2; }
-.case-grid-alt .case-visual { order: 1; }
-
 .case-meta {
   font-family: var(--font-sans);
   text-transform: uppercase;
@@ -523,7 +519,7 @@ a > span[aria-hidden="true"] { color: var(--lime); }
   margin-bottom: 22px;
 }
 .case-stat-grid .case-stat { margin-bottom: 0; }
-.case-stat-grid .case-stat-num { font-size: clamp(1.7rem, 3.2vw, 2.3rem); }
+.case-stat-grid .case-stat-num { font-size: clamp(2rem, 3.8vw, 2.7rem); }
 .case-stat-featured { grid-column: 1 / -1; }
 .case-stat-featured .case-stat-label { max-width: 42ch; }
 
@@ -599,11 +595,11 @@ button.flow-node:not(.flow-node-red):not(.flow-node-blue):not(.flow-node-residua
 .finding { border-top: 1px solid var(--graphite); padding-top: 18px; margin-top: 4px; }
 .finding-number {
   font-family: var(--font-serif);
-  font-size: 2.1rem;
+  font-size: clamp(2.3rem, 4.5vw, 2.8rem);
   color: var(--magenta);
   margin: 0;
 }
-.finding-number-small { font-size: 1.3rem; margin-top: 10px; color: var(--lime); }
+.finding-number-small { font-size: 1.5rem; margin-top: 10px; color: var(--lime); }
 .finding-caption {
   font-family: var(--font-sans);
   font-size: 0.66rem;
@@ -660,7 +656,7 @@ button.flow-node:not(.flow-node-red):not(.flow-node-blue):not(.flow-node-residua
 .impact-item:hover::after { width: 100%; }
 .impact-number {
   font-family: var(--font-serif);
-  font-size: clamp(2.4rem, 5vw, 3.4rem);
+  font-size: clamp(2.6rem, 5.5vw, 3.6rem);
   color: var(--lime);
   margin: 0 0 10px;
   display: inline-block;
@@ -816,6 +812,12 @@ button.flow-node:not(.flow-node-red):not(.flow-node-blue):not(.flow-node-residua
 .framework-cell:focus-within .framework-detail { opacity: 1; transform: translateY(0); }
 .framework-cell:hover .framework-name,
 .framework-cell:focus-within .framework-name { color: var(--lime); transition: color 0.25s var(--ease); }
+
+/* Keyboard focus gets its own state — pink as the secondary signal,
+   distinct from the lime mouse-hover state above. */
+.framework-cell:focus-visible { outline: none; }
+.framework-cell:focus-visible::before { background: var(--magenta); }
+.framework-cell:focus-visible .framework-name { color: var(--magenta); }
 
 /* ============================================================
    Tech stack
@@ -1149,13 +1151,7 @@ button.flow-node:not(.flow-node-red):not(.flow-node-blue):not(.flow-node-residua
   :root { --gap-section: 110px; }
   .wrap { padding: 0 24px; }
   .case-grid,
-  .case-grid-alt,
   .hero-content-grid { grid-template-columns: 1fr; gap: 32px; }
-  /* Force reading order on mobile: heading/description before the
-     visual (Pit Wall's training-notebook flow must not jump above
-     its own project heading), regardless of desktop column order. */
-  .case-grid-alt .case-copy { order: 1; }
-  .case-grid-alt .case-visual { order: 2; }
   .impact-row { grid-template-columns: repeat(2, 1fr); gap: 28px; }
   .case { padding: 60px 0; }
   .nav-links { gap: 18px; }
