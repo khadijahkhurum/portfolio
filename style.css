@@ -515,6 +515,18 @@ a > span[aria-hidden="true"] { color: var(--lime); }
   margin: 6px 0 0;
 }
 
+/* Four-tile metrics grid (FAIR Risk Radar) — reuses .case-stat typography */
+.case-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 24px;
+  margin-bottom: 22px;
+}
+.case-stat-grid .case-stat { margin-bottom: 0; }
+.case-stat-grid .case-stat-num { font-size: clamp(1.7rem, 3.2vw, 2.3rem); }
+.case-stat-featured { grid-column: 1 / -1; }
+.case-stat-featured .case-stat-label { max-width: 42ch; }
+
 /* FAIR pipeline */
 .pipeline { position: relative; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
 .pipeline-track {
@@ -632,7 +644,7 @@ button.flow-node:not(.flow-node-red):not(.flow-node-blue):not(.flow-node-residua
    ============================================================ */
 .impact-row {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 32px;
 }
 .impact-item { position: relative; padding-bottom: 6px; }
@@ -894,8 +906,10 @@ button.flow-node:not(.flow-node-red):not(.flow-node-blue):not(.flow-node-residua
   font-weight: 600;
   font-size: 0.92rem;
   color: var(--ivory);
-  margin: 20px 0 22px;
+  margin: 4px 0;
 }
+.about-degree:first-of-type { margin-top: 20px; }
+.about-degree:last-of-type { margin-bottom: 22px; }
 .about-degree span { display: block; color: var(--stone); font-weight: 400; font-size: 0.85rem; margin-top: 2px; }
 .about-links { display: flex; gap: 26px; margin-top: 12px; }
 .about-links a {
