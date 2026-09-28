@@ -104,19 +104,86 @@
     });
   });
 
-  // FAIR pipeline: click a stage to swap the caption below it.
+  // Pipeline widgets (FAIR + the SOC lab cards): click a stage to swap
+  // the caption below it. Each instance is scoped to its own
+  // .case-visual-inner so multiple pipelines on the page don't cross-wire.
   (function () {
-    var pipeline = document.querySelector("[data-pipeline]");
-    if (!pipeline) return;
-    var buttons = pipeline.querySelectorAll("[data-stage-btn]");
-    var details = document.querySelectorAll("[data-pipeline-detail]");
-    buttons.forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        var stage = btn.getAttribute("data-stage-btn");
-        buttons.forEach(function (b) { b.setAttribute("aria-expanded", b === btn ? "true" : "false"); });
-        details.forEach(function (d) { d.hidden = d.getAttribute("data-pipeline-detail") !== stage; });
+    document.querySelectorAll("[data-pipeline]").forEach(function (pipeline) {
+      var scope = pipeline.closest(".case-visual-inner") || pipeline.parentElement;
+      var buttons = pipeline.querySelectorAll("[data-stage-btn]");
+      var details = scope.querySelectorAll("[data-pipeline-detail]");
+      buttons.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var stage = btn.getAttribute("data-stage-btn");
+          buttons.forEach(function (b) { b.setAttribute("aria-expanded", b === btn ? "true" : "false"); });
+          details.forEach(function (d) { d.hidden = d.getAttribute("data-pipeline-detail") !== stage; });
+        });
       });
     });
+  })();
+
+  // Work-section track filter: ALL / SOC / GRC. Swaps the section's
+  // data-track (which re-themes accent colour + density via CSS),
+  // shows/hides project cards by data-category, and renumbers the
+  // visible case-number labels in DOM order for whichever set is shown.
+  (function () {
+    var section = document.querySelector(".work[data-track]");
+    var filterBtns = document.querySelectorAll("[data-track-btn]");
+    var contextLines = document.querySelectorAll("[data-track-context-line]");
+    var cards = document.querySelectorAll(".work-list .case");
+    var socOnly = document.querySelectorAll("[data-soc-only]");
+    if (!section || !filterBtns.length || !cards.length) return;
+
+    var hideDelay = reduceMotion ? 0 : 260;
+
+    function renumber() {
+      var n = 0;
+      cards.forEach(function (card) {
+        if (card.classList.contains("is-hidden")) return;
+        n += 1;
+        var numEl = card.querySelector("[data-case-number]");
+        if (numEl) numEl.textContent = n < 10 ? "0" + n : String(n);
+      });
+    }
+
+    function applyTrack(track) {
+      section.setAttribute("data-track", track);
+      document.body.setAttribute("data-track", track);
+      socOnly.forEach(function (el) { el.hidden = track !== "soc"; });
+
+      filterBtns.forEach(function (btn) {
+        var active = btn.getAttribute("data-track-btn") === track;
+        btn.classList.toggle("is-active", active);
+        btn.setAttribute("aria-pressed", active ? "true" : "false");
+      });
+
+      contextLines.forEach(function (line) {
+        line.hidden = line.getAttribute("data-track-context-line") !== track;
+      });
+
+      cards.forEach(function (card) {
+        var show = track === "all" || card.getAttribute("data-category") === track;
+        if (show) {
+          card.classList.remove("is-hidden");
+          // Two rAFs so the removed is-hidden (display:none) has taken
+          // effect before the opacity/transform transition starts.
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () { card.classList.remove("is-filtered-out"); });
+          });
+        } else {
+          card.classList.add("is-filtered-out");
+          window.setTimeout(function () { card.classList.add("is-hidden"); }, hideDelay);
+        }
+      });
+
+      window.setTimeout(renumber, hideDelay);
+    }
+
+    filterBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () { applyTrack(btn.getAttribute("data-track-btn")); });
+    });
+
+    renumber();
   })();
 
   // Pit Wall flow: hover/focus a node to reveal its caption and nudge the

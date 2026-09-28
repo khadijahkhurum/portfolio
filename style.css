@@ -295,7 +295,16 @@ section { padding: var(--gap-section) 0; border-top: 1px solid var(--graphite); 
 /* The accent as a recurring "signal": every inline CTA arrow picks it up. */
 a > span[aria-hidden="true"] { color: var(--lime); }
 
-.hero-support { color: var(--stone); font-size: 1rem; line-height: 1.6; max-width: 38ch; margin: 0 0 40px; }
+.hero-support { color: var(--stone); font-size: 1rem; line-height: 1.6; max-width: 38ch; margin: 0 0 24px; }
+.hero-signal {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  color: var(--lime);
+  margin: 0 0 40px;
+}
 
 /* Compact editorial status panel, next to the hero copy on wide screens */
 .hero-content-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 300px); gap: 60px; align-items: start; }
@@ -390,10 +399,92 @@ a > span[aria-hidden="true"] { color: var(--lime); }
 /* ============================================================
    03 / Selected work
    ============================================================ */
+
+/* Filter control */
+.work-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 28px 0 14px;
+}
+.work-filter-btn {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: var(--stone);
+  background: none;
+  border: 1px solid var(--graphite);
+  border-radius: 999px;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: color 0.25s var(--ease), border-color 0.25s var(--ease), background 0.25s var(--ease);
+}
+.work-filter-btn:hover { color: var(--ivory); border-color: var(--stone); }
+.work-filter-btn.is-active {
+  background: var(--lime);
+  border-color: var(--lime);
+  color: var(--obsidian);
+}
+.work-filter-context {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--ash);
+  margin: 0;
+}
+
+/* Track theming — the accent that "dominates" within the Selected Work
+   section only, swapping per active filter. Semantic colour-coding that
+   represents real content (Pit Wall's red-team/blue-team, attack-armed
+   states) is untouched by this and stays fixed regardless of track,
+   since it isn't decorative, it's meaningful. */
+.work {
+  --track-accent: var(--lime);
+  --track-accent-rgb: 214, 255, 63;
+  --track-accent-2: var(--magenta);
+}
+.work[data-track="grc"] {
+  --track-accent: var(--magenta);
+  --track-accent-rgb: 255, 79, 160;
+  --track-accent-2: var(--lime);
+}
+
 .work-list { display: flex; flex-direction: column; }
 
-.case { padding: 100px 0; border-top: 1px solid var(--graphite); }
+.case {
+  padding: 100px 0;
+  border-top: 1px solid var(--graphite);
+  transition: padding 0.3s var(--ease), border-color 0.3s var(--ease), opacity 0.25s var(--ease), transform 0.25s var(--ease);
+}
 .case:first-child { border-top: none; padding-top: 60px; }
+.case.is-filtered-out { opacity: 0; transform: translateY(8px); pointer-events: none; }
+.case.is-hidden { display: none; }
+
+/* SOC — denser, technical: tighter rhythm, brighter accent divider */
+.work[data-track="soc"] .case { padding: 68px 0; border-top-width: 2px; border-top-color: rgba(var(--track-accent-rgb), 0.45); }
+.work[data-track="soc"] .case:first-child { padding-top: 44px; }
+.work[data-track="soc"] .case-grid { gap: 36px; }
+.work[data-track="soc"] .case-meta { letter-spacing: 0.08em; margin-bottom: 14px; }
+.work[data-track="soc"] .case-title { font-size: clamp(1.8rem, 4vw, 2.8rem); }
+.work[data-track="soc"] .case-body { font-size: 0.9rem; }
+.work[data-track="soc"] .case-pills { gap: 4px; }
+
+/* GRC — editorial, spacious: more air, larger type, larger metrics */
+.work[data-track="grc"] .case { padding: 130px 0; border-top-width: 2px; border-top-color: rgba(var(--track-accent-rgb), 0.3); }
+.work[data-track="grc"] .case:first-child { padding-top: 70px; }
+.work[data-track="grc"] .case-grid { gap: 72px; }
+.work[data-track="grc"] .case-number { font-size: 1.15rem; }
+.work[data-track="grc"] .case-title { font-size: clamp(2.4rem, 5.4vw, 3.8rem); }
+.work[data-track="grc"] .case-body { font-size: 1.02rem; }
+.work[data-track="grc"] .case-stat-num { font-size: clamp(3.2rem, 7.5vw, 5rem); }
+/* the four-tile grid (FAIR) needs a smaller bump than a standalone stat,
+   or the enlarged numerals overlap the row below */
+.work[data-track="grc"] .case-stat-grid .case-stat-num { font-size: clamp(2.2rem, 4.2vw, 3.1rem); }
+.work[data-track="grc"] .case-stat-grid { gap: 32px 28px; }
 
 .case-grid {
   display: grid;
@@ -407,7 +498,7 @@ a > span[aria-hidden="true"] { color: var(--lime); }
   font-weight: 600;
   font-size: 0.72rem;
   letter-spacing: 0.05em;
-  color: var(--lime);
+  color: var(--track-accent);
   line-height: 1.7;
   margin: 0 0 20px;
 }
@@ -416,7 +507,7 @@ a > span[aria-hidden="true"] { color: var(--lime); }
   color: var(--ash);
   transition: color 0.3s var(--ease);
 }
-.case:hover .case-number { color: var(--lime); }
+.case:hover .case-number { color: var(--track-accent); }
 .case-title {
   font-family: var(--font-serif);
   font-weight: 400;
@@ -440,16 +531,16 @@ a > span[aria-hidden="true"] { color: var(--lime); }
   font-weight: 600;
   font-size: 0.64rem;
   letter-spacing: 0.05em;
-  color: var(--lime);
-  background: rgba(214, 255, 63, 0.06);
-  border: 1px solid rgba(214, 255, 63, 0.35);
+  color: var(--track-accent);
+  background: rgba(var(--track-accent-rgb), 0.06);
+  border: 1px solid rgba(var(--track-accent-rgb), 0.35);
   border-radius: 3px;
   padding: 5px 10px;
   transition: background 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.2s var(--ease);
 }
 .case-pills span:hover {
-  background: var(--lime);
-  border-color: var(--lime);
+  background: var(--track-accent);
+  border-color: var(--track-accent);
   color: var(--obsidian);
   transform: translateY(-1px);
 }
@@ -470,13 +561,13 @@ a > span[aria-hidden="true"] { color: var(--lime); }
   bottom: 0;
   width: 100%;
   height: 1px;
-  background: var(--lime);
+  background: var(--track-accent);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s var(--ease);
 }
 .case-link:hover::after { transform: scaleX(1); }
-.case-link span { display: inline-block; color: var(--lime); transition: transform 0.25s var(--ease); }
+.case-link span { display: inline-block; color: var(--track-accent); transition: transform 0.25s var(--ease); }
 .case-link:hover span { transform: translateX(3px); }
 
 .case-visual {
@@ -497,7 +588,7 @@ a > span[aria-hidden="true"] { color: var(--lime); }
 .case-stat-num {
   font-family: var(--font-serif);
   font-size: clamp(2.6rem, 6vw, 4rem);
-  color: var(--lime);
+  color: var(--track-accent);
   margin: 0;
   line-height: 1;
 }
@@ -537,7 +628,7 @@ a > span[aria-hidden="true"] { color: var(--lime); }
   display: block;
   height: 1px;
   width: 0;
-  background: var(--lime);
+  background: var(--track-accent);
   transition: width 1s var(--ease) 0.2s;
 }
 .case.is-visible .pipeline-progress,
@@ -557,7 +648,7 @@ a > span[aria-hidden="true"] { color: var(--lime); }
   transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
 }
 .pipeline-node:hover,
-.pipeline-node[aria-expanded="true"] { color: var(--lime); border-color: var(--lime); }
+.pipeline-node[aria-expanded="true"] { color: var(--track-accent); border-color: var(--track-accent); }
 .pipeline-rule { flex: 0 0 16px; height: 1px; background: var(--graphite); }
 .pipeline-detail { font-size: 0.85rem; color: var(--ivory); margin: 0; min-height: 1.4em; }
 
@@ -755,6 +846,8 @@ button.flow-node:not(.flow-node-red):not(.flow-node-blue):not(.flow-node-residua
 }
 .method-loop span:last-child::after { content: ""; margin: 0; }
 .method-loop-end { color: var(--lime); }
+.method-soc-flow { margin-top: 28px; }
+.method-soc-flow .stack-label { margin-bottom: 12px; }
 
 /* ============================================================
    Frameworks

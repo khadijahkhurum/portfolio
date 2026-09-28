@@ -65,6 +65,8 @@
             security problems into systems you can actually measure.
           </p>
 
+          <p class="hero-signal" data-reveal-text>Security Operations &middot; Incident Response &middot; Threat Analysis</p>
+
           <div class="hero-foot">
             <a class="hero-scroll" href="#work">View my work <span aria-hidden="true">&darr;</span></a>
             <span class="hero-place">UAE / 2026</span>
@@ -97,20 +99,173 @@
   <!-- ============================================================
        01 / SELECTED WORK
        ============================================================ -->
-  <section class="work" id="work" aria-label="Selected work">
+  <section class="work" id="work" aria-label="Selected work" data-track="all">
     <div class="wrap" data-reveal>
       <p class="section-marker">01 / SELECTED WORK</p>
       <h2 class="editorial-statement">Things<br>I've built.</h2>
+
+      <div class="work-filter" role="group" aria-label="Filter projects by track">
+        <button type="button" class="work-filter-btn is-active" data-track-btn="all" aria-pressed="true">All</button>
+        <button type="button" class="work-filter-btn" data-track-btn="soc" aria-pressed="false">SOC / Blue Team</button>
+        <button type="button" class="work-filter-btn" data-track-btn="grc" aria-pressed="false">GRC / Risk</button>
+      </div>
+      <p class="work-filter-context" data-track-context>
+        <span data-track-context-line="all">Selected work &middot; Cybersecurity portfolio</span>
+        <span data-track-context-line="soc" hidden>Defensive security &middot; SOC / Blue Team</span>
+        <span data-track-context-line="grc" hidden>Governance &amp; risk &middot; GRC / Quantitative Risk</span>
+      </p>
     </div>
 
     <div class="work-list">
 
-      <!-- ---------------- PROJECT 01 — FAIR RISK RADAR ---------------- -->
-      <article class="case" data-reveal>
+      <!-- ---------------- PROJECT — CYBER OFFENCE SIMULATION ---------------- -->
+      <article class="case" data-reveal data-category="soc">
         <div class="wrap case-grid">
           <div class="case-copy">
             <p class="case-meta">
-              <span class="case-number">01</span><br>
+              <span class="case-number" data-case-number>01</span><br>
+              Practical Lab<br>
+              Offensive Security Assessment
+            </p>
+            <h3 class="case-title">Cyber Offence<br><em>Simulation</em></h3>
+            <p class="case-thesis">A full attack lifecycle, from first scan to defensive control.</p>
+            <p class="case-body">
+              Ran a full offensive-security lifecycle — footprinting and
+              reconnaissance, network scanning, enumeration, vulnerability
+              analysis, system hacking, malware triage, web server and
+              application testing, SQL injection, and IoT/OT reconnaissance —
+              using Nmap, Metasploit, Responder, John the Ripper, Greenbone,
+              Nessus, and static malware-analysis tooling. Every finding was
+              traced back to a concrete defensive control, and tool or scope
+              limitations were documented rather than glossed over.
+            </p>
+
+            <div class="case-pills">
+              <span>Nmap</span><span>Metasploit</span><span>Responder</span>
+            </div>
+          </div>
+
+          <div class="case-visual" data-parallax>
+            <div class="case-visual-inner">
+              <p class="case-visual-tag">10-Week Offensive Security Assessment</p>
+              <div class="pipeline" data-pipeline data-cursor="explore">
+                <span class="pipeline-track" aria-hidden="true"><span class="pipeline-progress"></span></span>
+                <button type="button" class="pipeline-node" data-stage-btn="recon" aria-expanded="true">Recon</button>
+                <span class="pipeline-rule" aria-hidden="true"></span>
+                <button type="button" class="pipeline-node" data-stage-btn="vuln">Vuln Analysis</button>
+                <span class="pipeline-rule" aria-hidden="true"></span>
+                <button type="button" class="pipeline-node" data-stage-btn="exploit">Exploitation</button>
+                <span class="pipeline-rule" aria-hidden="true"></span>
+                <button type="button" class="pipeline-node" data-stage-btn="defence">Defensive Mapping</button>
+              </div>
+              <p class="pipeline-detail" data-pipeline-detail="recon">Footprinting &middot; Scanning &middot; Enumeration</p>
+              <p class="pipeline-detail" data-pipeline-detail="vuln" hidden>Greenbone &middot; Nessus</p>
+              <p class="pipeline-detail" data-pipeline-detail="exploit" hidden>Metasploit &middot; Responder &middot; Malware Triage</p>
+              <p class="pipeline-detail" data-pipeline-detail="defence" hidden>Exposure Reduction &middot; Hardening &middot; Monitoring</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ---------------- PROJECT — CYBER DEFENCE RISK STRATEGY & BLUE TEAM LABS ---------------- -->
+      <article class="case case-alt" data-reveal data-category="soc">
+        <div class="wrap case-grid">
+          <div class="case-copy">
+            <p class="case-meta">
+              <span class="case-number" data-case-number>02</span><br>
+              Blue Team / Risk Strategy<br>
+              Post-Acquisition Cyber Risk
+            </p>
+            <h3 class="case-title">Cyber Defence<br><em>Risk Strategy</em></h3>
+            <p class="case-thesis">Risk strategy backed by hands-on detection and response.</p>
+            <p class="case-body">
+              Authored a post-acquisition cyber risk strategy — ransomware,
+              lateral movement, insider access — recommending a segmented
+              zero-trust architecture, clearance-aware identity governance,
+              and monitoring-led response, mapped to NIST CSF 2.0. Backed by
+              hands-on labs in Splunk, Wireshark packet and BPF analysis, log
+              analysis, MITRE ATT&amp;CK technique mapping, and incident
+              response — containment, escalation, recovery.
+            </p>
+
+            <div class="case-pills">
+              <span>Splunk</span><span>Wireshark</span><span>MITRE ATT&amp;CK</span>
+            </div>
+          </div>
+
+          <div class="case-visual" data-parallax>
+            <div class="case-visual-inner">
+              <p class="case-visual-tag">NIST CSF 2.0 &middot; Zero Trust</p>
+              <div class="pipeline" data-pipeline data-cursor="explore">
+                <span class="pipeline-track" aria-hidden="true"><span class="pipeline-progress"></span></span>
+                <button type="button" class="pipeline-node" data-stage-btn="strategy" aria-expanded="true">Risk Strategy</button>
+                <span class="pipeline-rule" aria-hidden="true"></span>
+                <button type="button" class="pipeline-node" data-stage-btn="detect">Detection</button>
+                <span class="pipeline-rule" aria-hidden="true"></span>
+                <button type="button" class="pipeline-node" data-stage-btn="mapping">ATT&amp;CK Mapping</button>
+                <span class="pipeline-rule" aria-hidden="true"></span>
+                <button type="button" class="pipeline-node" data-stage-btn="response">Response</button>
+              </div>
+              <p class="pipeline-detail" data-pipeline-detail="strategy">Zero Trust &middot; Identity Governance</p>
+              <p class="pipeline-detail" data-pipeline-detail="detect" hidden>Splunk &middot; Wireshark</p>
+              <p class="pipeline-detail" data-pipeline-detail="mapping" hidden>MITRE ATT&amp;CK Techniques</p>
+              <p class="pipeline-detail" data-pipeline-detail="response" hidden>Containment &middot; Escalation &middot; Recovery</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ---------------- PROJECT — INSIDER THREAT DIGITAL FORENSIC INVESTIGATION ---------------- -->
+      <article class="case" data-reveal data-category="soc">
+        <div class="wrap case-grid">
+          <div class="case-copy">
+            <p class="case-meta">
+              <span class="case-number" data-case-number>03</span><br>
+              Digital Forensics<br>
+              Evidence Handling &amp; Chain of Custody
+            </p>
+            <h3 class="case-title">Insider Threat<br><em>Forensics</em></h3>
+            <p class="case-thesis">Building a defensible timeline from a single compromised account.</p>
+            <p class="case-body">
+              Investigated a simulated insider-threat case using Autopsy and
+              Kali Linux, applying legal evidence-handling standards — chain
+              of custody, hashing, documentation — to build a defensible
+              forensic timeline.
+            </p>
+
+            <div class="case-pills">
+              <span>Autopsy</span><span>Kali Linux</span>
+            </div>
+          </div>
+
+          <div class="case-visual" data-parallax>
+            <div class="case-visual-inner">
+              <p class="case-visual-tag">Autopsy &middot; Kali Linux</p>
+              <div class="pipeline" data-pipeline data-cursor="explore">
+                <span class="pipeline-track" aria-hidden="true"><span class="pipeline-progress"></span></span>
+                <button type="button" class="pipeline-node" data-stage-btn="acquire" aria-expanded="true">Acquire</button>
+                <span class="pipeline-rule" aria-hidden="true"></span>
+                <button type="button" class="pipeline-node" data-stage-btn="hash">Hash &amp; Verify</button>
+                <span class="pipeline-rule" aria-hidden="true"></span>
+                <button type="button" class="pipeline-node" data-stage-btn="analyse">Analyse</button>
+                <span class="pipeline-rule" aria-hidden="true"></span>
+                <button type="button" class="pipeline-node" data-stage-btn="timeline">Timeline</button>
+              </div>
+              <p class="pipeline-detail" data-pipeline-detail="acquire">Kali Linux &middot; Evidence Collection</p>
+              <p class="pipeline-detail" data-pipeline-detail="hash" hidden>Chain of Custody</p>
+              <p class="pipeline-detail" data-pipeline-detail="analyse" hidden>Autopsy</p>
+              <p class="pipeline-detail" data-pipeline-detail="timeline" hidden>Defensible Forensic Report</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ---------------- PROJECT — FAIR RISK RADAR ---------------- -->
+      <article class="case" data-reveal data-category="grc">
+        <div class="wrap case-grid">
+          <div class="case-copy">
+            <p class="case-meta">
+              <span class="case-number" data-case-number>04</span><br>
               GRC Engineering<br>
               Quantitative Risk
             </p>
@@ -173,12 +328,12 @@
         </div>
       </article>
 
-      <!-- ---------------- PROJECT 02 — PIT WALL ADVERSARY ---------------- -->
-      <article class="case case-alt" data-reveal>
+      <!-- ---------------- PROJECT — PIT WALL ADVERSARY ---------------- -->
+      <article class="case case-alt" data-reveal data-category="soc">
         <div class="wrap case-grid">
           <div class="case-copy">
             <p class="case-meta">
-              <span class="case-number">02</span><br>
+              <span class="case-number" data-case-number>05</span><br>
               Security Research<br>
               Cyber-Physical Systems / Adversarial ML
             </p>
@@ -329,6 +484,70 @@
         <span>Measure</span>
         <span class="method-loop-end">Secure decision</span>
       </div>
+
+      <div class="method-soc-flow" data-soc-only hidden>
+        <p class="stack-label">Security operations workflow</p>
+        <div class="method-loop" aria-hidden="true">
+          <span>Detect</span>
+          <span>Triage</span>
+          <span>Investigate</span>
+          <span>Contain</span>
+          <span class="method-loop-end">Recover</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SOC TOOLKIT (SOC / Blue Team mode only)
+       ============================================================ -->
+  <section class="stack soc-only-section" aria-label="Security operations toolkit" data-soc-only hidden>
+    <div class="wrap">
+      <p class="stack-label">Security operations</p>
+      <ul class="stack-index">
+        <li><span class="stack-project">SIEM</span><span class="stack-tech">Splunk</span></li>
+        <li><span class="stack-project">Network</span><span class="stack-tech">Wireshark &middot; Nmap</span></li>
+        <li><span class="stack-project">Threat / Attack</span><span class="stack-tech">MITRE ATT&amp;CK &middot; Metasploit</span></li>
+        <li><span class="stack-project">Malware</span><span class="stack-tech">Static Analysis &middot; Process Monitor &middot; TCPView</span></li>
+        <li><span class="stack-project">Forensics</span><span class="stack-tech">Autopsy &middot; Kali Linux</span></li>
+        <li><span class="stack-project">Response</span><span class="stack-tech">Incident Response &middot; Containment &middot; Escalation &middot; Recovery</span></li>
+        <li><span class="stack-project">Networking</span><span class="stack-tech">TCP/IP &middot; DNS &middot; DHCP &middot; VPN &middot; Firewalls</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WHAT I WORK WITH (SOC / Blue Team mode only)
+       ============================================================ -->
+  <section class="exploring soc-only-section" aria-label="What I work with" data-soc-only hidden>
+    <div class="wrap">
+      <p class="exploring-label">What I work with</p>
+      <ul class="exploring-list">
+        <li class="exploring-row" data-cursor="explore">
+          <span class="exploring-name">Network activity</span>
+          <span class="exploring-detail">Nmap &middot; Wireshark &middot; Packet Analysis</span>
+        </li>
+        <li class="exploring-row" data-cursor="explore">
+          <span class="exploring-name">Endpoint activity</span>
+          <span class="exploring-detail">Process Monitor &middot; TCPView &middot; Malware Triage</span>
+        </li>
+        <li class="exploring-row" data-cursor="explore">
+          <span class="exploring-name">Credential / auth activity</span>
+          <span class="exploring-detail">Responder &middot; John the Ripper</span>
+        </li>
+        <li class="exploring-row" data-cursor="explore">
+          <span class="exploring-name">Web attacks</span>
+          <span class="exploring-detail">SQL Injection &middot; Web Application Testing</span>
+        </li>
+        <li class="exploring-row" data-cursor="explore">
+          <span class="exploring-name">Security events</span>
+          <span class="exploring-detail">Splunk &middot; Log Analysis &middot; MITRE ATT&amp;CK</span>
+        </li>
+        <li class="exploring-row" data-cursor="explore">
+          <span class="exploring-name">Incidents</span>
+          <span class="exploring-detail">Containment &middot; Escalation &middot; Recovery</span>
+        </li>
+      </ul>
     </div>
   </section>
 
@@ -382,6 +601,10 @@
         <li>
           <span class="stack-project">Pit Wall Adversary</span>
           <span class="stack-tech">Python &middot; scikit-learn &middot; NumPy &middot; pandas &middot; FastF1</span>
+        </li>
+        <li>
+          <span class="stack-project">SOC / Blue Team</span>
+          <span class="stack-tech">Kali Linux &middot; FTK Imager &middot; Autopsy &middot; Nmap &middot; Splunk</span>
         </li>
       </ul>
     </div>
