@@ -545,15 +545,6 @@ body[data-track="grc"] .status-stat-num { color: var(--magenta); }
   color: var(--stone);
   margin: 0 0 16px;
 }
-.status-loc {
-  font-family: var(--font-sans);
-  text-transform: uppercase;
-  font-weight: 600;
-  font-size: 0.66rem;
-  letter-spacing: 0.05em;
-  color: var(--stone);
-  margin: 0;
-}
 
 /* Load-in sequence: text rises + fades. JS adds .is-in with staggered delay. */
 [data-reveal-text] {
@@ -1093,12 +1084,7 @@ body[data-track="grc"] .approach .method-loop-end { color: var(--magenta); }
   letter-spacing: 0.03em;
   color: var(--accent);
   margin-top: 8px;
-  opacity: 0;
-  transform: translateY(4px);
-  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
 }
-.framework-cell:hover .framework-detail,
-.framework-cell:focus-within .framework-detail { opacity: 1; transform: translateY(0); }
 .framework-cell:hover .framework-name,
 .framework-cell:focus-within .framework-name { color: var(--accent); transition: color 0.25s var(--ease); }
 
@@ -1180,13 +1166,8 @@ body[data-track="grc"] .approach .method-loop-end { color: var(--magenta); }
   font-size: 0.72rem;
   letter-spacing: 0.04em;
   color: var(--ash);
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: max-height 0.35s var(--ease), opacity 0.35s var(--ease), margin-top 0.35s var(--ease);
+  margin-top: 8px;
 }
-.exploring-row:hover .exploring-detail,
-.exploring-row:focus-within .exploring-detail { max-height: 2em; opacity: 1; margin-top: 8px; }
 .exploring-tag { color: var(--stone); font-size: 0.92rem; margin: 0; }
 
 /* ============================================================
@@ -1463,18 +1444,14 @@ body[data-track="grc"] .approach .method-loop-end { color: var(--magenta); }
   .mode-gate-name { font-size: 1.6rem; }
   .mode-gate-choice { padding: 14px 16px; }
 
-  /* Frameworks + Tech Stack + What I Work With: force a single vertical
-     NAME / DESCRIPTION layout so every item is consistent, instead of
-     name/description sometimes sitting side by side depending on how
-     long the text happens to be (flex-wrap) or a multi-column grid
-     squeezing cells narrow. Description also stays always-visible here
-     rather than the desktop hover/focus reveal, since mobile has no
-     hover. */
+  /* Frameworks + Tech Stack: force a single vertical NAME / DESCRIPTION
+     layout so every item is consistent, instead of name/description
+     sometimes sitting side by side depending on how long the text
+     happens to be (flex-wrap) or a multi-column grid squeezing cells
+     narrow. */
   .framework-grid { grid-template-columns: 1fr; }
-  .framework-detail { opacity: 1; transform: none; }
   .stack-index li { flex-direction: column; align-items: flex-start; gap: 4px; }
   .stack-tech { text-align: left; }
-  .exploring-detail { max-height: none; opacity: 1; overflow: visible; margin-top: 6px; }
 }
 
 /* Collapse the header nav (Work/About/Contact + Mode switcher) into a
@@ -1520,6 +1497,5 @@ body[data-track="grc"] .approach .method-loop-end { color: var(--magenta); }
   .pipeline-progress { width: 100% !important; }
   .footer-accent { width: 100% !important; }
   .roll-strip-inner { transform: none !important; }
-  .exploring-detail { max-height: none; opacity: 1; overflow: visible; margin-top: 8px; }
   .impact-item::after { width: 32px !important; }
 }
