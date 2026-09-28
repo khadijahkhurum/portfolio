@@ -239,7 +239,9 @@ section { padding: var(--gap-section) 0; border-top: 1px solid var(--graphite); 
   letter-spacing: 0.08em;
   color: var(--lime);
   margin: 0 0 28px;
+  transition: opacity 0.18s var(--ease);
 }
+.hero-eyebrow.is-swapping { opacity: 0; }
 
 .hero-name {
   margin: 0 0 32px;
@@ -884,6 +886,15 @@ button.flow-node:not(.flow-node-red):not(.flow-node-blue):not(.flow-node-residua
 }
 .method-loop span:last-child::after { content: ""; margin: 0; }
 .method-loop-end { color: var(--lime); }
+
+/* Approach accent follows the active track: lime-dominant by default
+   (ALL and SOC), magenta-dominant in GRC - same restrained accent-only
+   treatment used elsewhere, no layout/typography change. */
+body[data-track="grc"] .approach .method-stage::before { background: var(--magenta); }
+body[data-track="grc"] .approach .method-stage:hover .method-num,
+body[data-track="grc"] .approach .method-stage:focus-within .method-num { color: var(--magenta); }
+body[data-track="grc"] .approach .method-loop span::after { color: var(--magenta); }
+body[data-track="grc"] .approach .method-loop-end { color: var(--magenta); }
 .method-soc-flow { margin-top: 28px; }
 .method-soc-flow .stack-label { margin-bottom: 12px; }
 

@@ -158,6 +158,33 @@
     }
     applyVariants("all"); // strip non-ALL variants from the initial document state
 
+    // Hero eyebrow: a single node whose text swaps per track (kept as one
+    // element, not a data-track-variant trio, so it doesn't shift the
+    // hero's [data-reveal-text] stagger-delay indexing on load). A brief
+    // opacity dip makes the swap feel like a transition rather than a
+    // hard replace; skipped under reduced motion.
+    var trackText = {
+      all: "CYBERSECURITY · SECURITY OPERATIONS · CYBER RISK",
+      soc: "CYBERSECURITY · SECURITY OPERATIONS · BLUE TEAM",
+      grc: "CYBERSECURITY · CYBER RISK · GOVERNANCE"
+    };
+    var trackTextEls = document.querySelectorAll("[data-track-text]");
+    function applyTrackText(track) {
+      trackTextEls.forEach(function (el) {
+        var next = trackText[track];
+        if (!next || el.textContent === next) return;
+        if (reduceMotion) {
+          el.textContent = next;
+          return;
+        }
+        el.classList.add("is-swapping");
+        window.setTimeout(function () {
+          el.textContent = next;
+          el.classList.remove("is-swapping");
+        }, 180);
+      });
+    }
+
     function renumber() {
       var n = 0;
       cards.forEach(function (card) {
@@ -172,6 +199,7 @@
       section.setAttribute("data-track", track);
       document.body.setAttribute("data-track", track);
       applyVariants(track);
+      applyTrackText(track);
 
       // Re-roll the hero readout's digits into their new values whenever
       // the track changes (not on initial load - that's handled once by
