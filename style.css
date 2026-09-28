@@ -165,6 +165,29 @@ section { padding: var(--gap-section) 0; border-top: 1px solid var(--graphite); 
   background: var(--lime);
   display: inline-block;
 }
+
+/* Mobile menu toggle - hidden on desktop, where nav-panel is always
+   shown inline. Below the collapse breakpoint it reveals/hides
+   nav-panel (Work/About/Contact + Mode) as a dropdown panel instead
+   of cramming everything into one row under the name. */
+.nav-toggle {
+  display: none;
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--ivory);
+  background: none;
+  border: 1px solid var(--graphite);
+  border-radius: 2px;
+  padding: 7px 12px;
+  cursor: pointer;
+}
+.nav-toggle:hover { border-color: var(--stone); }
+.nav-toggle:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
+.nav-panel { display: flex; align-items: center; gap: 28px; }
+
 /* Persistent mode switcher - always available, drives the same
    data-track-btn state as the Work section's filter (one source of
    truth: script.js queries all [data-track-btn] elements together). */
@@ -359,8 +382,6 @@ html.mode-chosen .mode-gate { display: none; }
 }
 .hero-eyebrow.is-swapping { opacity: 0; }
 
-.contact-verb { display: inline-block; transition: opacity 0.18s var(--ease); }
-.contact-verb.is-swapping { opacity: 0; }
 
 .hero-name {
   margin: 0 0 32px;
@@ -1432,10 +1453,50 @@ body[data-track="grc"] .approach .method-loop-end { color: var(--magenta); }
   .nav-links { gap: 14px; }
   .nav-links a { font-size: 0.68rem; }
   .footer-row { flex-direction: column; text-align: center; gap: 14px; }
-  .nav-row { flex-wrap: wrap; row-gap: 10px; }
-  .nav-mode { width: 100%; order: 3; justify-content: flex-start; }
   .mode-gate-name { font-size: 1.6rem; }
   .mode-gate-choice { padding: 14px 16px; }
+
+  /* Frameworks + Tech Stack + What I Work With: force a single vertical
+     NAME / DESCRIPTION layout so every item is consistent, instead of
+     name/description sometimes sitting side by side depending on how
+     long the text happens to be (flex-wrap) or a multi-column grid
+     squeezing cells narrow. Description also stays always-visible here
+     rather than the desktop hover/focus reveal, since mobile has no
+     hover. */
+  .framework-grid { grid-template-columns: 1fr; }
+  .framework-detail { opacity: 1; transform: none; }
+  .stack-index li { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .stack-tech { text-align: left; }
+  .exploring-detail { max-height: none; opacity: 1; overflow: visible; margin-top: 6px; }
+}
+
+/* Collapse the header nav (Work/About/Contact + Mode switcher) into a
+   dropdown panel below this breakpoint, so the name keeps breathing
+   room instead of a cramped row directly underneath it. Covers the
+   320/375/390/430px range with margin. */
+@media (max-width: 680px) {
+  .nav-toggle { display: inline-block; }
+  .nav-panel {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px 20px 24px;
+    margin-top: 14px;
+    background: rgba(11, 11, 13, 0.97);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--graphite);
+  }
+  .nav-panel.is-open { display: flex; }
+  .nav-row { position: relative; }
+  .nav-links { flex-direction: column; gap: 16px; }
+  .nav-links a { font-size: 0.9rem; }
+  .nav-mode { flex-wrap: wrap; }
 }
 
 /* ============================================================

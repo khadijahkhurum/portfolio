@@ -185,27 +185,6 @@
       });
     }
 
-    // Contact headline verb: same fade-swap pattern as the hero eyebrow,
-    // but keyed on its own map since it's a single word inside markup
-    // (line breaks, <em>) rather than a full text node.
-    var verbText = { all: "build", soc: "investigate", grc: "assess" };
-    var verbEls = document.querySelectorAll("[data-track-verb]");
-    function applyTrackVerb(track) {
-      verbEls.forEach(function (el) {
-        var next = verbText[track];
-        if (!next || el.textContent === next) return;
-        if (reduceMotion) {
-          el.textContent = next;
-          return;
-        }
-        el.classList.add("is-swapping");
-        window.setTimeout(function () {
-          el.textContent = next;
-          el.classList.remove("is-swapping");
-        }, 180);
-      });
-    }
-
     function renumber() {
       var n = 0;
       cards.forEach(function (card) {
@@ -221,7 +200,6 @@
       document.body.setAttribute("data-track", track);
       applyVariants(track);
       applyTrackText(track);
-      applyTrackVerb(track);
 
       // Re-roll the hero readout's digits into their new values whenever
       // the track changes (not on initial load - that's handled once by
@@ -261,28 +239,27 @@
       window.setTimeout(renumber, hideDelay);
     }
 
+    var navPanel = document.querySelector(".nav-panel");
+    var navToggle = document.querySelector(".nav-toggle");
+
     filterBtns.forEach(function (btn) {
       btn.addEventListener("click", function () {
-        var track = btn.getAttribute("data-track-btn");
-        applyTrack(track);
-        try { localStorage.setItem("portfolioMode", track); } catch (e) {}
+        applyTrack(btn.getAttribute("data-track-btn"));
+        // Selecting a mode from the mobile menu closes it, same as picking
+        // a nav link - it shouldn't stay open over the freshly-set content.
+        if (navPanel && navPanel.contains(btn)) {
+          navPanel.classList.remove("is-open");
+          if (navToggle) navToggle.setAttribute("aria-expanded", "false");
+        }
       });
     });
 
     renumber();
 
-    // Returning visitor: load straight into their remembered mode instead
-    // of the default ALL. The inline <head> script already hid the entry
-    // gate before paint (html.mode-chosen); this is what actually
-    // configures the page to match.
-    var storedMode = null;
-    try { storedMode = localStorage.getItem("portfolioMode"); } catch (e) {}
-    if (storedMode === "soc" || storedMode === "grc" || storedMode === "all") {
-      applyTrack(storedMode);
-    }
-
-    // Entry mode gate (first-visit only; skipped for returning visitors
-    // via the html.mode-chosen CSS rule set from the inline head script).
+    // Entry mode gate: shown on every page load/reload by design (no
+    // localStorage/sessionStorage). Within a loaded page the chosen mode
+    // stays active - via the same applyTrack()/filterBtns above - until
+    // the visitor switches it themselves.
     var gate = document.getElementById("mode-gate");
     if (gate) {
       var dismissGate = function () {
@@ -296,21 +273,28 @@
         // Fallback in case transitionend doesn't fire (e.g. display change race).
         window.setTimeout(function () { if (gate.parentNode) gate.remove(); }, 500);
       };
-      if (storedMode === "soc" || storedMode === "grc" || storedMode === "all") {
-        // Already resolved above; just clear the scroll lock, no exit animation.
-        document.body.classList.remove("has-mode-gate");
-        gate.remove();
-      } else {
-        gate.querySelectorAll("[data-mode-choice]").forEach(function (btn) {
-          btn.addEventListener("click", function () {
-            var mode = btn.getAttribute("data-mode-choice");
-            applyTrack(mode);
-            try { localStorage.setItem("portfolioMode", mode); } catch (e) {}
-            document.documentElement.classList.add("mode-chosen");
-            dismissGate();
-          });
+      gate.querySelectorAll("[data-mode-choice]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          applyTrack(btn.getAttribute("data-mode-choice"));
+          dismissGate();
         });
-      }
+      });
+    }
+
+    // Mobile nav toggle: reveals the Work/About/Contact + Mode panel as a
+    // dropdown below the collapse breakpoint; a no-op on desktop, where
+    // the toggle button is hidden and the panel is always shown inline.
+    if (navToggle && navPanel) {
+      navToggle.addEventListener("click", function () {
+        var open = navPanel.classList.toggle("is-open");
+        navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+      navPanel.querySelectorAll(".nav-links a").forEach(function (link) {
+        link.addEventListener("click", function () {
+          navPanel.classList.remove("is-open");
+          navToggle.setAttribute("aria-expanded", "false");
+        });
+      });
     }
   })();
 

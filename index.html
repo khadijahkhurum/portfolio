@@ -3,24 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Khadijah Khurum — Cybersecurity, GRC &amp; Security Engineering</title>
-<meta name="description" content="Khadijah Khurum: GRC and security engineering portfolio. Quantitative cyber risk, compliance engineering, and cyber-physical threat research.">
+<title>Khadijah Khurum — Cybersecurity, Security Operations &amp; Cyber Risk</title>
+<meta name="description" content="Khadijah Khurum: cybersecurity portfolio spanning security operations (SOC / Blue Team) and cyber risk (GRC) — network analysis, incident response, digital forensics and quantitative risk modelling.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<script>
-  // Runs before body paint so a returning visitor's remembered mode never
-  // flashes the entry gate. If nothing is stored yet, the gate's default
-  // CSS state (visible) stands and script.js drives the first-visit flow.
-  (function () {
-    try {
-      if (localStorage.getItem("portfolioMode")) {
-        document.documentElement.classList.add("mode-chosen");
-      }
-    } catch (e) {}
-  })();
-</script>
 </head>
 <body class="has-mode-gate">
 
@@ -59,16 +47,21 @@
       <span class="nav-dot" aria-hidden="true"></span>
       KHADIJAH KHURUM
     </a>
-    <nav class="nav-links" aria-label="Primary">
-      <a href="#work">Work<span class="nav-link-dot" aria-hidden="true"></span></a>
-      <a href="#about">About<span class="nav-link-dot" aria-hidden="true"></span></a>
-      <a href="#contact">Contact<span class="nav-link-dot" aria-hidden="true"></span></a>
-    </nav>
-    <div class="nav-mode" role="group" aria-label="Portfolio mode">
-      <span class="nav-mode-label">Mode</span>
-      <button type="button" class="nav-mode-btn" data-track-btn="all" aria-pressed="true">All</button>
-      <button type="button" class="nav-mode-btn" data-track-btn="soc" aria-pressed="false">SOC</button>
-      <button type="button" class="nav-mode-btn" data-track-btn="grc" aria-pressed="false">GRC</button>
+    <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-panel">
+      Menu
+    </button>
+    <div class="nav-panel" id="nav-panel">
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#work">Work<span class="nav-link-dot" aria-hidden="true"></span></a>
+        <a href="#about">About<span class="nav-link-dot" aria-hidden="true"></span></a>
+        <a href="#contact">Contact<span class="nav-link-dot" aria-hidden="true"></span></a>
+      </nav>
+      <div class="nav-mode" role="group" aria-label="Portfolio mode">
+        <span class="nav-mode-label">Mode</span>
+        <button type="button" class="nav-mode-btn" data-track-btn="all" aria-pressed="true">All</button>
+        <button type="button" class="nav-mode-btn" data-track-btn="soc" aria-pressed="false">SOC</button>
+        <button type="button" class="nav-mode-btn" data-track-btn="grc" aria-pressed="false">GRC</button>
+      </div>
     </div>
   </div>
 </header>
@@ -914,7 +907,9 @@
        ============================================================ -->
   <section class="contact" id="contact" aria-label="Contact">
     <div class="wrap" data-reveal>
-      <h2 class="editorial-statement">Let's <span class="contact-verb" data-track-verb>build</span><br>something<br><em>secure.</em></h2>
+      <h2 class="editorial-statement" data-track-variant="all">Let's build<br>something<br><em>secure.</em></h2>
+      <h2 class="editorial-statement" data-track-variant="soc" hidden>Let's investigate<br><em>together.</em></h2>
+      <h2 class="editorial-statement" data-track-variant="grc" hidden>Let's assess<br>something<br><em>secure.</em></h2>
       <p class="contact-line">Open to SOC, security operations, blue team, GRC, cyber risk and security engineering opportunities.</p>
 
       <form class="contact-form" action="https://formspree.io/f/xaenjlrz" method="POST" id="contact-form">
@@ -961,7 +956,7 @@
     </button>
     <p class="footer-text">
       Khadijah Khurum<br>
-      GRC &middot; Risk &middot; Security Engineering<br>
+      Security Operations &middot; Cyber Risk<br>
       UAE / 2026
     </p>
     <p class="footer-copy">&copy; 2026</p>
