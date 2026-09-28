@@ -925,6 +925,7 @@ button.flow-node:not(.flow-node-red):not(.flow-node-blue):not(.flow-node-residua
   color: var(--lime);
   margin: 0 0 14px;
 }
+.soc-toolkit-note { font-size: 0.82rem; color: var(--ash); margin: 0 0 20px; max-width: 46ch; }
 .stack-index { list-style: none; padding: 0; margin: 0; }
 .stack-index li {
   display: flex;
