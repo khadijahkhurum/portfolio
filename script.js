@@ -145,11 +145,15 @@
     // selected again.
     var variantState = Array.prototype.map.call(document.querySelectorAll("[data-track-variant]"), function (el) {
       el.removeAttribute("hidden");
-      return { el: el, variant: el.getAttribute("data-track-variant"), parent: el.parentNode, anchor: el.nextSibling };
+      // Comma-separated values let one element show for more than one
+      // track (e.g. "all,grc" - everywhere except SOC) without
+      // duplicating its content into a separate per-track copy.
+      var variants = el.getAttribute("data-track-variant").split(",");
+      return { el: el, variants: variants, parent: el.parentNode, anchor: el.nextSibling };
     });
     function applyVariants(track) {
       variantState.forEach(function (v) {
-        if (v.variant === track) {
+        if (v.variants.indexOf(track) !== -1) {
           if (!v.el.isConnected) v.parent.insertBefore(v.el, v.anchor);
         } else if (v.el.isConnected) {
           v.el.remove();
