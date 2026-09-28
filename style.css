@@ -694,7 +694,6 @@ body[data-track="grc"] .status-stat-num { color: var(--magenta); }
   margin: 0 0 16px;
 }
 .case-title em { font-style: italic; color: var(--stone); }
-.case-title-sans { font-family: var(--font-sans); font-weight: 600; letter-spacing: -0.01em; }
 .case-thesis { font-size: 1.05rem; font-weight: 500; margin: 0 0 18px; max-width: 30ch; }
 .case-body { color: var(--stone); font-size: 0.95rem; line-height: 1.65; max-width: var(--measure); margin: 0 0 22px; }
 
